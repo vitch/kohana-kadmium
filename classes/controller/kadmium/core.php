@@ -161,7 +161,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			);
 		} else {
 			$this->after_edit_form_content = Html::anchor(
-				Route::get('admin')
+				$this->request->route
 					->uri(array(
 						'controller' => $this->request->controller,
 						'action' => 'edit',
@@ -237,7 +237,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$add_link = Jelly::factory($model_name)->disable_user_add ?
 				'' :
 				Html::anchor(
-					Route::get('admin')
+					$this->request->route
 						->uri(array(
 							'controller' => $this->request->controller,
 							'action' => 'new'

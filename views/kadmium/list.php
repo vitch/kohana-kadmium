@@ -7,7 +7,8 @@ if ($items->count() == 0) :
 	<p>
 		You don't have any <?= Inflector::plural($item_type); ?> yet. You can <?=
 			Html::anchor(
-						Route::get('admin')
+						Request::current()
+							->route
 							->uri(array(
 								'controller' => Request::instance()->controller,
 								'action' => 'new'
@@ -70,7 +71,8 @@ else:
 	<td>
 		<?=
 			Html::anchor(
-				Route::get('admin')
+				Request::current()
+					->route
 					->uri(array(
 						'controller' => Request::instance()->controller,
 						'action' => 'edit',
