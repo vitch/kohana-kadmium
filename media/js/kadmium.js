@@ -7,7 +7,7 @@ $(
 		
 		
 		$('textarea.wysiwyg').tinymce({
-			script_url : '/resource/tiny_mce/tiny_mce.js',
+			script_url : '/kadmium/media/tiny_mce/tiny_mce.js', /* Make dynamic??? */
 			theme : "advanced",
 			
 			theme_advanced_toolbar_location : "top",
