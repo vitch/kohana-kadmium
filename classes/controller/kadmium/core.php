@@ -3,12 +3,45 @@
 class Controller_Kadmium_Core extends Controller_Kadmium_Base
 {
 
+	public $template = 'kadmium/template';
+
 	protected $after_edit_form_content;
+	protected $styles = array();
+	protected $scripts = array();
 
 	public function before()
 	{
-		$this->template = 'kadmium/template';
 		parent::before();
+
+		$media = Route::get('kadmium/media');
+
+		$this->styles = $this->styles + array(
+			$media->uri(array('file' => 'css/datePicker.css'))  => 'all',
+			$media->uri(array('file' => 'css/jquery.asmselect.css'))  => 'all',
+			$media->uri(array('file' => 'colorbox/styles/colorbox.css'))  => 'all',
+			$media->uri(array('file' => 'css/kadmium.css'))  => 'all',
+		);
+
+		$this->scripts = $this->scripts + array(
+			//'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
+			$media->uri(array('file' => 'js/jquery-1.4.2.min.js')),
+			$media->uri(array('file' => 'js/date.js')),
+			$media->uri(array('file' => 'js/jquery.datePicker.js')),
+			$media->uri(array('file' => 'tiny_mce/jquery.tinymce.js')),
+			$media->uri(array('file' => 'js/jquery.asmselect.js')),
+			$media->uri(array('file' => 'js/jquery.tablednd_0_5.js')),
+			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
+			$media->uri(array('file' => 'js/kadmium.js')),
+		);
+	}
+
+	public function after()
+	{
+
+		$this->template->styles = $this->styles;
+		$this->template->scripts = $this->scripts;
+		
+		return parent::after();
 	}
 
 	protected function show_edit_page($item_type, $model_name, $id = 0)
