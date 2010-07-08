@@ -122,12 +122,7 @@ $(
 
 		// Handle colorbox so the add image etc are in pop up boxes...
 		var initColorboxes = function(context) {
-			$('a.lb', context).each(
-				function()
-				{
-					this.href += '?lb=true';
-				}
-			).colorbox(
+			$('a.lb', context).colorbox(
 				{
 					'iframe' : true,
 					'scrolling' : true,
@@ -147,6 +142,11 @@ $(
 						);
 						openedMenu = undefined;
 					}
+				}
+			).each(
+				function()
+				{
+					$(this).data('colorbox').href = this.href + '?lb=true';
 				}
 			);
 		}
