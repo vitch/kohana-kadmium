@@ -3,6 +3,61 @@ body.busy *
 	cursor: wait !important;
 }
 
+html,
+body
+{
+	background: #ccc;
+}
+
+#kadmium-content
+{
+	width: 600px;
+	margin: 0 auto;
+	background: #fff;
+	overflow: hidden;
+}
+
+#kadmium-content.lb
+{
+
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+#kadmium-content ul.navigation
+{
+	width: 148px;
+	padding: 0 1px 0 0;
+	border-right: 1px solid #ccc;
+	float: left;
+}
+
+#kadmium-content ul li a
+{
+	padding: 3px 5px;
+	width: 138px;
+	font-size: 93%;
+	border-bottom: 1px solid #ccc;
+	display: block;
+	text-decoration: none;
+}
+
+#kadmium-content ul li a.active,
+#kadmium-content ul li a:hover
+{
+	background: #ccc;
+}
+
+#kadmium-content .main
+{
+	width: 440px;
+	float: left;
+	margin: 0 0 0 -1px;
+	padding: 0 0 0 9px;
+	border-left: 1px solid #ccc;
+}
+
 input.error,
 textarea.error,
 select.error
@@ -60,33 +115,6 @@ ul.fields li.asmListItem
 {
 	margin: 0 0 1em;
 }
-.defaultSkin .mce_p span.mceText 
-{
-	font-size: 100%;
-	color: #939598;
-	font-family: Tahoma,verdana,sans-serif;
-}
-
-.defaultSkin .mce_h1 span.mceText
-{ 
-	color:#3aa7cc; 
-	font-family:Verdana, sans-serif; 
-	font-size:12px;
-}
-
-.defaultSkin .mce_h2 span.mceText
-{ 
-	color:#939598; 
-	font-family:Verdana, sans-serif; 
-	font-size:12px;
-}
-
-.defaultSkin .mce_h3 span.mceText
-{
-	color:#3aa7cc; 
-	font-size: 10px; 
-	font-weight:bold;
-} 
 
 textarea.wysiwyg
 {
@@ -116,7 +144,7 @@ ul.fields
 
 ul.fields li
 {
-	width: 543px;
+	width: 100%;
 } 
 
 ul.fields h4
@@ -132,21 +160,10 @@ ul.fields li img
 	clear: left;
 }
 
-ul.fields li .inp-text, 
+ul.fields li input[type=text],
 ul.fields li textarea
 {
 	width: 100%;
-}
-
-.inp-button
-{
-	border: 1px solid #3AA7CC;
-	padding: 2px 4px;
-}
-
-.inp-button:hover
-{
-	background: #ddf;
 }
 
 ul.has-many-uniquely
@@ -157,22 +174,6 @@ ul.has-many-uniquely
 ul.has-many-uniquely li
 {
 	margin: 0 0 .2em;
-}
-
-.has-many-uniquely .hr
-{
-	margin: 2px 0 2px 15px;
-}
-
-div.after-form
-{
-	clear: left;
-	margin: 4em 0 1em;
-}
-
-.col-576 table
-{
-	width: 540px;
 }
 
 /* List page */
@@ -203,6 +204,8 @@ table.list-page tr.dragging td
 	background: #ef0;
 }
 
+/* Icon buttons */
+
 a.sorter
 {
 	display: block;
@@ -220,15 +223,8 @@ a.add
 	padding: 1px 0 0 20px;
 }
 
-ul.has-many-uniquely a.edit
+a.edit
 {
 	background: url(../img/page_edit.gif) no-repeat;
 	padding: 1px 0 0 20px;
-}
-
-#lb-content
-{
-	padding: 0;
-	margin: 0;
-	border: 0;
 }

@@ -42,6 +42,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 		$this->template->styles = $this->styles;
 		$this->template->scripts = $this->scripts;
+		$this->template->navigation_controllers = Kohana::config('kadmium')->navigation_controllers;
 		
 		return parent::after();
 	}

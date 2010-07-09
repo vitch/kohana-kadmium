@@ -5,42 +5,36 @@
 		
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		
-		<?php foreach ($styles as $style => $media) echo HTML::style($style, array('media' => $media), TRUE), "\n" ?>
+		<?php foreach ($styles as $style => $media) echo HTML::style($style, array('media' => $media), TRUE), "\n\t\t" ?>
 
-		<?php foreach ($scripts as $script) echo HTML::script($script, NULL, TRUE), "\n" ?>
+		<?php foreach ($scripts as $script) echo HTML::script($script, NULL, TRUE), "\n\t\t" ?>
 
 	</head>
 	<body>
-		<div id="str-frame">
-			<?= View::factory('element/header'); ?>
-			<div id="str-content">
-				<div class="col-184 col">
-					
-					<?=
-						View::factory(
-							'element/navigation',
+		<div id="kadmium-content">
+			<ul class="navigation">
+			<?php
+				foreach ($navigation_controllers as $controller=>$label)
+				{
+					echo '<li>';
+					echo Html::anchor(
+						Route::get('kadmium_list')->uri(
 							array(
-								'navigation' => $navigation,
-								'selected_nav_item' => $selected_nav_item,
+								'controller' => $controller
 							)
-						);
-					?>
-					
-				</div>
-				
-				<div id="content" class="col-576 col col-last">
-					<?= $content; ?>
-				</div>
-				
-			</div>
-			<?= 
-				View::factory(
-					'element/footer', 
-					array(
-						'last_updated' => $last_updated,
-					)
-				); 
+						),
+						$label,
+						array(
+							'class' => Request::current()->controller == $controller ? 'active' : ''
+						)
+					);
+					echo '</li>';
+				}
 			?>
+			</ul>
+			<div class="main">
+				<?= $content; ?>
+			</div>
 		</div>
 	</body>
 </html>

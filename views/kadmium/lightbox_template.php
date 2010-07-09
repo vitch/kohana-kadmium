@@ -10,12 +10,8 @@
 		<?php foreach ($scripts as $script) echo HTML::script($script, NULL, TRUE), "\n" ?>
 	</head>
 	<body>
-		<div id="str-content" style="padding: 10px; width: 545px;">
-
-			<div id="lb-content" class="col-576">
-				<?= $content; ?>
-			</div>
-
+		<div id="kadmium-content" class="lb">
+			<?= $content; ?>
 		</div>
 	</body>
 </html>
