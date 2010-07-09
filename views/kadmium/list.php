@@ -7,17 +7,17 @@ if ($items->count() == 0) :
 	<p>
 		You don't have any <?= Inflector::plural($item_type); ?> yet. You can <?=
 			Html::anchor(
-						Request::current()
-							->route
-							->uri(array(
-								'controller' => Request::instance()->controller,
-								'action' => 'new'
-							)),
-						'create one',
-						array(
-							'class' => 'link'
-						)
-					);
+				Route::get('kadmium')
+					->route
+					->uri(array(
+						'controller' => Request::instance()->controller,
+						'action' => 'new'
+					)),
+				'create one',
+				array(
+					'class' => 'link'
+				)
+			);
 		?> now.
 	</p>
 </div>
@@ -71,8 +71,7 @@ else:
 	<td>
 		<?=
 			Html::anchor(
-				Request::current()
-					->route
+				Route::get('kadmium')
 					->uri(array(
 						'controller' => Request::instance()->controller,
 						'action' => 'edit',
