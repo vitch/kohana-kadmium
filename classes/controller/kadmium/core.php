@@ -265,7 +265,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 	{
 		if ($id > 0) {
 			$model = Jelly::select($model_name, $id);
-			if ($model->id != $id) {
+			if (!$model->loaded()) {
 				$this->page_not_found();
 			}
 		} else {
@@ -287,7 +287,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 	{
 		$field_id_attr = 'field-' . $field->name;
 
-		if (!$this->include_field($field, $model->id == 0)) {
+		if (!$this->include_field($field, $model->id() == 0)) {
 			return;
 		}
 
