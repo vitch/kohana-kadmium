@@ -281,12 +281,12 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 	{
 		$fields = array();
 		foreach ($meta->fields() as $field_id => $field) {
-			$this->generate_field($model, $fields, $field_id, $field);
+			$this->generate_field($model, $fields, $field_id, $field, $validation_errors);
 		}
 		return $fields;
 	}
 
-	protected function generate_field(Jelly_Model $model, & $fields, $field_id, $field)
+	protected function generate_field(Jelly_Model $model, & $fields, $field_id, $field, array $validation_errors = array())
 	{
 		$field_id_attr = 'field-' . $field->name;
 
