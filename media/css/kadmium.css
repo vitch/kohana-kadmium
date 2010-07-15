@@ -78,6 +78,7 @@ body
 	margin: 0 0 0 10px;
 }
 
+/*
 #kadmium-content .main a,
 #kadmium-content .main a:visited,
 #kadmium-content .main a:hover
@@ -97,6 +98,7 @@ body
 {
 	background: rgba(255, 117, 255, .6);
 }
+*/
 
 #kadmium-content .main>h1:first-of-type
 {
@@ -322,18 +324,14 @@ a.sorter
 	outline: 0;
 }
 
-#kadmium-content .main a.add
+a.add
 {
-	background-image: url(../img/page_new.gif);
-	background-position: 5px 3px;
-	background-repeat: no-repeat;
-	padding-left: 25px;
-	margin-bottom: 1em;
+	background: url(../img/page_new.gif) no-repeat;
+	padding: 1px 0 0 20px;
 }
 
-#kadmium-content .main a.edit
+a.edit
 {
-	background-image: url(../img/page_edit.gif);
-	background-repeat: no-repeat;
+	background: url(../img/page_edit.gif) no-repeat;
 	padding: 1px 0 0 20px;
 }
