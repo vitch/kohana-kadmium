@@ -284,6 +284,23 @@ ul.fields li textarea:focus
 	background: rgba(255, 255, 255, 1);
 }
 
+input[type=submit]
+{
+	border: 0;
+	background: rgba(41, 41, 76, 0.8);
+	cursor: pointer;
+	color: #fff;
+	padding: 3px 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+input[type=submit]:hover
+{
+	background: #f60;
+}
+
 ul.fields li select
 {
 	width: 350px;
