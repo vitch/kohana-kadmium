@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Kadmium_Field_Relationship extends Jelly_Field_Relationship
+abstract class Kadmium_Field_Relationship extends Jelly_Field_Relationship
 {
 	/**
 	 * Copied from Jelly_Field_Relationship but allows for null/zero values with an

@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Kadmium_Field_ManyToMany extends Jelly_Field_ManyToMany
+abstract class Kadmium_Field_ManyToMany extends Jelly_Field_ManyToMany
 {
 	/**
 	 * Adds a title to the attributes array to work nicely with jquery-asmselect
