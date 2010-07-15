@@ -6,20 +6,19 @@ body.busy *
 html,
 body
 {
-	background: #ccc;
+	background: #ccf;
 }
 
 #kadmium-content
 {
-	width: 600px;
+	width: 965px;
+	padding: 1em 0;
 	margin: 0 auto;
-	background: #fff;
 	overflow: hidden;
 }
 
 #kadmium-content.lb
 {
-
 	padding: 0;
 	margin: 0;
 	border: 0;
@@ -27,35 +26,87 @@ body
 
 #kadmium-content ul.navigation
 {
-	width: 148px;
-	padding: 0 1px 0 0;
-	border-right: 1px solid #ccc;
+	width: 160px;
+	background: #fff;
+	background: rgba(255, 255, 255, .8);
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding: 20px;
+	list-style: none;
+	margin: 0;
 	float: left;
 }
 
-#kadmium-content ul li a
+#kadmium-content ul.navigation li
 {
-	padding: 3px 5px;
-	width: 138px;
+	list-style: none;
+	margin: 0 0 5px;
+	padding: 0;
+}
+
+#kadmium-content ul.navigation li a
+{
+	padding: 4px 7px 3px;
+	color: #333;
+	background: rgb(255, 255, 255);
 	font-size: 93%;
-	border-bottom: 1px solid #ccc;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 	display: block;
 	text-decoration: none;
 }
 
-#kadmium-content ul li a.active,
-#kadmium-content ul li a:hover
+#kadmium-content ul.navigation li a.active,
+#kadmium-content ul.navigation li a:hover
 {
-	background: #ccc;
+	background: rgb(255, 255, 255);
+	background: rgba(180, 180, 180, .5);
 }
 
 #kadmium-content .main
 {
-	width: 440px;
+	width: 700px;
 	float: left;
-	margin: 0 0 0 -1px;
-	padding: 0 0 0 9px;
-	border-left: 1px solid #ccc;
+	background: #fff;
+	background: rgba(255, 255, 255, .8);
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding: 20px 25px;
+	margin: 0 0 0 10px;
+}
+
+#kadmium-content .main a,
+#kadmium-content .main a:visited,
+#kadmium-content .main a:hover
+{
+	background: rgba(255, 117, 255, .4);
+	padding: 3px 5px;
+	display: block;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	color: #fff;
+	float: left;
+	text-decoration: none;
+}
+
+#kadmium-content .main a:hover
+{
+	background: rgba(255, 117, 255, .6);
+}
+
+#kadmium-content .main>h1:first-of-type
+{
+	margin-top: 0;
+	background: rgba(117, 117, 255, .8);
+	color: #fff;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	padding: 4px 8px 5px;
 }
 
 input.error,
@@ -180,23 +231,77 @@ ul.has-many-uniquely li
 
 table.list-page
 {
-	border: 1px solid #000;
 	vertical-align: top;
+	width: 100%;
 }
 
 table.list-page th
 {
 	padding: 5px;
-	background: #3AA7CC;
+	background: rgba(117, 117, 255, .8);
 	color: #fff;
-	border: 1px solid #aae;
+	border: 1px solid #ccc;
+	border-top: 0;
+	border-bottom: 0;
+}
+
+table.list-page th:first-of-type
+{
+	border-left: 0;
+	-moz-border-radius-topleft: 3px;
+	-webkit-border-radius-topleft: 3px;
+	border-radius-topleft: 3px;
+}
+
+table.list-page th:last-of-type
+{
+	border-right: 0;
+	-moz-border-radius-topright: 3px;
+	-webkit-border-radius-topright: 3px;
+	border-radius-topright: 3px;
 }
 
 table.list-page td
 {
 	padding: 5px;
-	border: 1px solid #ddd;
+	border: 1px solid #fff;
+	border-top: 0;
+	border-bottom: 0;
 	vertical-align: top;
+}
+
+table.list-page tr:nth-of-type(odd) td
+{
+	background: rgba(170, 170, 170, .1);
+}
+
+table.list-page tr:nth-of-type(even) td
+{
+	background: rgba(170, 170, 170, .3);
+}
+
+table.list-page tr td:first-of-type
+{
+	border-left: 0;
+}
+
+table.list-page tr td:last-of-type
+{
+	border-right: 0;
+}
+
+table.list-page tr:last-of-type td:first-of-type
+{
+	-moz-border-radius-bottomleft: 3px;
+	-webkit-border-radius-bottomleft: 3px;
+	border-radius-bottomleft: 3px;
+}
+
+table.list-page tr:last-of-type td:last-of-type
+{
+	-moz-border-radius-bottomright: 3px;
+	-webkit-border-radius-bottomright: 3px;
+	border-radius-bottomright: 3px;
 }
 
 table.list-page tr.dragging td
@@ -217,14 +322,18 @@ a.sorter
 	outline: 0;
 }
 
-a.add
+#kadmium-content .main a.add
 {
-	background: url(../img/page_new.gif) no-repeat;
-	padding: 1px 0 0 20px;
+	background-image: url(../img/page_new.gif);
+	background-position: 5px 3px;
+	background-repeat: no-repeat;
+	padding-left: 25px;
+	margin-bottom: 1em;
 }
 
-a.edit
+#kadmium-content .main a.edit
 {
-	background: url(../img/page_edit.gif) no-repeat;
+	background-image: url(../img/page_edit.gif);
+	background-repeat: no-repeat;
 	padding: 1px 0 0 20px;
 }
