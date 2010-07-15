@@ -45,6 +45,11 @@ body
 	padding: 0;
 }
 
+#kadmium-content ul.navigation li:last-of-type
+{
+	margin: 0;
+}
+
 #kadmium-content ul.navigation li a
 {
 	padding: 4px 7px 3px;
@@ -153,7 +158,14 @@ ul.fields h3
 
 ul.fields h3
 {
-	padding: 1.5em 0 0;
+	float: none;
+	background: rgb(41, 41, 76);
+	background: rgba(41, 41, 76, .5);
+	color: #fff;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	padding: 4px 8px 5px;
 }
 
 input,
@@ -169,6 +181,11 @@ ul.fields #kohana_error,
 	clear: left;
 }
 
+ul.fields ol.asmList
+{
+	margin-bottom: 0;
+}
+
 ul.fields li.asmListItem
 {
 	background: rgb(255, 255, 255);
@@ -181,6 +198,11 @@ ul.fields li.asmListItem
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	width: 345px
+}
+
+ul.fields li.asmListItem:last-of-type
+{
+	margin: 0;
 }
 
 ul.fields li.asmListItem a.asmListItemRemove
@@ -226,7 +248,7 @@ ul.fields li
 	list-style: none;
 	margin: 0;
 	overflow: hidden;
-	padding: 0 0 .5em;
+	padding: 0 0 1em;
 } 
 
 ul.fields h4
@@ -245,7 +267,7 @@ ul.fields li img
 ul.fields li input[type=text],
 ul.fields li textarea
 {
-	width: 100%;
+	width: 691px;
 	border: 0;
 	padding: 4px;
 	outline: none;
@@ -278,14 +300,28 @@ ul.fields li select:focus
 	background: rgb(255, 255, 255);
 }
 
+ul.fields li input[type=text].error,
+ul.fields li textarea.error,
+ul.fields li select.error
+{
+	background: rgba(255, 120, 127, .4);
+}
+
+ul.fields li label
+{
+	margin: 0 0 .2em;
+}
+
 ul.has-many-uniquely
 {
-	margin: 1em 0 0 1em;
+	font-size: 93%;
+	margin: 0 0 0 1em;
 }
 
 ul.has-many-uniquely li
 {
-	margin: 0 0 .2em;
+	margin: 0 0 5px;
+	padding: 0;
 }
 
 /* List page */
@@ -372,6 +408,28 @@ table.list-page tr:last-of-type td:last-of-type
 table.list-page tr.dragging td
 {
 	background: #ef0;
+}
+
+div.feedback,
+div.error
+{
+	padding: 1em;
+	background: rgba(255, 233, 53, .6);
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin: 0 0 2em;
+}
+
+div.error
+{
+	background: rgba(255, 210, 180, .8);
+}
+
+div.feedback p:last-of-type,
+div.error p:last-of-type
+{
+	margin-bottom: 0;
 }
 
 /* Icon buttons */
