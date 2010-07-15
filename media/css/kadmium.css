@@ -75,16 +75,19 @@ body
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	padding: 20px 25px;
+	padding: 20px;
 	margin: 0 0 0 10px;
 }
 
 #kadmium-content .main a,
-#kadmium-content .main a:visited,
-#kadmium-content .main a:hover
+#kadmium-content .main a:visited
 {
 	text-decoration: none;
 	color: rgb(113, 113, 212);
+}
+#kadmium-content .main a:hover
+{
+	color: #f60;
 }
 /*
 #kadmium-content .main a,
@@ -168,9 +171,21 @@ ul.fields #kohana_error,
 
 ul.fields li.asmListItem
 {
-	background: #eee;
-	margin: 0 0 1px;
-	width: 300px
+	background: rgb(255, 255, 255);
+	background: rgba(255, 255, 255, 0.5);
+	margin: 0 0 4px;
+	font-size: 93%;
+	padding: 2px 3px 3px;
+	border: 0;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	width: 345px
+}
+
+ul.fields li.asmListItem a.asmListItemRemove
+{
+	top: 2px;
 }
 
 .mceEditor
@@ -245,6 +260,22 @@ ul.fields li input[type=text]:focus,
 ul.fields li textarea:focus
 {
 	background: rgba(255, 255, 255, 1);
+}
+
+ul.fields li select
+{
+	width: 350px;
+	border: 0;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	padding: 5px;
+	background: rgba(255, 255, 255, .5);
+}
+
+ul.fields li select:focus
+{
+	background: rgb(255, 255, 255);
 }
 
 ul.has-many-uniquely
