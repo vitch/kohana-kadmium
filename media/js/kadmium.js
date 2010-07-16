@@ -133,13 +133,14 @@ $(
 					},
 					'onClosed' : function() {
 						var loadingMenu = '#' + openedMenu;
-						$(loadingMenu).parent().load(
-							location.href + '?action=reload&field=' + openedMenu,
-							function()
+						$.ajax({
+							url : location.href + '?action=reload&field=' + openedMenu,
+							success : function (data)
 							{
+								$(loadingMenu).parent().html($(data).children());
 								initColorboxes(loadingMenu)
 							}
-						);
+						});
 						openedMenu = undefined;
 					}
 				}
