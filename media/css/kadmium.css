@@ -125,7 +125,8 @@ body
 }
 */
 
-#kadmium-content .main>h1:first-of-type
+#kadmium-content .main>h1:first-of-type,
+#kadmium-content.lb>h1:first-of-type
 {
 	margin-top: 0;
 	background: rgb(41, 41, 76);
@@ -493,7 +494,7 @@ a.edit
 	margin: 0 0 0 10px;
 	display: block;
 	float: left;
-	
+	text-decoration: none;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
