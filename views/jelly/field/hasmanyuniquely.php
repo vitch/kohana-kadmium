@@ -3,9 +3,29 @@
 	foreach($value as $child_model):
 		$lb_class = isset($field->prevent_lightbox) && $field->prevent_lightbox ? '' : ' lb';
 	?>
-		<li><a href="<?= sprintf($field->edit_link_base, $model->id()) . $child_model->id(); ?>" class="edit<?= $lb_class; ?>"><?= $child_model->name(); ?></a></li>
+		<li>
+			<?php
+				echo Html::anchor(
+					sprintf($field->edit_link_base, $model->id()) . $child_model->id(),
+					$child_model->name(),
+					array(
+						'class' => 'edit' . $lb_class
+					)
+				)
+			?>
+		</li>
 	<?php
 	endforeach;
 	?>
-		<li><a href="<?= sprintf($field->edit_link_base, $model->id()); ?>0" class="add<?= $lb_class; ?>">Add a new <?= Inflector::humanize(Jelly::model_name($value->current())); ?></a></li>
+		<li>
+			<?php
+				echo Html::anchor(
+					sprintf($field->edit_link_base, $model->id()) . 0,
+					'Add a new ' . Inflector::humanize(Jelly::model_name($value->current())),
+					array(
+						'class' => 'add' . $lb_class
+					)
+				)
+			?>
+		</li>
 </ul>
