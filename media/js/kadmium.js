@@ -126,8 +126,8 @@ $(
 				{
 					'iframe' : true,
 					'scrolling' : true,
-					'width' : 640,
-					'height' : 400,//$(window).height() - 50,
+					'width' : 820,
+					'height' : 500,//$(window).height() - 50,
 					'onOpen' : function() {
 						openedMenu = $(this).parents('ul').attr('id');
 					},

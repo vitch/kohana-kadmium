@@ -17,13 +17,6 @@ body
 	overflow: hidden;
 }
 
-#kadmium-content.lb
-{
-	padding: 0;
-	margin: 0;
-	border: 0;
-}
-
 #kadmium-content ul.navigation
 {
 	width: 160px;
@@ -84,13 +77,29 @@ body
 	margin: 0 0 0 10px;
 }
 
+#kadmium-content.lb
+{
+	width: 700px;
+	background: #fff;
+	background: rgba(255, 255, 255, .8);
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding: 20px;
+	margin: 0 auto;
+}
+
 #kadmium-content .main a,
 #kadmium-content .main a:visited
+#kadmium-content.lb a,
+#kadmium-content.lb a:visited
 {
 	text-decoration: none;
 	color: rgb(113, 113, 212);
 }
-#kadmium-content .main a:hover
+
+#kadmium-content .main a:hover,
+#kadmium-content.lb a:hover
 {
 	color: #f60;
 }
@@ -132,14 +141,14 @@ input.error,
 textarea.error,
 select.error
 {
-	border-color: #ff3399;
 	margin-bottom: 0;
 }
 
 div.error-message
 {
-	color: #ff3399;
+	color: rgb(255, 73, 51);;
 	margin: 0 0 1em;
+	font-size: 93%;
 	clear: left;
 }
 
@@ -321,7 +330,7 @@ ul.fields li input[type=text].error,
 ul.fields li textarea.error,
 ul.fields li select.error
 {
-	background: rgba(255, 120, 127, .4);
+	background: rgba(255, 73, 51, .6);
 }
 
 ul.fields li label
@@ -431,7 +440,7 @@ div.feedback,
 div.error
 {
 	padding: 1em;
-	background: rgba(255, 233, 53, .6);
+	background: rgba(255, 140, 64, .6);
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -440,7 +449,7 @@ div.error
 
 div.error
 {
-	background: rgba(255, 210, 180, .8);
+	background: rgba(255, 73, 51, .8);
 }
 
 div.feedback p:last-of-type,
@@ -472,4 +481,26 @@ a.edit
 {
 	background: url(../img/page_edit.gif) no-repeat;
 	padding: 1px 0 0 20px;
+}
+
+#kadmium-content .main a.back,
+#kadmium-content.lb a.back
+{
+	background: rgba(41, 41, 76, 0.6);
+	cursor: pointer;
+	color: #fff;
+	padding: 4px 7px 4px 4px;
+	margin: 0 0 0 10px;
+	display: block;
+	float: left;
+	
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#kadmium-content .main a.back:hover,
+#kadmium-content.lb a.back:hover
+{
+	background: #f60;
 }

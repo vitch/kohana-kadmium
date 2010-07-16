@@ -158,9 +158,9 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$this->template = View::factory('kadmium/lightbox_template');
 			$this->after_edit_form_content = Html::anchor(
 				'#',
-				'Back to ' . $parent_type_name,
+				'&lt; Back to ' . $parent_type_name,
 				array(
-					'class' => 'link-back js-close-link'
+					'class' => 'back js-close-link'
 				)
 			);
 		} else {
@@ -172,9 +172,9 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 						'id' => $parent_id,
 					)
 				),
-				'Back to ' . $parent_type_name,
+				'&lt; Back to ' . $parent_type_name,
 				array(
-					'class' => 'link-back'
+					'class' => 'back'
 				)
 			);
 		}
