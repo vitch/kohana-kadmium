@@ -13,8 +13,6 @@ abstract class Kadmium_Field_SortOn extends Field_Integer
 	 * If value is null (e.g. initial saving of model) then value
 	 * is set to the number of records in this column.
 	 *
-	 * TODO: What if the item has categories...
-	 *
 	 * @param   Jelly_Model  $model
 	 * @param   mixed  $value
 	 * @return  mixed
@@ -22,6 +20,7 @@ abstract class Kadmium_Field_SortOn extends Field_Integer
 	public function save($model, $value, $loaded)
 	{
 		if ($value == null) {
+			// TODO: Implement sort on which works across categories...
 			$value = Jelly::select($model->meta()->model())->count() + 1;
 		}
 		return $value;
