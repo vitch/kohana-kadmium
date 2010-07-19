@@ -164,19 +164,21 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				)
 			);
 		} else {
-			$this->after_edit_form_content = Html::anchor(
-				Route::get('kadmium')
-					->uri(array(
-						'controller' => $this->request->controller,
-						'action' => 'edit',
-						'id' => $parent_id,
+			if (!isset($this->after_edit_form_content)) {
+				$this->after_edit_form_content = Html::anchor(
+					Route::get('kadmium')
+						->uri(array(
+							'controller' => $this->request->controller,
+							'action' => 'edit',
+							'id' => $parent_id,
+						)
+					),
+					'&lt; Back to ' . $parent_type_name,
+					array(
+						'class' => 'back'
 					)
-				),
-				'&lt; Back to ' . $parent_type_name,
-				array(
-					'class' => 'back'
-				)
-			);
+				);
+			}
 		}
 		$child_id = $this->request->param('id');
 		$is_new = $child_id == 0;
