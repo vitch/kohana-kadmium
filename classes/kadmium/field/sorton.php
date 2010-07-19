@@ -20,8 +20,15 @@ abstract class Kadmium_Field_SortOn extends Field_Integer
 	public function save($model, $value, $loaded)
 	{
 		if ($value == null) {
-			// TODO: Implement sort on which works across categories...
-			$value = Jelly::select($model->meta()->model())->count() + 1;
+			$builder = Jelly::select($model->meta()->model());
+			$fk = $model->meta()->foreign_key();
+			if ($fk != '') {
+				// TODO: There must be a way to just get at the value without having to execute the
+				// query and then get it back out?!??!
+				$foreign = $model->get($fk)->execute();
+				$builder->where($fk, '=', $foreign->get($foreign->meta()->primary_key()));
+			}
+			$value = $builder->count() + 1;
 		}
 		return $value;
 	}
