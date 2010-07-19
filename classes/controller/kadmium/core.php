@@ -182,7 +182,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$is_new = $child_id == 0;
 		$model = $this->get_model($child_model_name, $child_id);
 		if ($is_new) {
-			$model->owner = $parent_id;
+			$model->set($model->meta()->foreign_key(), $parent_id);
 		}
 		$this->init_template(($child_id == 0 ? 'Add' : 'Update') . ' ' . $child_type_name);
 		$this->show_edit_page_from_model(
