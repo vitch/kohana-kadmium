@@ -191,12 +191,14 @@ ul.fields #kohana_error,
 	clear: left;
 }
 
-ul.fields ol.asmList
+ul.fields ol.asmList,
+ul.fields ul.has-many-uniquely
 {
-	margin-bottom: 0;
+	margin: 3px 0 0;
 }
 
-ul.fields li.asmListItem
+ul.fields li.asmListItem,
+ul.fields ul.has-many-uniquely li
 {
 	background: rgb(255, 255, 255);
 	background: rgba(255, 255, 255, 0.5);
@@ -207,17 +209,38 @@ ul.fields li.asmListItem
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	width: 345px
+	width: 345px;
+	position: relative;
 }
 
-ul.fields li.asmListItem:last-of-type
+ul.fields li.asmListItem:last-of-type,
+ul.fields ul.has-many-uniquely li:last-of-type
 {
 	margin: 0;
 }
 
-ul.fields li.asmListItem a.asmListItemRemove
+ul.fields li.asmListItem a.asmListItemRemove,
+ul.fields ul.has-many-uniquely li a.edit
 {
+	position: absolute;
+	right: 0;
+	padding: 5px;
 	top: 2px;
+}
+
+ul.fields ul.has-many-uniquely.img-list li a.edit
+{
+	background: rgb(255, 255, 255);
+	border: 0;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+ul.fields ul.has-many-uniquely li span
+{
+	padding: 5px;
+	display: block;
 }
 
 .mceEditor
@@ -334,7 +357,7 @@ ul.fields li label
 }
 
 ul.imagefiles,
-ul.img-list
+ul.fields li ul.img-list
 {
 	clear: left;
 	padding: 10px 0;
@@ -343,7 +366,7 @@ ul.img-list
 }
 
 ul.imagefiles li,
-ul.img-list li
+ul.fields li ul.img-list li
 {
 	float: left;
 	width: auto;
@@ -477,18 +500,20 @@ a.sorter
 	text-indent: -2000px;
 	outline: 0;
 }
-
 a.add
 {
 	background: url(../img/page_new.gif) no-repeat;
 	padding: 1px 0 0 20px;
 }
 
+/*
+
 a.edit
 {
 	background: url(../img/page_edit.gif) no-repeat;
 	padding: 1px 0 0 20px;
 }
+*/
 
 #kadmium-content .main a.back,
 #kadmium-content.lb a.back

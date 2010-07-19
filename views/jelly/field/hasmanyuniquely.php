@@ -17,9 +17,10 @@
 				} else {
 					$link_contents = $child_model->name();
 				}
+				echo '<span>' . $link_contents . '</span>';
 				echo Html::anchor(
 					sprintf($field->edit_link_base, $model->id()) . $child_model->id(),
-					$link_contents,
+					'edit',
 					array(
 						'class' => 'edit' . $lb_class
 					)
@@ -29,15 +30,19 @@
 	<?php
 	endforeach;
 	?>
-		<li>
-			<?php
-				echo Html::anchor(
-					sprintf($field->edit_link_base, $model->id()) . 0,
-					'Add a new ' . Inflector::humanize(Jelly::model_name($value->current())),
-					array(
-						'class' => 'add' . $lb_class
-					)
+</ul>
+<ul class="has-many-uniquely<?= $ul_class; ?>" id="<?= $field->name; ?>">
+	<li>
+		<span>
+		<?php
+			echo Html::anchor(
+				sprintf($field->edit_link_base, $model->id()) . 0,
+				'Add a new ' . Inflector::humanize(Jelly::model_name($value->current())),
+				array(
+					'class' => 'add' . $lb_class
 				)
-			?>
-		</li>
+			)
+		?>
+		</span>
+	</li>
 </ul>
