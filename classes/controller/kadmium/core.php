@@ -149,7 +149,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		);
 	}
 
-	protected function show_fileupload_page($parent_type_name, $child_type_name, $child_model_name)
+	protected function show_child_model_page($parent_type_name, $child_type_name, $child_model_name)
 	{
 		// TODO: Check if id corresponds to a valid item?
 		$parent_id = $this->request->param('parent_id');
