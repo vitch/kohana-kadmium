@@ -161,6 +161,12 @@ $(
 			}
 		)
 
+		// Help IE out with some of the CSS selectors it has trouble with which are relied on by the design
+		if ($.browser.msie) {
+			$('table.list-page tr:odd').addClass('odd');
+			$('table.list-page tr:even').addClass('even');
+		}
+
 		// store the value of all form fields so we can warn the user if they edit and then try to leave without saving...
 		var pageLoadData = {};
 		$(':input').each(

@@ -446,10 +446,19 @@ table.list-page tr:nth-of-type(odd) td
 {
 	background: rgba(41, 41, 76, .05);
 }
+table.list-page tr.odd td
+{
+	background: rgb(227, 227, 235);
+}
 
 table.list-page tr:nth-of-type(even) td
 {
 	background: rgba(41, 41, 76, .1);
+}
+
+table.list-page tr.even td
+{
+	background: rgb(217, 217, 227);
 }
 
 table.list-page tr td:first-of-type
