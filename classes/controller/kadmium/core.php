@@ -34,6 +34,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$media->uri(array('file' => 'js/jquery.asmselect.js')),
 			$media->uri(array('file' => 'js/jquery.tablednd_0_5.js')),
 			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
+			$media->uri(array('file' => 'js/jquery-ui-1.8.2.custom.min.js')), // For it's drag and drop...
 			$media->uri(array('file' => 'js/kadmium.js')),
 		);
 	}
@@ -59,19 +60,39 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 	protected function show_edit_page_from_model($item_type, $model, $is_new, $extra_redirect_params = array())
 	{
-		if (Request::$is_ajax && Arr::get($_GET, 'action') == 'reload') {
-			$field_id = Arr::get($_GET, 'field');
-			$fields = array();
-			$field = $model->meta()->fields($field_id);
-			$this->generate_field($model, $fields, $field_id, $field);
-			echo View::factory(
-				'kadmium/fields',
-				array(
-					'fields' => $fields
-				)
-			);
-			$this->auto_render = false;
-			return false;
+		if (Request::$is_ajax) {
+			switch(Arr::get($_POST, 'action', Arr::get($_GET, 'action'))) {
+				case 'reload':
+					$field_id = Arr::get($_GET, 'field');
+					$fields = array();
+					$field = $model->meta()->fields($field_id);
+					$this->generate_field($model, $fields, $field_id, $field);
+					echo View::factory(
+						'kadmium/fields',
+						array(
+							'fields' => $fields
+						)
+					);
+					$this->auto_render = false;
+					return false;
+				case 'sortItems':
+					$field = $model->meta()->fields(Arr::get($_POST, 'child_id'));
+					$a = $field->foreign;
+					$ids = explode(',', Arr::get($_POST, 'ids', ''));
+					$index = 1;
+					$foreign_model = $field->foreign['model'];
+					$sort_on_field = $field->sort_on;
+					foreach ($ids as $id) {
+						Jelly::select($foreign_model, $id)->set(
+							array(
+								$sort_on_field => $index++,
+							)
+						)->save();
+					}
+					$this->auto_render = false;
+					echo '{complete:1}';
+					return false;
+			}
 		}
 
 		// TODO: Check model->loaded() here?

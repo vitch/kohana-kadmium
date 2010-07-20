@@ -138,7 +138,8 @@ $(
 							success : function (data)
 							{
 								$(loadingMenu).parent().html($(data).children());
-								initColorboxes(loadingMenu)
+								initColorboxes(loadingMenu);
+								initSortable(loadingMenu);
 							}
 						});
 						openedMenu = undefined;
@@ -160,6 +161,50 @@ $(
 				parent.$.fn.colorbox.close();
 			}
 		)
+
+		// Drag and drop for sortable child nodes...
+		var initSortable = function(selector) {
+			$(selector).sortable(
+				{
+					items: '>li',
+					stop: function(event, ui)
+					{
+						var ul = ui.item.parent();
+						var ids = [];
+						ul.find('>li').each(
+							function(i)
+							{
+								ids.push($(this).attr('rel'));
+							}
+						);
+
+						$('body').addClass('busy');
+
+						$.ajax(
+							{
+								success: function(data)
+								{
+									$('body').removeClass('busy');
+								},
+								error: function ()
+								{
+									$('body').removeClass('busy');
+								},
+								data: {
+									'ids': ids.join(','),
+									'child_id': ul.attr('id'),
+									'action': 'sortItems'
+								},
+								type: 'post',
+								dataType: 'json',
+								url: document.location.href
+							}
+						)
+					}
+				}
+			).disableSelection();
+		}
+		initSortable('ul.has-many-uniquely.sortable');
 
 		// Help IE out with some of the CSS selectors it has trouble with which are relied on by the design
 		if ($.browser.msie) {

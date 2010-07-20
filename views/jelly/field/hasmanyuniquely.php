@@ -1,14 +1,22 @@
 <?php
 	$lb_class = isset($field->prevent_lightbox) && $field->prevent_lightbox ? '' : ' lb';
-	$ul_class = isset($field->list_as_thumbnails) && $field->list_as_thumbnails ? ' img-list' : '';
+	$ul_classes = array('has-many-uniquely');
+	$is_img_list = FALSE;
+	if(isset($field->list_as_thumbnails) && $field->list_as_thumbnails) {
+		$ul_classes[] = 'img-list';
+		$is_img_list = TRUE;
+	};
+	if(isset($field->sort_on) && $field->sort_on) {
+		$ul_classes[] = 'sortable';
+	}
 ?>
-<ul class="has-many-uniquely<?= $ul_class; ?>" id="<?= $field->name; ?>">
+<ul class="<?= implode(' ', $ul_classes); ?>" id="<?= $field->name; ?>">
 	<?php
 	foreach($value as $child_model):
 	?>
-		<li>
+		<li rel="<?= $child_model->id(); ?>">
 			<?php
-				if ($ul_class != '') {
+				if ($is_img_list) {
 					$image_field = $child_model->meta()->fields($field->list_as_thumbnails);
 					$path = count($image_field->thumbnails) ? $image_field->thumbnails[0]['path'] : $image_field->path;
 					$link_contents = Html::image(
@@ -31,7 +39,7 @@
 	endforeach;
 	?>
 </ul>
-<ul class="has-many-uniquely<?= $ul_class; ?>" id="<?= $field->name; ?>">
+<ul class="has-many-uniquely">
 	<li>
 		<span>
 		<?php

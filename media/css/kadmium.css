@@ -256,6 +256,11 @@ ul.fields ul.has-many-uniquely li span
 	display: block;
 }
 
+ul.fields ul.sortable li
+{
+	cursor: pointer;
+}
+
 .mceEditor
 {
 	margin: 0 0 1em;
