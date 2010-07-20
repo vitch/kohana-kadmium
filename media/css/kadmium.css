@@ -20,7 +20,7 @@ body
 #kadmium-content ul.navigation
 {
 	width: 160px;
-	background: #fff;
+	background: rgb(238, 238, 244);
 	background: rgba(255, 255, 255, .8);
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -68,7 +68,7 @@ body
 {
 	width: 700px;
 	float: left;
-	background: #fff;
+	background: rgb(238, 238, 244);
 	background: rgba(255, 255, 255, .8);
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -80,7 +80,7 @@ body
 #kadmium-content.lb
 {
 	width: 700px;
-	background: #fff;
+	background: rgb(238, 238, 244);
 	background: rgba(255, 255, 255, .8);
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -129,7 +129,7 @@ body
 #kadmium-content.lb>h1:first-of-type
 {
 	margin-top: 0;
-	background: rgb(41, 41, 76);
+	background: rgb(80, 80, 109);
 	background: rgba(41, 41, 76, .8);
 	color: #fff;
 	-moz-border-radius: 3px;
@@ -169,7 +169,7 @@ ul.fields h3
 ul.fields h3
 {
 	float: none;
-	background: rgb(41, 41, 76);
+	background: rgb(139, 139, 159);
 	background: rgba(41, 41, 76, .5);
 	color: #fff;
 	-moz-border-radius: 3px;
@@ -298,6 +298,7 @@ ul.fields li textarea
 	border: 0;
 	padding: 4px;
 	outline: none;
+	background: rgb(246, 246, 249);
 	background: rgba(255, 255, 255, .5);
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -308,12 +309,13 @@ ul.fields li input[type=text]:hover,
 ul.fields li input[type=text]:focus,
 ul.fields li textarea:focus
 {
-	background: rgba(255, 255, 255, 1);
+	background: rgb(255, 255, 255);
 }
 
 input[type=submit]
 {
 	border: 0;
+	background: rgb(80, 80, 109);
 	background: rgba(41, 41, 76, 0.8);
 	cursor: pointer;
 	color: #fff;
@@ -336,6 +338,7 @@ ul.fields li select
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	padding: 5px;
+	background: rgb(246, 246, 249);
 	background: rgba(255, 255, 255, .5);
 }
 
@@ -348,6 +351,7 @@ ul.fields li input[type=text].error,
 ul.fields li textarea.error,
 ul.fields li select.error
 {
+	background: rgb(248, 139, 128);
 	background: rgba(255, 73, 51, .6);
 }
 
@@ -470,6 +474,7 @@ div.feedback,
 div.error
 {
 	padding: 1em;
+	background: rgb(248, 179, 135);
 	background: rgba(255, 140, 64, .6);
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -479,6 +484,7 @@ div.error
 
 div.error
 {
+	background: rgb(251, 105, 89);
 	background: rgba(255, 73, 51, .8);
 }
 
@@ -518,6 +524,7 @@ a.edit
 #kadmium-content .main a.back,
 #kadmium-content.lb a.back
 {
+	background: rgb(120, 120, 143);
 	background: rgba(41, 41, 76, 0.6);
 	cursor: pointer;
 	color: #fff;
