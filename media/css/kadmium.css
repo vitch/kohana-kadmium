@@ -89,6 +89,19 @@ body
 	margin: 0 auto;
 }
 
+#kadmium-content #ie-warning
+{
+	width: 910px;
+	background: rgb(248, 139, 128);
+	padding: 20px;
+	margin: 0 0 10px;
+}
+
+#kadmium-content #ie-warning p
+{
+	margin: 0;
+}
+
 #kadmium-content .main a,
 #kadmium-content .main a:visited
 #kadmium-content.lb a,
