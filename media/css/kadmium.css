@@ -310,6 +310,7 @@ ul.fields h4
 }
 
 ul.fields li input[type=text],
+ul.fields li input[type=password],
 ul.fields li textarea
 {
 	width: 691px;
