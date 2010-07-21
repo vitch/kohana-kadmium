@@ -18,7 +18,14 @@ endif
 		echo $fields;
 		?>
 	</ul>
-<input type="submit" name="my-action" value="<?= $page_title; ?>" class="inp-button" />
+<input type="submit" name="my-action" value="<?= $page_title; ?>" />
+<?php
+if ($delete_label != ''):
+?>
+	<input type="submit" name="my-action" class="delete" value="<?= $delete_label; ?>" />
+<?php
+endif;
+?>
 </form>
 
 <?php

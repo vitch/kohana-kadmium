@@ -102,49 +102,55 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 		$feedback_message = '';
 		$error_message = '';
+		$delete_label = $is_new || $model->delete_policy == Kadmium_Model_Core::DELETE_NEVER ? '' : 'Delete ' . $item_type;
 		$validation_errors = array();
 
-		if (Arr::get($_POST, 'my-action') == $title) {
-			// IsPostBack
-			foreach ($meta->fields() as $field_id => $field) {
-				if (!$this->include_field($field, TRUE)) {
-					continue;
-				}
-				if ($field instanceof Field_File) {
-					if ($_FILES[$field_id]['tmp_name'] != '' && $_FILES[$field_id]['size'] != 0) {
-						$model->set(array($field_id => Arr::get($_FILES, $field_id)));
+		switch(Arr::get($_POST, 'my-action', 'XNXNXNXNXN')) {
+			case $title:
+				// IsPostBack
+				foreach ($meta->fields() as $field_id => $field) {
+					if (!$this->include_field($field, TRUE)) {
+						continue;
 					}
-				} else {
-					$model->set(array($field_id => Arr::get($_POST, $field_id)));
+					if ($field instanceof Field_File) {
+						if ($_FILES[$field_id]['tmp_name'] != '' && $_FILES[$field_id]['size'] != 0) {
+							$model->set(array($field_id => Arr::get($_FILES, $field_id)));
+						}
+					} else {
+						$model->set(array($field_id => Arr::get($_POST, $field_id)));
+					}
 				}
-			}
-			try {
-				$model->save();
-			} catch (Validate_Exception $e) {
-				$validation_errors += $e->array->errors('');
-			}
+				try {
+					$model->save();
+				} catch (Validate_Exception $e) {
+					$validation_errors += $e->array->errors('');
+				}
 
-			if (count($validation_errors) > 0) {
-				$error_message = '<p>There ' . (count($validation_errors) > 1 ? 'were errors' : 'was an error') . ' saving your ' . strtolower($item_type) . '. Please see below for more information.</p>';
-			} else {
-				if ($is_new) {
-					Session::instance()->set('__FLASH__', '<p>Your ' . strtolower($item_type) . ' was successfully created.</p>');
-					$edit_url = $this->request->route->uri(
-						$extra_redirect_params +
-						array(
-							'action' => 'edit',
-							'controller' => $this->request->controller,
-							'id' => $model->id(),
-						)
-					);
-					if (Arr::get($_GET, 'lb') == 'true') {
-						$edit_url .= '?lb=true';
-					}
-					$this->request->redirect($edit_url);
+				if (count($validation_errors) > 0) {
+					$error_message = '<p>There ' . (count($validation_errors) > 1 ? 'were errors' : 'was an error') . ' saving your ' . strtolower($item_type) . '. Please see below for more information.</p>';
 				} else {
-					$feedback_message = '<p>Your ' . strtolower($item_type) . ' was successfully updated.</p>';
+					if ($is_new) {
+						Session::instance()->set('__FLASH__', '<p>Your ' . strtolower($item_type) . ' was successfully created.</p>');
+						$edit_url = $this->request->route->uri(
+							$extra_redirect_params +
+							array(
+								'action' => 'edit',
+								'controller' => $this->request->controller,
+								'id' => $model->id(),
+							)
+						);
+						if (Arr::get($_GET, 'lb') == 'true') {
+							$edit_url .= '?lb=true';
+						}
+						$this->request->redirect($edit_url);
+					} else {
+						$feedback_message = '<p>Your ' . strtolower($item_type) . ' was successfully updated.</p>';
+					}
 				}
-			}
+				break;
+			case $delete_label:
+				die('DELETING!!');
+				break;
 		}
 
 		if (Session::instance()->get('__FLASH__') != null) {
@@ -159,6 +165,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				'item' => $model,
 				'feedback_message' => $feedback_message,
 				'error_message' => $error_message,
+				'delete_label' => $delete_label,
 				'fields' => View::factory(
 					'kadmium/fields',
 					array(
