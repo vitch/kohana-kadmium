@@ -306,6 +306,80 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		);
 	}
 
+	protected function show_delete_page($item_type, $model_name, $id)
+	{
+		$model = $this->get_model($model_name, $id);
+		if (!$model->loaded()) {
+			$this->page_not_found();
+		}
+
+		$page_title = 'Delete ' . $item_type;
+		$this->init_template($page_title);
+
+		switch ($model->delete_policy) {
+			case Kadmium_Model_Core::DELETE_NEVER:
+				$this->template->content = View::factory(
+					'kadmium/delete_forbidden',
+					array(
+						'page_title' => $page_title,
+						'item_type' => $item_type,
+						'item_name' => $model->name(),
+						'edit_link' => Html::anchor(
+											$this->request->route
+												->uri(array(
+													'controller' => $this->request->controller,
+													'action' => 'edit',
+													'id' => $model->id()
+												)),
+											'&lt; Back to ' . strtolower($item_type),
+											array(
+												'class' => 'back'
+											)
+										)
+					)
+				);
+				break;
+			case Kadmium_Model_Core::DELETE_ALL_CHILDREN:
+				$this->_show_delete_page($page_title, $item_type, $model);
+				break;
+			case Kadmium_Model_Core::DELETE_ONLY_SPINSTER:
+				// TODO: Figure out if there are any children which will prevent deletion
+				$children = array();
+				if (count($children)) {
+					throw new Exception('NOT IMPLEMENTED');
+				} else {
+					$this->_show_delete_page($page_title, $item_type, $model);
+				}
+				break;
+		}
+	}
+
+	private function _show_delete_page($page_title, $item_type, Jelly_Model $model)
+	{
+		if (Arr::get($_POST, 'my-action') == $page_title) {
+			// IsPostBack
+			$name = $model->name();
+			$model->delete();
+			$this->template->content = View::factory(
+				'kadmium/deleted',
+				array(
+					'page_title' => $page_title,
+					'item_type' => $item_type,
+					'item_name' => $name,
+				)
+			);
+		} else {
+			$this->template->content = View::factory(
+				'kadmium/delete',
+				array(
+					'page_title' => $page_title,
+					'item_type' => $item_type,
+					'item_name' => $model->name()
+				)
+			);
+		}
+	}
+
 	/**
 	 * @return Jelly_Model
 	 */
