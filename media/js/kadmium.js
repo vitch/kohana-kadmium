@@ -215,13 +215,12 @@ $(
 		// store the value of all form fields so we can warn the user if they edit and then try to leave without saving...
 		var pageLoadData = {};
 		$(':input').each(
-				function() {
-					pageLoadData[this.id] = $(this).val();
-				}
-			);
+			function() {
+				pageLoadData[this.id] = $(this).val();
+			}
+		);
 
 		// listen for the beforeunload event and if the data has changed and we aren't submitting the form then warn the user...
-
 		if ($('form.saveable').length) {
 			var isSubmitting = false;
 

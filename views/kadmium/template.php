@@ -22,7 +22,7 @@
 						one of these alternatives to enjoy this site at its best.
 					</p>
 				</div>
-			<![endif]-->			
+			<![endif]-->
 			<ul class="navigation">
 			<?php
 				foreach ($navigation_controllers as $controller=>$label)
