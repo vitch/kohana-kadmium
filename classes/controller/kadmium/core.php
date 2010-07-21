@@ -288,6 +288,9 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		);
 	}
 
+	/**
+	 * @return Jelly_Model
+	 */
 	protected function get_model($model_name, $id = 0)
 	{
 		if ($id > 0) {
