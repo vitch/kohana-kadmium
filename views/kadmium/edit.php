@@ -20,11 +20,9 @@ endif
 	</ul>
 <input type="submit" name="my-action" value="<?= $page_title; ?>" />
 <?php
-if ($delete_label != ''):
-?>
-	<input type="submit" name="my-action" class="delete" value="<?= $delete_label; ?>" />
-<?php
-endif;
+if ($delete_link != ''){
+	echo $delete_link;
+}
 ?>
 </form>
 
