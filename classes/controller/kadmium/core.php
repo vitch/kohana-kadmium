@@ -321,7 +321,11 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$id_attribs = array('attributes'=>array('id'=>$field_id_attr));
 
 		if ($field instanceof Field_HasManyUniquely) {
-			$label = '<h3>' . $field->label . '</h3>';
+			$label = '<h3>' . $field->label;
+			if (isset($field->sort_on)) {
+				$label .= ' (drag to sort)';
+			}
+			$label .= '</h3>';
 		} else {
 			$label = Form::label($field_id_attr, $field->label);
 		}
