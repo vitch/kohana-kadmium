@@ -155,11 +155,9 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$delete_link = '';
 		if(!$is_new && $model->delete_policy != Kadmium_Model_Core::DELETE_NEVER) {
 			$delete_link = Html::anchor(
-				$this->request->route->uri(
+				$this->request->uri(
 					array(
 						'action' => 'delete',
-						'controller' => $this->request->controller,
-						'id' => $model->id(),
 					)
 				),
 				'Delete ' . $item_type,
@@ -422,11 +420,9 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				'belongs_to' => $belongs_to,
 				'children' => $children,
 				'edit_link' => Html::anchor(
-									$this->request->route
+									$this->request
 										->uri(array(
-											'controller' => $this->request->controller,
 											'action' => 'edit',
-											'id' => $model->id()
 										)),
 									'&lt; Back to ' . strtolower($item_type),
 									array(
