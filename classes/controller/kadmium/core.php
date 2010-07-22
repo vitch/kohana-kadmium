@@ -363,21 +363,28 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 	private function get_belongs_to(Jelly_Model $model)
 	{
+		$model_name = Jelly::model_name($model);
+		$model_id = $model->id();
 		$belongs_to = array();
 		foreach($model->check_before_delete as $relation) {
-			$dependencies = Jelly::select($relation['model'])->where($relation['field'], '=', $model->id())->execute();
-			foreach ($dependencies as $dependency) {
-				$belongs_to[] = array(
-					'model' => $relation['model'],
-					'name' => $dependency->name(),
-					'link' => Route::get('kadmium')->uri(
-						array(
-							'controller' => $relation['model'],
-							'action' => 'edit',
-							'id' => $dependency->id(),
-						)
-					)
-				);
+			$fields = Jelly::meta($relation)->fields();
+			foreach ($fields as $field) {
+				if ($field instanceof Field_BelongsTo && $field->foreign['model'] == $model_name) {
+					$dependencies = Jelly::select($relation)->where($field->name, '=', $model_id)->execute();
+					foreach ($dependencies as $dependency) {
+						$belongs_to[] = array(
+							'model' => $relation,
+							'name' => $dependency->name(),
+							'link' => Route::get('kadmium')->uri(
+								array(
+									'controller' => $relation,
+									'action' => 'edit',
+									'id' => $dependency->id(),
+								)
+							)
+						);
+					}
+				}
 			}
 		}
 		return $belongs_to;
