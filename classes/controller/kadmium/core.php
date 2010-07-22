@@ -154,10 +154,12 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 		$delete_link = '';
 		if(!$is_new && $model->delete_policy != Kadmium_Model_Core::DELETE_NEVER) {
+			$uri_param = $this->request->param('child_action') ? 'child_action' : 'action';
+
 			$delete_link = Html::anchor(
 				$this->request->uri(
 					array(
-						'action' => 'delete',
+						$uri_param => 'delete',
 					)
 				),
 				'Delete ' . $item_type,
@@ -373,7 +375,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 						$belongs_to[] = array(
 							'model' => $relation,
 							'name' => $dependency->name(),
-							'link' => Route::get('kadmium')->uri(
+							'link' => Route::get('kadmium')->uri( // TODO: This causes problems if the thing that is linked is a child model! How to choose which route to use?
 								array(
 									'controller' => $relation,
 									'action' => 'edit',
