@@ -3,8 +3,6 @@
 abstract class Kadmium_Field_HasManyUniquely extends Jelly_Field_HasMany
 {
 
-	public $edit_link_base = '';
-
 	public function input($prefix = 'jelly/field', $data = array())
 	{
 		/*

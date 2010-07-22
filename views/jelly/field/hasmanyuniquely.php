@@ -27,7 +27,15 @@
 				}
 				echo '<span>' . $link_contents . '</span>';
 				echo Html::anchor(
-					sprintf($field->edit_link_base, $model->id()) . $child_model->id(),
+					Route::get('kadmium_child_edit')->uri(
+						array(
+							'controller' => Request::current()->controller,
+							'child_action' => 'edit',
+							'parent_id' => $model->id(),
+							'action' => Jelly::model_name($child_model),
+							'id' => $child_model->id()
+						)
+					),
 					'edit',
 					array(
 						'class' => 'edit' . $lb_class
@@ -44,7 +52,15 @@
 		<span>
 		<?php
 			echo Html::anchor(
-				sprintf($field->edit_link_base, $model->id()) . 0,
+				Route::get('kadmium_child_edit')->uri(
+					array(
+						'controller' => Request::current()->controller,
+						'child_action' => 'edit',
+						'parent_id' => $model->id(),
+						'action' => Jelly::model_name($child_model),
+						'id' => 0
+					)
+				),
 				'Add a new ' . Inflector::humanize(Jelly::model_name($value->current())),
 				array(
 					'class' => 'add' . $lb_class
