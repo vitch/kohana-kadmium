@@ -156,12 +156,18 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		if(!$is_new && $model->delete_policy != Kadmium_Model_Core::DELETE_NEVER) {
 			$uri_param = $this->request->param('child_action') ? 'child_action' : 'action';
 
+			$delete_uri = $this->request->uri(
+				array(
+					$uri_param => 'delete',
+				)
+			);
+
+			if (Arr::get($_GET, 'lb')) {
+				$delete_uri .= '?lb=true';
+			}
+
 			$delete_link = Html::anchor(
-				$this->request->uri(
-					array(
-						$uri_param => 'delete',
-					)
-				),
+				$delete_uri,
 				'Delete ' . $item_type,
 				array(
 					'class' => 'delete'
@@ -311,6 +317,10 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$model = $this->get_model($model_name, $id);
 		if (!$model->loaded()) {
 			$this->page_not_found();
+		}
+
+		if (Request::$is_ajax || Arr::get($_GET, 'lb') == 'true') {
+			$this->template = View::factory('kadmium/lightbox_template');
 		}
 
 		$page_title = 'Delete ' . $item_type;
