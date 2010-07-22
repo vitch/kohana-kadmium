@@ -384,6 +384,26 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 							)
 						);
 					}
+				} elseif ($field instanceof Field_ManyToMany && $field->foreign['model'] == $model_name) {
+					$get_links = Jelly::select($field->through['model'])
+									->select($field->through['columns'][0])
+									->where($field->through['columns'][1], '=', $model_id)
+									->execute();
+					
+					foreach ($get_links as $link) {
+						$related = Jelly::select($relation, $link->{$field->through['columns'][0]});
+						$belongs_to[] = array(
+							'model' => $relation,
+							'name' => $related->name(),
+							'link' => Route::get('kadmium')->uri(
+								array(
+									'controller' => $relation,
+									'action' => 'edit',
+									'id' => $related->id(),
+								)
+							)
+						);
+					}
 				}
 			}
 		}
