@@ -343,15 +343,71 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				$this->_show_delete_page($page_title, $item_type, $model);
 				break;
 			case Kadmium_Model_Core::DELETE_ONLY_SPINSTER:
-				// TODO: Figure out if there are any children which will prevent deletion
-				$children = array();
-				if (count($children)) {
-					throw new Exception('NOT IMPLEMENTED');
+				$belongs_to = $this->get_belongs_to($model);
+				$children = $this->get_children($model);
+
+				if (count($belongs_to) || count($children)) {
+					$this->_show_delete_dependancies_page($page_title, $item_type, $model, $belongs_to, $children);
 				} else {
 					$this->_show_delete_page($page_title, $item_type, $model);
 				}
 				break;
 		}
+	}
+
+	private function get_children(Jelly_Model $model)
+	{
+		// TODO: Implement me!!
+		return array();
+	}
+
+	private function get_belongs_to(Jelly_Model $model)
+	{
+		$belongs_to = array();
+		foreach($model->check_before_delete as $relation) {
+			$dependencies = Jelly::select($relation['model'])->where($relation['field'], '=', $model->id())->execute();
+			foreach ($dependencies as $dependency) {
+				$belongs_to[] = array(
+					'model' => $relation['model'],
+					'name' => $dependency->name(),
+					'link' => Route::get('kadmium')->uri(
+						array(
+							'controller' => $relation['model'],
+							'action' => 'edit',
+							'id' => $dependency->id(),
+						)
+					)
+				);
+			}
+		}
+		return $belongs_to;
+	}
+
+	private function _show_delete_dependancies_page($page_title, $item_type, Jelly_Model $model, array $belongs_to, array $children)
+	{
+
+		$this->template->content = View::factory(
+			'kadmium/delete_dependencies',
+			array(
+				'page_title' => $page_title,
+				'item_type' => $item_type,
+				'item_name' => $model->name(),
+				'belongs_to' => $belongs_to,
+				'children' => $children,
+				'edit_link' => Html::anchor(
+									$this->request->route
+										->uri(array(
+											'controller' => $this->request->controller,
+											'action' => 'edit',
+											'id' => $model->id()
+										)),
+									'&lt; Back to ' . strtolower($item_type),
+									array(
+										'class' => 'back'
+									)
+								)
+			)
+		);
 	}
 
 	private function _show_delete_page($page_title, $item_type, Jelly_Model $model)
