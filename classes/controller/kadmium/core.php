@@ -376,43 +376,48 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$model_name = Jelly::model_name($model);
 		$model_id = $model->id();
 		$belongs_to = array();
-		foreach($model->check_before_delete as $relation) {
-			$fields = Jelly::meta($relation)->fields();
-			foreach ($fields as $field) {
-				if ($field instanceof Field_BelongsTo && $field->foreign['model'] == $model_name) {
-					$dependencies = Jelly::select($relation)->where($field->name, '=', $model_id)->execute();
-					foreach ($dependencies as $dependency) {
-						$belongs_to[] = array(
-							'model' => $relation,
-							'name' => $dependency->name(),
-							'link' => Route::get('kadmium')->uri( // TODO: This causes problems if the thing that is linked is a child model! How to choose which route to use?
-								array(
-									'controller' => $relation,
-									'action' => 'edit',
-									'id' => $dependency->id(),
+		$fields = $model->meta()->fields();
+		foreach ($fields as $field) {
+			if ($field instanceof Jelly_Field_Relationship) { // TODO: Shouldn't Field_Relationship work? But it's not inherited through...
+				$related_model = $field->foreign['model'];
+
+				$related_model_fields = Jelly::meta($related_model)->fields();
+				foreach ($related_model_fields as $related_model_field) {
+					if ($related_model_field instanceof Field_BelongsTo && $related_model_field->foreign['model'] == $model_name) {
+						$dependencies = Jelly::select($related_model)->where($related_model_field->name, '=', $model_id)->execute();
+						foreach ($dependencies as $dependency) {
+							$belongs_to[] = array(
+								'model' => $related_model,
+								'name' => $dependency->name(),
+								'link' => Route::get('kadmium')->uri( // TODO: This causes problems if the thing that is linked is a child model! How to choose which route to use?
+									array(
+										'controller' => $related_model,
+										'action' => 'edit',
+										'id' => $dependency->id(),
+									)
 								)
-							)
-						);
-					}
-				} elseif ($field instanceof Field_ManyToMany && $field->foreign['model'] == $model_name) {
-					$get_links = Jelly::select($field->through['model'])
-									->select($field->through['columns'][0])
-									->where($field->through['columns'][1], '=', $model_id)
-									->execute();
-					
-					foreach ($get_links as $link) {
-						$related = Jelly::select($relation, $link->{$field->through['columns'][0]});
-						$belongs_to[] = array(
-							'model' => $relation,
-							'name' => $related->name(),
-							'link' => Route::get('kadmium')->uri(
-								array(
-									'controller' => $relation,
-									'action' => 'edit',
-									'id' => $related->id(),
+							);
+						}
+					} elseif ($related_model_field instanceof Field_ManyToMany && $related_model_field->foreign['model'] == $model_name) {
+						$get_links = Jelly::select($related_model_field->through['model'])
+										->select($related_model_field->through['columns'][0])
+										->where($related_model_field->through['columns'][1], '=', $model_id)
+										->execute();
+
+						foreach ($get_links as $link) {
+							$related = Jelly::select($related_model, $link->{$related_model_field->through['columns'][0]});
+							$belongs_to[] = array(
+								'model' => $related_model,
+								'name' => $related->name(),
+								'link' => Route::get('kadmium')->uri(
+									array(
+										'controller' => $related_model,
+										'action' => 'edit',
+										'id' => $related->id(),
+									)
 								)
-							)
-						);
+							);
+						}
 					}
 				}
 			}
