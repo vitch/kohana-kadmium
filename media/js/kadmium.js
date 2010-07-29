@@ -129,7 +129,7 @@ $(
 					'width' : 820,
 					'height' : $(window).height() - 50,
 					'onOpen' : function() {
-						openedMenu = $(this).parents('ul').attr('id');
+						openedMenu = $(this).parents('ul').attr('rel');
 					},
 					'onClosed' : function() {
 						var loadingMenu = '#' + openedMenu;
@@ -137,8 +137,9 @@ $(
 							url : location.href + '?action=reload&field=' + openedMenu,
 							success : function (data)
 							{
-								$(loadingMenu).parent().html($(data).children());
-								initColorboxes(loadingMenu);
+								var wrapper = $(loadingMenu).parent();
+								wrapper.html($(data).children());
+								initColorboxes(wrapper);
 								initSortable(loadingMenu);
 							}
 						});

@@ -10,7 +10,7 @@
 		$ul_classes[] = 'sortable';
 	}
 ?>
-<ul class="<?= implode(' ', $ul_classes); ?>" id="<?= $field->name; ?>">
+<ul class="<?= implode(' ', $ul_classes); ?>" rel="<?= $field->name; ?>" id="<?= $field->name; ?>">
 	<?php
 	foreach($value as $child_model):
 	?>
@@ -47,7 +47,7 @@
 	endforeach;
 	?>
 </ul>
-<ul class="has-many-uniquely">
+<ul class="has-many-uniquely" rel="<?= $field->name; ?>">
 	<li>
 		<span>
 		<?php
