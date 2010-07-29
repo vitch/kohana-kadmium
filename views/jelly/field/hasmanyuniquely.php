@@ -57,7 +57,7 @@
 						'controller' => Request::current()->controller,
 						'child_action' => 'edit',
 						'parent_id' => $model->id(),
-						'action' => Jelly::model_name($child_model),
+						'action' => $field->foreign['model'],
 						'id' => 0
 					)
 				),
