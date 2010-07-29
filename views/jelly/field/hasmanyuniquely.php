@@ -20,7 +20,11 @@
 					$image_field = $child_model->meta()->fields($field->list_as_thumbnails);
 					$path = count($image_field->thumbnails) ? $image_field->thumbnails[0]['path'] : $image_field->path;
 					$link_contents = Html::image(
-						str_replace(DOCROOT, '', $path) . $child_model->get($field->list_as_thumbnails)
+						str_replace(DOCROOT, '', $path) . $child_model->get($field->list_as_thumbnails),
+						array(
+							'alt' => $child_model->name(),
+							'title' => $child_model->name(),
+						)
 					);
 				} else {
 					$link_contents = $child_model->name();
