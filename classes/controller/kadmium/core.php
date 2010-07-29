@@ -380,17 +380,32 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 					if ($related_model_field instanceof Field_BelongsTo && $related_model_field->foreign['model'] == $model_name) {
 						$dependencies = Jelly::select($related_model)->where($related_model_field->name, '=', $model_id)->execute();
 
-						$add_to_array = $field instanceof Field_HasManyUniquely ? 'children' : 'belongs_to';
+						if ($field instanceof Field_HasManyUniquely) {
+							$add_to_array = 'children';
+							$link_route = Route::get('kadmium_child_edit');
+							$uri_params = array(
+								'controller' => $model_name,
+								'child_action' => 'edit',
+								'action' => $related_model,
+								'parent_id' => $model_id
+							);
+						} else {
+							$add_to_array = 'belongs_to';
+							$link_route = Route::get('kadmium');
+							$uri_params = array(
+								'controller' => $related_model,
+								'action' => 'edit',
+							);
+						}
+
 						foreach ($dependencies as $dependency) {
 							array_push(
 								$$add_to_array,
 								array(
 									'model' => $related_model,
 									'name' => $dependency->name(),
-									'link' => Route::get('kadmium')->uri( // TODO: This causes problems if the thing that is linked is a child model! How to choose which route to use?
-										array(
-											'controller' => $related_model,
-											'action' => 'edit',
+									'link' => $link_route->uri(
+										$uri_params + array(
 											'id' => $dependency->id(),
 										)
 									)
