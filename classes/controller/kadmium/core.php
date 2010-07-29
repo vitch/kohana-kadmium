@@ -328,6 +328,15 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 		switch ($model->delete_policy) {
 			case Kadmium_Model_Core::DELETE_NEVER:
+				if ($this->request->param('parent_id')) {
+					$uri_params = array(
+						'child_action' => 'edit',
+					);
+				} else {
+					$uri_params = array(
+						'action' => 'edit',
+					);
+				}
 				$this->template->content = View::factory(
 					'kadmium/delete_forbidden',
 					array(
@@ -335,17 +344,12 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 						'item_type' => $item_type,
 						'item_name' => $model->name(),
 						'edit_link' => Html::anchor(
-											$this->request->route
-												->uri(array(
-													'controller' => $this->request->controller,
-													'action' => 'edit',
-													'id' => $model->id()
-												)),
-											'&lt; Back to ' . strtolower($item_type),
-											array(
-												'class' => 'back'
-											)
-										)
+							$this->request->uri($uri_params),
+							'&lt; Back to ' . strtolower($item_type),
+							array(
+								'class' => 'back'
+							)
+						)
 					)
 				);
 				break;
@@ -441,7 +445,15 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 	private function _show_delete_dependancies_page($page_title, $item_type, Jelly_Model $model, array $belongs_to, array $children)
 	{
-
+		if ($this->request->param('parent_id')) {
+			$uri_params = array(
+				'child_action' => 'edit',
+			);
+		} else {
+			$uri_params = array(
+				'action' => 'edit',
+			);
+		}
 		$this->template->content = View::factory(
 			'kadmium/delete_dependencies',
 			array(
@@ -451,15 +463,12 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				'belongs_to' => $belongs_to,
 				'children' => $children,
 				'edit_link' => Html::anchor(
-									$this->request
-										->uri(array(
-											'action' => 'edit',
-										)),
-									'&lt; Back to ' . strtolower($item_type),
-									array(
-										'class' => 'back'
-									)
-								)
+					$this->request->uri($uri_params),
+					'&lt; Back to ' . strtolower($item_type),
+					array(
+						'class' => 'back'
+					)
+				)
 			)
 		);
 	}
