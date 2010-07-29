@@ -353,8 +353,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				$this->_show_delete_page($page_title, $item_type, $model);
 				break;
 			case Kadmium_Model_Core::DELETE_ONLY_SPINSTER:
-				$belongs_to = $this->get_belongs_to($model);
-				$children = $this->get_children($model);
+				list($belongs_to, $children) = $this->get_relations($model);
 
 				if (count($belongs_to) || count($children)) {
 					$this->_show_delete_dependancies_page($page_title, $item_type, $model, $belongs_to, $children);
@@ -365,17 +364,12 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		}
 	}
 
-	private function get_children(Jelly_Model $model)
-	{
-		// TODO: Implement me!!
-		return array();
-	}
-
-	private function get_belongs_to(Jelly_Model $model)
+	private function get_relations(Jelly_Model $model)
 	{
 		$model_name = Jelly::model_name($model);
 		$model_id = $model->id();
 		$belongs_to = array();
+		$children = array();
 		$fields = $model->meta()->fields();
 		foreach ($fields as $field) {
 			if ($field instanceof Jelly_Field_Relationship) { // TODO: Shouldn't Field_Relationship work? But it's not inherited through...
@@ -385,24 +379,29 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				foreach ($related_model_fields as $related_model_field) {
 					if ($related_model_field instanceof Field_BelongsTo && $related_model_field->foreign['model'] == $model_name) {
 						$dependencies = Jelly::select($related_model)->where($related_model_field->name, '=', $model_id)->execute();
+
+						$add_to_array = $field instanceof Field_HasManyUniquely ? 'children' : 'belongs_to';
 						foreach ($dependencies as $dependency) {
-							$belongs_to[] = array(
-								'model' => $related_model,
-								'name' => $dependency->name(),
-								'link' => Route::get('kadmium')->uri( // TODO: This causes problems if the thing that is linked is a child model! How to choose which route to use?
-									array(
-										'controller' => $related_model,
-										'action' => 'edit',
-										'id' => $dependency->id(),
+							array_push(
+								$$add_to_array,
+								array(
+									'model' => $related_model,
+									'name' => $dependency->name(),
+									'link' => Route::get('kadmium')->uri( // TODO: This causes problems if the thing that is linked is a child model! How to choose which route to use?
+										array(
+											'controller' => $related_model,
+											'action' => 'edit',
+											'id' => $dependency->id(),
+										)
 									)
 								)
 							);
 						}
 					} elseif ($related_model_field instanceof Field_ManyToMany && $related_model_field->foreign['model'] == $model_name) {
 						$get_links = Jelly::select($related_model_field->through['model'])
-										->select($related_model_field->through['columns'][0])
-										->where($related_model_field->through['columns'][1], '=', $model_id)
-										->execute();
+								->select($related_model_field->through['columns'][0])
+								->where($related_model_field->through['columns'][1], '=', $model_id)
+								->execute();
 
 						foreach ($get_links as $link) {
 							$related = Jelly::select($related_model, $link->{$related_model_field->through['columns'][0]});
@@ -422,7 +421,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				}
 			}
 		}
-		return $belongs_to;
+		return array($belongs_to, $children);
 	}
 
 	private function _show_delete_dependancies_page($page_title, $item_type, Jelly_Model $model, array $belongs_to, array $children)
