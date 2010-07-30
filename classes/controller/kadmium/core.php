@@ -572,11 +572,14 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		return TRUE;
 	}
 
-	// override for more specific behaviour
 	protected function page_not_found()
 	{
 		$this->request->status = 404;
 		$this->auto_render = false;
+		echo Request::factory('/' . Kohana::config('kadmium')->base_path . '/error/page_not_found')
+				->execute()
+				->send_headers()
+				->response;
 	}
 
 }

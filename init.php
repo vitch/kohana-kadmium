@@ -35,9 +35,17 @@ Route::set(
 		'child_action' => 'edit'
 	));
 
+Route::set('kadmium_error', $base_path . '/error/<action>')
+	->defaults(array(
+		'directory'  => 'kadmium',
+		'controller' => 'error',
+		'action'     => 'index',
+	));
+
 Route::set('kadmium', $base_path . '(/<controller>(/<action>(/<id>)))', array('id'=>'[0-9]+'))
 	->defaults(array(
 		'directory'  => $base_path,
 		'controller' => $base_path,
 		'action'     => 'index',
 	));
+
