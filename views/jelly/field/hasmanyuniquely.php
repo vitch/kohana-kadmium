@@ -10,7 +10,7 @@
 		$ul_classes[] = 'sortable';
 	}
 ?>
-<ul class="<?= implode(' ', $ul_classes); ?>" id="<?= $field->name; ?>">
+<ul class="<?= implode(' ', $ul_classes); ?>" rel="<?= $field->name; ?>" id="<?= $field->name; ?>">
 	<?php
 	foreach($value as $child_model):
 	?>
@@ -20,14 +20,26 @@
 					$image_field = $child_model->meta()->fields($field->list_as_thumbnails);
 					$path = count($image_field->thumbnails) ? $image_field->thumbnails[0]['path'] : $image_field->path;
 					$link_contents = Html::image(
-						str_replace(DOCROOT, '', $path) . $child_model->get($field->list_as_thumbnails)
+						str_replace(DOCROOT, '', $path) . $child_model->get($field->list_as_thumbnails),
+						array(
+							'alt' => $child_model->name(),
+							'title' => $child_model->name(),
+						)
 					);
 				} else {
 					$link_contents = $child_model->name();
 				}
 				echo '<span>' . $link_contents . '</span>';
 				echo Html::anchor(
-					sprintf($field->edit_link_base, $model->id()) . $child_model->id(),
+					Route::get('kadmium_child_edit')->uri(
+						array(
+							'controller' => Request::current()->controller,
+							'child_action' => 'edit',
+							'parent_id' => $model->id(),
+							'action' => Jelly::model_name($child_model),
+							'id' => $child_model->id()
+						)
+					),
 					'edit',
 					array(
 						'class' => 'edit' . $lb_class
@@ -39,12 +51,20 @@
 	endforeach;
 	?>
 </ul>
-<ul class="has-many-uniquely">
+<ul class="has-many-uniquely" rel="<?= $field->name; ?>">
 	<li>
 		<span>
 		<?php
 			echo Html::anchor(
-				sprintf($field->edit_link_base, $model->id()) . 0,
+				Route::get('kadmium_child_edit')->uri(
+					array(
+						'controller' => Request::current()->controller,
+						'child_action' => 'edit',
+						'parent_id' => $model->id(),
+						'action' => $field->foreign['model'],
+						'id' => 0
+					)
+				),
 				'Add a new ' . Inflector::humanize(Jelly::model_name($value->current())),
 				array(
 					'class' => 'add' . $lb_class

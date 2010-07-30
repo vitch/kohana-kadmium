@@ -21,16 +21,18 @@ Route::set('kadmium_list', $base_path . '/<controller>/list(/<page>)', array('pa
 
 Route::set(
 		'kadmium_child_edit',
-		$base_path . '/<controller>/edit/<parent_id>/<action>/<id>',
+		$base_path . '/<controller>/<child_action>/<parent_id>/<action>/<id>',
 		array(
-			'controller' => $kadmium_config->valid_parent_controllers,
-			'parent_id'  => '[0-9]+',
-			'action'     => $kadmium_config->valid_child_controllers,
-			'id'         => '[0-9]+'
+			'controller'   => $kadmium_config->valid_parent_controllers,
+			'parent_id'    => '[0-9]+',
+			'action'       => $kadmium_config->valid_child_controllers,
+			'child_action' => 'edit|delete',
+			'id'           => '[0-9]+'
 		)
 	)
 	->defaults(array(
-		'directory'  => $base_path
+		'directory'    => $base_path,
+		'child_action' => 'edit'
 	));
 
 Route::set('kadmium', $base_path . '(/<controller>(/<action>(/<id>)))', array('id'=>'[0-9]+'))

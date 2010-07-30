@@ -152,6 +152,29 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			Session::instance()->delete('__FLASH__');
 		}
 
+		$delete_link = '';
+		if(!$is_new && $model->delete_policy != Kadmium_Model_Core::DELETE_NEVER) {
+			$uri_param = $this->request->param('child_action') ? 'child_action' : 'action';
+
+			$delete_uri = $this->request->uri(
+				array(
+					$uri_param => 'delete',
+				)
+			);
+
+			if (Arr::get($_GET, 'lb')) {
+				$delete_uri .= '?lb=true';
+			}
+
+			$delete_link = Html::anchor(
+				$delete_uri,
+				'Delete ' . $item_type,
+				array(
+					'class' => 'delete'
+				)
+			);
+		}
+
 		$this->template->content = View::factory(
 			'kadmium/edit',
 			array(
@@ -159,6 +182,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				'item' => $model,
 				'feedback_message' => $feedback_message,
 				'error_message' => $error_message,
+				'delete_link' => $delete_link,
 				'fields' => View::factory(
 					'kadmium/fields',
 					array(
@@ -286,6 +310,193 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				'pagination' => $pagination->render(),
 			)
 		);
+	}
+
+	protected function show_delete_page($item_type, $model_name, $id)
+	{
+		$model = $this->get_model($model_name, $id);
+		if (!$model->loaded()) {
+			$this->page_not_found();
+		}
+
+		if (Request::$is_ajax || Arr::get($_GET, 'lb') == 'true') {
+			$this->template = View::factory('kadmium/lightbox_template');
+		}
+
+		$page_title = 'Delete ' . $item_type;
+		$this->init_template($page_title);
+
+		switch ($model->delete_policy) {
+			case Kadmium_Model_Core::DELETE_NEVER:
+				if ($this->request->param('parent_id')) {
+					$uri_params = array(
+						'child_action' => 'edit',
+					);
+				} else {
+					$uri_params = array(
+						'action' => 'edit',
+					);
+				}
+				$this->template->content = View::factory(
+					'kadmium/delete_forbidden',
+					array(
+						'page_title' => $page_title,
+						'item_type' => $item_type,
+						'item_name' => $model->name(),
+						'edit_link' => Html::anchor(
+							$this->request->uri($uri_params),
+							'&lt; Back to ' . strtolower($item_type),
+							array(
+								'class' => 'back'
+							)
+						)
+					)
+				);
+				break;
+			case Kadmium_Model_Core::DELETE_ALL_CHILDREN:
+				$this->_show_delete_page($page_title, $item_type, $model);
+				break;
+			case Kadmium_Model_Core::DELETE_ONLY_SPINSTER:
+				list($belongs_to, $children) = $this->get_relations($model);
+
+				if (count($belongs_to) || count($children)) {
+					$this->_show_delete_dependancies_page($page_title, $item_type, $model, $belongs_to, $children);
+				} else {
+					$this->_show_delete_page($page_title, $item_type, $model);
+				}
+				break;
+		}
+	}
+
+	private function get_relations(Jelly_Model $model)
+	{
+		$model_name = Jelly::model_name($model);
+		$model_id = $model->id();
+		$belongs_to = array();
+		$children = array();
+		$fields = $model->meta()->fields();
+		foreach ($fields as $field) {
+			if ($field instanceof Jelly_Field_Relationship) { // TODO: Shouldn't Field_Relationship work? But it's not inherited through...
+				$related_model = $field->foreign['model'];
+
+				$related_model_fields = Jelly::meta($related_model)->fields();
+				foreach ($related_model_fields as $related_model_field) {
+					if ($related_model_field instanceof Field_BelongsTo && $related_model_field->foreign['model'] == $model_name) {
+						$dependencies = Jelly::select($related_model)->where($related_model_field->name, '=', $model_id)->execute();
+
+						if ($field instanceof Field_HasManyUniquely) {
+							$add_to_array = 'children';
+							$link_route = Route::get('kadmium_child_edit');
+							$uri_params = array(
+								'controller' => $model_name,
+								'child_action' => 'edit',
+								'action' => $related_model,
+								'parent_id' => $model_id
+							);
+						} else {
+							$add_to_array = 'belongs_to';
+							$link_route = Route::get('kadmium');
+							$uri_params = array(
+								'controller' => $related_model,
+								'action' => 'edit',
+							);
+						}
+
+						foreach ($dependencies as $dependency) {
+							array_push(
+								$$add_to_array,
+								array(
+									'model' => $related_model,
+									'name' => $dependency->name(),
+									'link' => $link_route->uri(
+										$uri_params + array(
+											'id' => $dependency->id(),
+										)
+									)
+								)
+							);
+						}
+					} elseif ($related_model_field instanceof Field_ManyToMany && $related_model_field->foreign['model'] == $model_name) {
+						$get_links = Jelly::select($related_model_field->through['model'])
+								->select($related_model_field->through['columns'][0])
+								->where($related_model_field->through['columns'][1], '=', $model_id)
+								->execute();
+
+						foreach ($get_links as $link) {
+							$related = Jelly::select($related_model, $link->{$related_model_field->through['columns'][0]});
+							$belongs_to[] = array(
+								'model' => $related_model,
+								'name' => $related->name(),
+								'link' => Route::get('kadmium')->uri(
+									array(
+										'controller' => $related_model,
+										'action' => 'edit',
+										'id' => $related->id(),
+									)
+								)
+							);
+						}
+					}
+				}
+			}
+		}
+		return array($belongs_to, $children);
+	}
+
+	private function _show_delete_dependancies_page($page_title, $item_type, Jelly_Model $model, array $belongs_to, array $children)
+	{
+		if ($this->request->param('parent_id')) {
+			$uri_params = array(
+				'child_action' => 'edit',
+			);
+		} else {
+			$uri_params = array(
+				'action' => 'edit',
+			);
+		}
+		$this->template->content = View::factory(
+			'kadmium/delete_dependencies',
+			array(
+				'page_title' => $page_title,
+				'item_type' => $item_type,
+				'item_name' => $model->name(),
+				'belongs_to' => $belongs_to,
+				'children' => $children,
+				'edit_link' => Html::anchor(
+					$this->request->uri($uri_params),
+					'&lt; Back to ' . strtolower($item_type),
+					array(
+						'class' => 'back'
+					)
+				)
+			)
+		);
+	}
+
+	private function _show_delete_page($page_title, $item_type, Jelly_Model $model)
+	{
+		if (Arr::get($_POST, 'my-action') == $page_title) {
+			// IsPostBack
+			$name = $model->name();
+			$model->delete();
+			$this->template->content = View::factory(
+				'kadmium/deleted',
+				array(
+					'page_title' => $page_title,
+					'item_type' => $item_type,
+					'item_name' => $name,
+				)
+			);
+		} else {
+			$this->template->content = View::factory(
+				'kadmium/delete',
+				array(
+					'page_title' => $page_title,
+					'item_type' => $item_type,
+					'item_name' => $model->name()
+				)
+			);
+		}
 	}
 
 	/**

@@ -550,7 +550,9 @@ a.edit
 */
 
 #kadmium-content .main a.back,
-#kadmium-content.lb a.back
+#kadmium-content.lb a.back,
+#kadmium-content .main a.delete,
+#kadmium-content.lb a.delete
 {
 	background: rgb(120, 120, 143);
 	background: rgba(41, 41, 76, 0.6);
@@ -570,4 +572,17 @@ a.edit
 #kadmium-content.lb a.back:hover
 {
 	background: #f60;
+}
+
+#kadmium-content .main a.delete,
+#kadmium-content.lb a.delete
+{
+	background: rgb(248, 139, 128);
+	background: rgba(255, 73, 51, .6);
+}
+
+#kadmium-content .main a.delete:hover,
+#kadmium-content.lb a.delete:hover
+{
+	background: rgb(255, 73, 51);
 }
