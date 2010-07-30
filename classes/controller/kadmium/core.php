@@ -49,6 +49,11 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		return parent::after();
 	}
 
+	protected function init_template($html_title)
+	{
+		$this->template->html_title = $html_title;
+	}
+
 	protected function show_edit_page($item_type, $model_name, $id = 0)
 	{
 		$this->show_edit_page_from_model(
