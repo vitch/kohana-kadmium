@@ -10,7 +10,7 @@
 		<?php foreach ($scripts as $script) echo HTML::script($script, NULL, TRUE), "\n\t\t" ?>
 
 	</head>
-	<body>
+	<body class="<?= $is_logged_in ? 'logged-in' : 'logged-out'; ?>">
 		<div id="kadmium-content">
 			<!--[if IE]>
 				<div id="ie-warning">
