@@ -280,8 +280,13 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			array(
 				'total_items' => $builder->count(),
 				'items_per_page' => $rpp,
+				'page' => $this->request->param('page')
 			)
 		);
+
+		if ($pagination->current_page != $this->request->param('page')) {
+			throw new Kadmium_Exception_PageNotFound();
+		}
 
 		$items = $builder->limit($rpp)->offset($pagination->offset)->execute();
 

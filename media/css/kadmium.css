@@ -522,6 +522,27 @@ div.error p:last-child
 	margin-bottom: 0;
 }
 
+/* Pagination */
+
+ul.pagination
+{
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+ul.pagination li
+{
+	float: left;
+	list-style: none;
+	margin: 0 3px 0 0;
+}
+
+ul.pagination li.selected
+{
+	font-weight: bold;
+}
+
 /* Icon buttons */
 
 a.sorter
