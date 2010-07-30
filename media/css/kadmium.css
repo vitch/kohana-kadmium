@@ -77,6 +77,11 @@ body
 	margin: 0 0 0 10px;
 }
 
+#kadmium-content>.main:first-child
+{
+	margin-left: 120px;
+}
+
 #kadmium-content.lb
 {
 	width: 700px;
