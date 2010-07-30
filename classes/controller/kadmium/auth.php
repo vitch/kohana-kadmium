@@ -17,7 +17,7 @@ class Controller_Kadmium_Auth extends Controller_Template
 	protected function require_login()
 	{
 		if($this->auth->logged_in() == 0) {
-			throw new Exception_NoPermission();
+			throw new Kadmium_Exception_NoPermission();
 		}
 	}
 }
