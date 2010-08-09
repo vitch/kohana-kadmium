@@ -26,8 +26,8 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		);
 
 		$this->scripts = $this->scripts + array(
-			//'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
-			$media->uri(array('file' => 'js/jquery-1.4.2.min.js')),
+			'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
+			//$media->uri(array('file' => 'js/jquery-1.4.2.min.js')),
 			$media->uri(array('file' => 'js/date.js')),
 			$media->uri(array('file' => 'js/jquery.datePicker.js')),
 			$media->uri(array('file' => 'tiny_mce/jquery.tinymce.js')),
