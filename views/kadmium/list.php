@@ -8,7 +8,6 @@ if ($items->count() == 0) :
 		You don't have any <?= Inflector::plural($item_type); ?> yet. You can <?=
 			Html::anchor(
 				Route::get('kadmium')
-					->route
 					->uri(array(
 						'controller' => Request::instance()->controller,
 						'action' => 'new'
