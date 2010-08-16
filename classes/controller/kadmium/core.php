@@ -534,7 +534,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		return $fields;
 	}
 
-	protected function generate_field(Jelly_Model $model, & $fields, $field_id, $field, array $validation_errors = array())
+	protected function generate_field(Jelly_Model $model, & $fields, $field_id, $field, array $validation_errors = array(), $attrs = array())
 	{
 		$field_id_attr = 'field-' . $field->name;
 
@@ -542,7 +542,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			return;
 		}
 
-		$id_attribs = array('attributes'=>array('id'=>$field_id_attr));
+		$id_attribs = array('attributes'=>array('id'=>$field_id_attr) + $attrs);
 
 		if ($field instanceof Field_HasManyUniquely) {
 			$label = '<h3>' . $field->label;
