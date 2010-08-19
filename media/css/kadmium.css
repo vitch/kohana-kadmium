@@ -413,6 +413,10 @@ ul.img-list li a
 	background: none;
 	padding: 0;
 }
+ul.imagefiles li img
+{
+	max-width: 700px;
+}
 
 /* List page */
 
