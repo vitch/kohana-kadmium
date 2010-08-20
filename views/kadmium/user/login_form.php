@@ -1,4 +1,7 @@
-<form method="post" action="/user/login">
+<?=
+Form::open('user/login');
+?>
+
 	<input type="hidden" name="my-action" value="login" />
 	<input type="hidden" name="next" value="<?= $redirect; ?>" />
 	<ul class="fields">

@@ -10,10 +10,10 @@ if ($feedback_message != '') {
 }
 
 echo View::factory(
-	'user/login_form',
+	'kadmium/user/login_form',
 	array(
 		'username' => $username,
-		'redirect' => '/'
+		'redirect' => Kohana::config('kadmium')->base_path
 	)
 );
 
