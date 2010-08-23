@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Handles long strings
+ * Handles items that are sortable...
  *
  * @package  Jelly
  */
