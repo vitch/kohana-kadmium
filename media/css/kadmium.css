@@ -38,14 +38,26 @@ body
 	padding: 0;
 }
 
+#kadmium-content ul.navigation li ul
+{
+	margin: 5px 0 0 1em;
+}
+
 #kadmium-content ul.navigation li:last-of-type
 {
 	margin: 0;
 }
 
-#kadmium-content ul.navigation li a
+#kadmium-content ul.navigation h3
+{
+	font-weight: normal;
+}
+
+#kadmium-content ul.navigation h3,
+#kadmium-content ul.navigation a
 {
 	padding: 4px 7px 3px;
+	margin: 0;
 	color: #333;
 	background: rgb(255, 255, 255);
 	font-size: 93%;
@@ -54,6 +66,12 @@ body
 	border-radius: 3px;
 	display: block;
 	text-decoration: none;
+}
+
+#kadmium-content ul.navigation h3.open
+{
+	color: #eee;
+	background: rgba(41, 41, 76, 0.8);
 }
 
 #kadmium-content ul.navigation li a.active,

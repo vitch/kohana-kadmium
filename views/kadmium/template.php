@@ -30,19 +30,47 @@
 			<?php
 					foreach ($navigation_controllers as $controller=>$label)
 					{
-						echo '<li>';
-						echo Html::anchor(
-							Route::get('kadmium_list')->uri(
+						if (is_array($label)) {
+			?>
+				<li class="subnav">
+					<h3><?= $controller; ?></h3>
+					<ul>
+					<?php
+							foreach ($label as $sub_controller=>$sub_label)
+							{
+								echo '<li>';
+								echo Html::anchor(
+									Route::get('kadmium_list')->uri(
+										array(
+											'controller' => $sub_controller
+										)
+									),
+									$sub_label,
+									array(
+										'class' => Request::current()->controller == $sub_controller ? 'active' : ''
+									)
+								);
+								echo '</li>';
+							}
+					?>
+					</ul>
+				</li>
+			<?php
+						} else {
+							echo '<li>';
+							echo Html::anchor(
+								Route::get('kadmium_list')->uri(
+									array(
+										'controller' => $controller
+									)
+								),
+								$label,
 								array(
-									'controller' => $controller
+									'class' => Request::current()->controller == $controller ? 'active' : ''
 								)
-							),
-							$label,
-							array(
-								'class' => Request::current()->controller == $controller ? 'active' : ''
-							)
-						);
-						echo '</li>';
+							);
+							echo '</li>';
+						}
 					}
 			?>
 			</ul>

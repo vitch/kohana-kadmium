@@ -47,6 +47,28 @@ $(
 			sortable: false
 		});
 
+		// Collapsible side nav panes
+		$('ul.navigation ul').each(
+			function()
+			{
+				var ul = $(this).hide();
+				var isOpen = false;
+				var h3 = ul.prev('h3').css('cursor', 'pointer').bind(
+					'click',
+					function()
+					{
+						ul[isOpen ? 'slideUp' : 'slideDown']();
+						isOpen = !isOpen;
+						h3[isOpen ? 'addClass' : 'removeClass']('open');
+					}
+				);
+				if (ul.has('a.active').length > 0) {
+					ul.show();
+					h3.trigger('click');
+				}
+			}
+		);
+
 		// Handle sorting for list tables...
 		var hasSortableTable = false; // TODO: Will break if there is more than one list-table on the page
 		$('table.list-page span.sort-on').each(
