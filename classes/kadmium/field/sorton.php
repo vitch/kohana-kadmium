@@ -22,7 +22,7 @@ abstract class Kadmium_Field_SortOn extends Field_Integer
 		if ($value == null) {
 			$builder = Jelly::select($model->meta()->model());
 			$fk = $model->meta()->foreign_key();
-			if ($fk != '') {
+			if ($fk != Kadmium_Model_Core::NO_FOREIGN_KEY) {
 				// TODO: There must be a way to just get at the value without having to execute the
 				// query and then get it back out?!??!
 				$foreign = $model->get($fk)->execute();

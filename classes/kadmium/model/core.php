@@ -10,5 +10,7 @@ abstract class Kadmium_Model_Core extends Jelly_Model_Core
 	// Only allow delete to succed if there are no unique child
 	const DELETE_ONLY_SPINSTER = 2;
 
+	const NO_FOREIGN_KEY = 'THEREISREALLYNOFOREIGNKEY-DONNOTGUESSONEFORME!';
+
 	public $delete_policy = Kadmium_Model_Core::DELETE_ONLY_SPINSTER;
 }
