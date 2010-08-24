@@ -302,6 +302,21 @@ textarea.wysiwyg
 	height: 35em;
 }
 
+textarea.lines-10
+{
+	height: 10em;
+}
+
+textarea.lines-15
+{
+	height: 15em;
+}
+
+textarea.lines-20
+{
+	height: 20em;
+}
+
 a.dp-choose-date {
 	float: left;
 	width: 16px;
