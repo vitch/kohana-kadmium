@@ -195,11 +195,6 @@ div.error-message
 	clear: left;
 }
 
-input.timestamp
-{
-	float: left;
-}
-
 label,
 ul.fields h2,
 ul.fields h3
@@ -315,22 +310,6 @@ textarea.lines-15
 textarea.lines-20
 {
 	height: 20em;
-}
-
-a.dp-choose-date {
-	float: left;
-	width: 16px;
-	height: 16px;
-	padding: 0;
-	margin: 3px 3px 0;
-	display: block;
-	text-indent: -2000px;
-	overflow: hidden;
-	background: url(../img/calendar.png) no-repeat; 
-}
-a.dp-choose-date.dp-disabled {
-	background-position: 0 -20px;
-	cursor: default;
 }
 
 ul.fields
@@ -451,6 +430,30 @@ ul.img-list li a
 ul.imagefiles li img
 {
 	max-width: 700px;
+}
+
+/* Date picker specific styles */
+
+ul.fields li input[type=text].timestamp
+{
+	width: 322px;
+}
+
+a.dp-choose-date {
+	float: left;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 3px 3px 0;
+	display: block;
+	text-indent: -2000px;
+	overflow: hidden;
+	background: url(../img/calendar.png) no-repeat;
+}
+
+a.dp-choose-date.dp-disabled {
+	background-position: 0 -20px;
+	cursor: default;
 }
 
 /* List page */
