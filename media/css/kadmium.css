@@ -247,6 +247,8 @@ ul.fields ul.has-many-uniquely li
 	margin: 0 0 4px;
 	font-size: 93%;
 	padding: 2px 3px 3px;
+	min-width: 35px;
+	min-height: 25px;
 	border: 0;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
