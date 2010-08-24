@@ -251,7 +251,14 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 	protected function show_list_page($item_type, $model_name)
 	{
 		// update any sort on fields...
-		$sort_on_field = Jelly::factory($model_name)->sort_field;
+		$fields = Jelly::meta($model_name)->fields();
+		$sort_on_field = FALSE;
+		foreach($fields as $field) {
+			if ($field instanceof Field_SortOn) {
+				$sort_on_field = $field;
+				break;
+			}
+		}
 		if ($sort_on_field && Arr::get($_POST, 'my-action') == 'sortItems') {
 			$ids = explode(',', Arr::get($_POST, 'ids', ''));
 			$index = 1;
@@ -266,7 +273,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				*/
 				Jelly::select($model_name, $id)->set(
 					array(
-						$sort_on_field => $index++,
+						$sort_on_field->column => $index++,
 					)
 				)->save();
 			}
@@ -278,7 +285,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$this->init_template('List ' . Inflector::plural($item_type));
 		$builder = Jelly::select($model_name);
 		if ($sort_on_field) {
-			$builder->order_by($sort_on_field);
+			$builder->order_by($sort_on_field->column);
 		}
 		$rpp = Kohana::config('kadmium')->results_per_list_page;
 		$pagination = Pagination::factory(
