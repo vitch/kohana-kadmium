@@ -8,6 +8,7 @@
 abstract class Kadmium_Field_SortOn extends Field_Integer
 {
 	public $show_in_edit = false;
+	public $category_key;
 
 	/**
 	 * If value is null (e.g. initial saving of model) then value
@@ -21,12 +22,11 @@ abstract class Kadmium_Field_SortOn extends Field_Integer
 	{
 		if ($value == null) {
 			$builder = Jelly::select($model->meta()->model());
-			$fk = $model->meta()->foreign_key();
-			if ($fk != Kadmium_Model_Core::NO_FOREIGN_KEY) {
+			if (isset($this->category_key)) {
 				// TODO: There must be a way to just get at the value without having to execute the
 				// query and then get it back out?!??!
-				$foreign = $model->get($fk)->execute();
-				$builder->where($fk, '=', $foreign->get($foreign->meta()->primary_key()));
+				$foreign = $model->get($this->category_key)->execute();
+				$builder->where($this->category_key, '=', $foreign->get($foreign->meta()->primary_key()));
 			}
 			$value = $builder->count() + 1;
 		}
