@@ -439,7 +439,8 @@ ul.fields li input[type=text].timestamp
 	width: 322px;
 }
 
-a.dp-choose-date {
+a.dp-choose-date
+{
 	float: left;
 	width: 16px;
 	height: 16px;
@@ -451,9 +452,73 @@ a.dp-choose-date {
 	background: url(../img/calendar.png) no-repeat;
 }
 
-a.dp-choose-date.dp-disabled {
+a.dp-choose-date.dp-disabled
+{
 	background-position: 0 -20px;
 	cursor: default;
+}
+
+div.dp-popup
+{
+	background: rgb(246, 246, 249);
+
+	padding: 4px;
+	width: 165px;
+	border: 1px solid rgba(41, 41, 76, .8);
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+table.jCalendar
+{
+	border: none;
+	background: transparent;
+	margin: 0;
+}
+table.jCalendar th
+{
+	background: rgb(80, 80, 109);
+	background: rgba(41, 41, 76, .8);
+	border: none;
+	color: #fff;
+	font-weight: bold;
+	padding: 3px 5px;
+	text-align: center;
+
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+}
+
+table.jCalendar td
+{
+
+	background: rgb(127, 127, 153);
+	background: rgba(127, 127, 153, 1);
+	border: none;
+
+	color: #fff;
+	padding: 3px 5px;
+	text-align: center;
+	
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+}
+
+table.jCalendar td.other-month
+{
+	background: #ddd;
+	background: rgba(127, 127, 153, .6);
+	color: rgb(127, 127, 153);
+}
+
+table.jCalendar td.dp-hover
+{
+	background: #f60;
+	color: #fff;
 }
 
 /* List page */
