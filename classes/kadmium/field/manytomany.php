@@ -2,6 +2,9 @@
 
 abstract class Kadmium_Field_ManyToMany extends Jelly_Field_ManyToMany
 {
+
+	var $show_in_list = FALSE;
+
 	/**
 	 * Adds a title to the attributes array to work nicely with jquery-asmselect
 	 *
