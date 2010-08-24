@@ -285,6 +285,9 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$this->init_template('List ' . Inflector::plural($item_type));
 		$builder = Jelly::select($model_name);
 		if ($sort_on_field) {
+			if (isset($sort_on_field->category_key)) {
+				$builder->order_by($sort_on_field->category_key);
+			}
 			$builder->order_by($sort_on_field->column);
 		}
 		$rpp = Kohana::config('kadmium')->results_per_list_page;
