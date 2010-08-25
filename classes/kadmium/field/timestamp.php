@@ -4,6 +4,7 @@ abstract class Kadmium_Field_Timestamp extends Jelly_Field_Timestamp
 {
 
 	var $pretty_format = 'Y-m-d';
+	var $format = 'Y-m-d';
 
 	/**
 	 * Adds the CSS class I want all of my textfields to have.
