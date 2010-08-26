@@ -362,7 +362,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 					array(
 						'page_title' => $page_title,
 						'item_type' => $item_type,
-						'item_name' => $model->name(),
+						'item_name' => $this->_get_item_name($model),
 						'edit_link' => Html::anchor(
 							$this->request->uri($uri_params),
 							'&lt; Back to ' . strtolower($item_type),
@@ -479,7 +479,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			array(
 				'page_title' => $page_title,
 				'item_type' => $item_type,
-				'item_name' => $model->name(),
+				'item_name' => $this->_get_item_name($model),
 				'belongs_to' => $belongs_to,
 				'children' => $children,
 				'edit_link' => Html::anchor(
@@ -497,7 +497,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 	{
 		if (Arr::get($_POST, 'my-action') == $page_title) {
 			// IsPostBack
-			$name = $model->name();
+			$name = $this->_get_item_name($model);
 			$model->delete();
 			$this->template->content = View::factory(
 				'kadmium/deleted',
@@ -513,11 +513,21 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				array(
 					'page_title' => $page_title,
 					'item_type' => $item_type,
-					'item_name' => $model->name()
+					'item_name' => $this->_get_item_name($model)
 				)
 			);
 		}
 	}
+
+	private function _get_item_name(Jelly_Model $model)
+	{
+		$name = $model->name();
+		if ($name instanceof Jelly_Builder) {
+			$name = $name->execute()->name();
+		}
+		return $name;
+	}
+
 
 	/**
 	 * @return Jelly_Model
