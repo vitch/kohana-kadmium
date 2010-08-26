@@ -68,18 +68,20 @@ body
 	text-decoration: none;
 }
 
-#kadmium-content ul.navigation h3.open
-{
-	color: #eee;
-	background: rgba(41, 41, 76, 0.8);
-}
-
 #kadmium-content ul.navigation li a.active,
-#kadmium-content ul.navigation li a:hover
+#kadmium-content ul.navigation li a:hover,
+#kadmium-content ul.navigation h3:hover
 {
 	color: #eee;
 	background: rgb(127, 127, 153);
 	background: rgba(127, 127, 153, 1);
+}
+
+#kadmium-content ul.navigation h3.open,
+#kadmium-content ul.navigation h3.open:hover
+{
+	color: #eee;
+	background: rgba(41, 41, 76, 0.8);
 }
 
 #kadmium-content .main
