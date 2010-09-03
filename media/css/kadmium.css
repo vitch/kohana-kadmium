@@ -358,6 +358,7 @@ ul.fields li textarea
 
 ul.fields li input[type=text]:hover,
 ul.fields li input[type=text]:focus,
+ul.fields li textarea:hover,
 ul.fields li textarea:focus
 {
 	background: rgb(255, 255, 255);
