@@ -19,6 +19,7 @@ $(
 			plugins : "paste",
 			doctype: "<!DOCTYPE HTML>",
 			cleanup_on_startup: true,
+			convert_urls: false,
 			invalid_elements: "span",
 			//theme_advanced_statusbar_location : "bottom",
 			theme_advanced_resizing : true,
