@@ -18,6 +18,11 @@ abstract class Kadmium_Field_Core extends Jelly_Field_Core
 	*/
 	public $show_in_edit = true;
 
+	/**
+	 * @var boolean Whether this field should be non-editable on edit pages (e.g. shown but not as a form element)
+	 */
+	public $prevent_edit = false;
+
 
 	/**
 	 * Displays the particular field as a form item

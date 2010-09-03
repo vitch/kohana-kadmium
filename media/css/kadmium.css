@@ -224,7 +224,8 @@ textarea,
 .has-many-uniquely,
 ul.fields #kohana_error,
 .asmContainer,
-.asmList
+.asmList,
+div.non-editable
 {
 	float: left;
 	clear: left;
@@ -343,7 +344,8 @@ ul.fields h4
 
 ul.fields li input[type=text],
 ul.fields li input[type=password],
-ul.fields li textarea
+ul.fields li textarea,
+div.non-editable
 {
 	width: 691px;
 	border: 0;

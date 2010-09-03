@@ -115,6 +115,9 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				if (!$this->include_field($field, TRUE)) {
 					continue;
 				}
+				if ($field->prevent_edit) {
+					continue;
+				}
 				if ($field instanceof Field_File) {
 					if ($_FILES[$field_id]['tmp_name'] != '' && $_FILES[$field_id]['size'] != 0) {
 						$model->set(array($field_id => Arr::get($_FILES, $field_id)));
@@ -564,24 +567,29 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 		$id_attribs = array('attributes'=>array('id'=>$field_id_attr) + $attrs);
 
-		if ($field instanceof Field_HasManyUniquely) {
-			$label = '<h3>' . $field->label;
-			if (isset($field->sort_on)) {
-				$label .= ' (drag to sort)';
-			}
-			$label .= '</h3>';
-		} else {
+		if ($field->prevent_edit) {
 			$label = Form::label($field_id_attr, $field->label);
-		}
-
-		if (isset($validation_errors[$field_id])) {
-			array_push($field->css_class, 'error');
-			$fields[$label] = $model->input($field->name, $id_attribs);
-			$fields[$label]->errors = $validation_errors[$field_id];
+			$fields[$label] = '<div class="non-editable">' . $field->display($model, $model->get($field_id)) . '</div>';
 		} else {
-			$fields[$label] = $model->input($field->name, $id_attribs);
-		}
 
+			if ($field instanceof Field_HasManyUniquely) {
+				$label = '<h3>' . $field->label;
+				if (isset($field->sort_on)) {
+					$label .= ' (drag to sort)';
+				}
+				$label .= '</h3>';
+			} else {
+				$label = Form::label($field_id_attr, $field->label);
+			}
+
+			if (isset($validation_errors[$field_id])) {
+				array_push($field->css_class, 'error');
+				$fields[$label] = $model->input($field->name, $id_attribs);
+				$fields[$label]->errors = $validation_errors[$field_id];
+			} else {
+				$fields[$label] = $model->input($field->name, $id_attribs);
+			}
+		}
 	}
 
 	protected function include_field($field, $hide_has_many_uniquely = FALSE)
