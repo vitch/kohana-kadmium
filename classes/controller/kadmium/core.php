@@ -294,9 +294,14 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$builder->order_by($sort_on_field->column);
 		}
 		$rpp = Kohana::config('kadmium')->results_per_list_page;
+
+		// Nasty workaround because Jelly_Builder->count() doesn't support custom builders
+		$count_loader = Jelly::select($model_name)->select(DB::expr('COUNT(*) AS num'))->execute()->as_array();
+		$count = $count_loader[0]['num'];
+
 		$pagination = Pagination::factory(
 			array(
-				'total_items' => $builder->count(),
+				'total_items' => $count,
 				'items_per_page' => $rpp,
 				'page' => $this->request->param('page')
 			)
