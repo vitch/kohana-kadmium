@@ -18,4 +18,4 @@
 	<?php endif ?>
 
 
-</p><!-- .pagination -->
+</ul><!-- .pagination -->
