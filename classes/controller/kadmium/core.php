@@ -35,6 +35,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$media->uri(array('file' => 'js/jquery.tablednd_0_5.js')),
 			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
 			$media->uri(array('file' => 'js/jquery-ui-1.8.2.custom.min.js')), // For it's drag and drop...
+			$media->uri(array('file' => 'js/wysiwyg.js')),
 			$media->uri(array('file' => 'js/kadmium.js')),
 		);
 	}
