@@ -345,6 +345,7 @@ ul.fields h4
 ul.fields li input[type=text],
 ul.fields li input[type=password],
 ul.fields li textarea,
+table.list-page input[type=text],
 div.non-editable
 {
 	width: 691px;
@@ -356,6 +357,11 @@ div.non-editable
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
+}
+
+table.list-page input[type=text]
+{
+	width: auto;
 }
 
 ul.fields li input[type=text]:hover,
