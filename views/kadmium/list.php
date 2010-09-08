@@ -68,8 +68,16 @@ else:
 		if ($show_edit):
 ?>
 	<td>
-		<?=
-			Html::anchor(
+		<?php
+			if ($extra_button_view != ''){
+				echo View::factory(
+					$extra_button_view,
+					array(
+						'item' => $item,
+					)
+				);
+			}
+			echo Html::anchor(
 				Route::get('kadmium')
 					->uri(array(
 						'controller' => Request::instance()->controller,

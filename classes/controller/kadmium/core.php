@@ -252,7 +252,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			);
 	}
 
-	protected function show_list_page($item_type, $model_name)
+	protected function show_list_page($item_type, $model_name, $extra_button_view = '')
 	{
 		// update any sort on fields...
 		$fields = Jelly::meta($model_name)->fields();
@@ -337,6 +337,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				'show_edit' => Jelly::factory($model_name)->disable_user_edit !== TRUE,
 				'items' => $items,
 				'pagination' => $pagination->render(),
+				'extra_button_view' => $extra_button_view,
 			)
 		);
 	}
