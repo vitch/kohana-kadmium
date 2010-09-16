@@ -290,11 +290,19 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$builder = Jelly::select($model_name);
 		if ($sort_on_field) {
 			if (isset($sort_on_field->category_key)) {
-				$builder->order_by($sort_on_field->category_key);
+				if (is_array($sort_on_field->category_key)) {
+					foreach($sort_on_field->category_key as $o) {
+						$builder->order_by($o);
+					}
+				} else {
+					$builder->order_by($sort_on_field->category_key);
+				}
 			}
 			$builder->order_by($sort_on_field->column);
+			$rpp = 999999999999;
+		} else {
+			$rpp = Kohana::config('kadmium')->results_per_list_page;
 		}
-		$rpp = Kohana::config('kadmium')->results_per_list_page;
 
 		// Nasty workaround because Jelly_Builder->count() doesn't support custom builders
 		$count_loader = Jelly::select($model_name)->select(DB::expr('COUNT(*) AS num'))->execute()->as_array();
