@@ -194,6 +194,26 @@ $(
 		}
 		initSortable('ul.has-many-uniquely.sortable');
 
+		// Permalink form fields
+		var permalinkFrom = $('.permalink_from'),
+			permalinkTo = $('.permalink_to');
+		if (permalinkFrom.length && permalinkTo.length) {
+
+			var fromVal = permalinkFrom.val().toLowerCase().split(' ').join('-');
+			permalinkFrom.bind(
+				'keyup',
+				function()
+				{
+					var toVal = permalinkTo.val(),
+						synced = toVal == '' || toVal == fromVal;
+					fromVal = permalinkFrom.val().toLowerCase().split(' ').join('-');
+					if (synced) {
+						permalinkTo.val(fromVal);
+					}
+				}
+			);
+		}
+
 		// Help IE out with some of the CSS selectors it has trouble with which are relied on by the design
 		if ($.browser.msie) {
 			$('table.list-page tr:odd').addClass('odd');
