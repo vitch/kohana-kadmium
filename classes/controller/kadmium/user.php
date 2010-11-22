@@ -43,6 +43,7 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 		{
 			$this->auth->logout();
 		}
+		$this->template->is_logged_in = false;
 		$this->init_template(
 			'Logged out!'
 		);

@@ -73,6 +73,12 @@
 						}
 					}
 			?>
+				<li><?=
+					Html::anchor(
+						'user/logout',
+						'Logout'
+					)
+				?></li>
 			</ul>
 			<?php
 				}
