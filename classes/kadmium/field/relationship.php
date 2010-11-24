@@ -13,9 +13,14 @@ abstract class Kadmium_Field_Relationship extends Jelly_Field_Relationship
 	{
 		if ( ! isset($data['options']))
 		{
-			$data['options'] = Jelly::select($this->foreign['model'])
-				->execute()
-				->as_array(':primary_key', ':name_key');
+
+			$options = array();
+			$loaded_options = Jelly::select($this->foreign['model'])->execute();
+			foreach($loaded_options as $option) {
+				$options[$option->id()] = $option->name();
+			}
+
+			$data['options'] = $options;
 			if (isset($this->allow_nil)) {
 				$data['options'] = array($this->allow_nil) + $data['options'];
 			}
