@@ -161,29 +161,6 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			Session::instance()->delete('__FLASH__');
 		}
 
-		$delete_link = '';
-		if(!$is_new && $model->delete_policy != Kadmium_Model_Core::DELETE_NEVER) {
-			$uri_param = $this->request->param('child_action') ? 'child_action' : 'action';
-
-			$delete_uri = $this->request->uri(
-				array(
-					$uri_param => 'delete',
-				)
-			);
-
-			if (Arr::get($_GET, 'lb')) {
-				$delete_uri .= '?lb=true';
-			}
-
-			$delete_link = Html::anchor(
-				$delete_uri,
-				'Delete ' . $item_type,
-				array(
-					'class' => 'delete'
-				)
-			);
-		}
-
 		$this->template->content = View::factory(
 			'kadmium/edit',
 			array(
@@ -191,7 +168,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				'item' => $model,
 				'feedback_message' => $feedback_message,
 				'error_message' => $error_message,
-				'delete_link' => $delete_link,
+				'delete_link' => $this->get_delete_link($is_new, $model, $item_type),
 				'fields' => View::factory(
 					'kadmium/fields',
 					array(
@@ -348,6 +325,33 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				'extra_button_view' => $extra_button_view,
 			)
 		);
+	}
+
+	protected function get_delete_link($is_new, $model, $item_type)
+	{
+		$delete_link = '';
+		if(!$is_new && $model->delete_policy != Kadmium_Model_Core::DELETE_NEVER) {
+			$uri_param = $this->request->param('child_action') ? 'child_action' : 'action';
+
+			$delete_uri = $this->request->uri(
+				array(
+					$uri_param => 'delete',
+				)
+			);
+
+			if (Arr::get($_GET, 'lb')) {
+				$delete_uri .= '?lb=true';
+			}
+
+			$delete_link = Html::anchor(
+				$delete_uri,
+				'Delete ' . $item_type,
+				array(
+					'class' => 'delete'
+				)
+			);
+		}
+		return $delete_link;
 	}
 
 	protected function show_delete_page($item_type, $model_name, $id)
