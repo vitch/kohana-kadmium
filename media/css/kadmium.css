@@ -408,6 +408,7 @@ ul.fields li select:focus
 }
 
 ul.fields li input[type=text].error,
+ul.fields li input[type=password].error,
 ul.fields li textarea.error,
 ul.fields li select.error
 {
