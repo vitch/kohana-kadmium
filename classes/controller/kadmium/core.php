@@ -112,25 +112,10 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 		if (Arr::get($_POST, 'my-action') == $title) {
 			// IsPostBack
-			foreach ($meta->fields() as $field_id => $field) {
-				if (!$this->include_field($field, TRUE)) {
-					continue;
-				}
-				if ($field->prevent_edit) {
-					continue;
-				}
-				if ($field instanceof Field_File) {
-					if ($_FILES[$field_id]['tmp_name'] != '' && $_FILES[$field_id]['size'] != 0) {
-						$model->set(array($field_id => Arr::get($_FILES, $field_id)));
-					}
-				} else {
-					$model->set(array($field_id => Arr::get($_POST, $field_id)));
-				}
-			}
-			try {
-				$model->save();
-			} catch (Validate_Exception $e) {
-				$validation_errors += $e->array->errors('');
+
+			$update_result = $this->update_model_from_post($meta, $model);
+			if ($update_result) {
+				$validation_errors += $update_result;
 			}
 
 			if (count($validation_errors) > 0) {
@@ -178,6 +163,30 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				'after_form_content' => $this->after_edit_form_content,
 			)
 		);
+	}
+
+	protected function update_model_from_post($meta, $model)
+	{
+		foreach ($meta->fields() as $field_id => $field) {
+			if (!$this->include_field($field, TRUE)) {
+				continue;
+			}
+			if ($field->prevent_edit) {
+				continue;
+			}
+			if ($field instanceof Field_File) {
+				if ($_FILES[$field_id]['tmp_name'] != '' && $_FILES[$field_id]['size'] != 0) {
+					$model->set(array($field_id => Arr::get($_FILES, $field_id)));
+				}
+			} else {
+				$model->set(array($field_id => Arr::get($_POST, $field_id)));
+			}
+		}
+		try {
+			$model->save();
+		} catch (Validate_Exception $e) {
+			return $e->array->errors('');
+		}
 	}
 
 	protected function show_child_model_page($parent_type_name, $child_type_name, $child_model_name)
