@@ -16,7 +16,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$media = Route::get('kadmium/media');
 
 		$this->styles = $this->styles + array(
-			'http://yui.yahooapis.com/2.6.0/build/reset-fonts/reset-fonts.css'  => 'all',
+			'http://yui.yahooapis.com/2.8.1/build/reset-fonts/reset-fonts.css'  => 'all',
 			//$media->uri(array('file' => 'css/reset-fonts.css'))  => 'all',
 			'http://yui.yahooapis.com/2.8.1/build/base/base-min.css' => 'all',
 			$media->uri(array('file' => 'css/datePicker.css'))  => 'all',
@@ -26,7 +26,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		);
 
 		$this->scripts = $this->scripts + array(
-			'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
+			'http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js',
 			//$media->uri(array('file' => 'js/jquery-1.4.2.min.js')),
 			$media->uri(array('file' => 'js/date.js')),
 			$media->uri(array('file' => 'js/jquery.datePicker.js')),
@@ -34,7 +34,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$media->uri(array('file' => 'js/jquery.asmselect.js')),
 			$media->uri(array('file' => 'js/jquery.tablednd_0_5.js')),
 			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
-			$media->uri(array('file' => 'js/jquery-ui-1.8.2.custom.min.js')), // For it's drag and drop...
+			$media->uri(array('file' => 'js/jquery-ui-1.8.6.custom.min.js')), // For it's drag and drop...
 			$media->uri(array('file' => 'js/wysiwyg.js')),
 			$media->uri(array('file' => 'js/kadmium.js')),
 		);
