@@ -13,6 +13,9 @@ class Controller_Kadmium_Auth extends Controller_Template
 			$this->require_login();
 		}
 		$this->template->is_logged_in = $this->auth->logged_in();
+		if ($this->template->is_logged_in) {
+			$this->template->username = $this->auth->get_user()->username;
+		}
 	}
 
 	protected function require_login()

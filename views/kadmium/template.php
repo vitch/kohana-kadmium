@@ -73,12 +73,6 @@
 						}
 					}
 			?>
-				<li><?=
-					Html::anchor(
-						'user/logout',
-						'Logout'
-					)
-				?></li>
 			</ul>
 			<?php
 				}
@@ -86,6 +80,22 @@
 			<div class="main">
 				<?= $content; ?>
 			</div>
+			<?php
+				if ($is_logged_in) {
+			?>
+				<div id="footer">
+					<p>
+						Currently logged in as <?= $username; ?>. <?=
+							Html::anchor(
+								'user/logout',
+								'Logout'
+							)
+						?>.
+					</p>
+				</div>
+			<?php
+				}
+			?>
 		</div>
 	</body>
 </html>

@@ -742,3 +742,22 @@ a.edit
 {
 	background: rgb(255, 73, 51);
 }
+
+#footer
+{
+	clear: left;
+	border-top: 1px solid transparent;
+	width: 950px;
+}
+
+#footer p
+{
+	background: rgba(255, 255, 255, 0.8);
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin: 9px 0 0;
+	padding: 5px;
+	text-align: right;
+	font-size: 93%;
+}
