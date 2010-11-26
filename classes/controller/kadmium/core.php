@@ -32,7 +32,6 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$media->uri(array('file' => 'js/jquery.datePicker.js')),
 			$media->uri(array('file' => 'tiny_mce/jquery.tinymce.js')),
 			$media->uri(array('file' => 'js/jquery.asmselect.js')),
-			$media->uri(array('file' => 'js/jquery.tablednd_0_5.js')),
 			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
 			$media->uri(array('file' => 'js/jquery-ui-1.8.6.custom.min.js')), // For it's drag and drop...
 			$media->uri(array('file' => 'js/wysiwyg.js')),

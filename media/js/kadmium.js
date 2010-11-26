@@ -59,17 +59,35 @@ $(
 							}
 						)
 					);
-				$span.parent('td').addClass('drag-handle');
 				$span.remove();
 			}
 		);
 		if (hasSortableTable) {
-			$('table.list-page').tableDnD(
+			var t = $('table.list-page');
+			t.find('tr').css('width', t.innerWidth()).end().sortable(
 				{
-					onDrop: function(table, row)
+					items: '>tbody>tr',
+					handle: 'a.sorter',
+					helper: function(event, tr)
+					{
+						var childWidths = [];
+						tr.children().each(function()
+							{
+								childWidths.push($(this).width());
+							}
+						);
+						return tr.clone().children().each(
+							function(i)
+							{
+								$(this).width(childWidths[i]);
+							}
+						).end();
+
+					},
+					stop: function(event, ui)
 					{
 						var ids = [];
-						$(table).find('a.sorter').each(
+						t.find('a.sorter').each(
 							function()
 							{
 								ids.push($(this).attr('rel'));
@@ -97,12 +115,9 @@ $(
 								url: document.location.href
 							}
 						);
-					},
-					onDragClass: 'dragging',
-					dragHandle: 'drag-handle'
+					}
 				}
 			);
-
 		}
 
 		var openedMenu;
