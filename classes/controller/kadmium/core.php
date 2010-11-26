@@ -45,7 +45,16 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 		$this->template->styles = $this->styles;
 		$this->template->scripts = $this->scripts;
-		$this->template->navigation_controllers = Kohana::config('kadmium')->navigation_controllers;
+		$kadmium_config = Kohana::config('kadmium');
+		$this->template->navigation_controllers = $kadmium_config->navigation_controllers;
+
+		if (isset($kadmium_config->navigation_controllers_by_role) && $this->auth->logged_in()) {
+			foreach ($kadmium_config->navigation_controllers_by_role as $role => $controllers) {
+				if ($this->auth->get_user()->has_role($role)) {
+					$this->template->navigation_controllers += $controllers;
+				}
+			}
+		}
 		
 		return parent::after();
 	}
