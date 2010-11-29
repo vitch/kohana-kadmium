@@ -95,6 +95,11 @@
 				</div>
 			<?php
 				}
+				if ($show_profiler) {
+					echo '<div id="kohana-profiler">';
+					echo View::factory('profiler/stats');
+					echo '</div>';
+				}
 			?>
 		</div>
 	</body>

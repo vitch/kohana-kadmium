@@ -37,6 +37,8 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$media->uri(array('file' => 'js/wysiwyg.js')),
 			$media->uri(array('file' => 'js/kadmium.js')),
 		);
+
+		$this->template->show_profiler = false;
 	}
 
 	public function after()
