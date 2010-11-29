@@ -17,4 +17,14 @@ abstract class Kadmium_Field_HasManyUniquely extends Jelly_Field_HasMany
 		*/
 		return parent::input($prefix, $data);
 	}
+
+	public function delete($model)
+	{
+		if ($model->delete_policy == Kadmium_Model_Core::DELETE_ALL_CHILDREN) {
+			$items = $model->get($this->name, FALSE)->execute();
+			foreach($items as $item) {
+				$item->delete();
+			}
+		}
+	}
 }
