@@ -29,10 +29,19 @@ class Controller_Kadmium_Auth extends Controller_Template
 		}
 	}
 
-	protected function require_role($role)
+	protected function require_role($roles)
 	{
-		if (!$this->template->is_logged_in || !$this->auth->get_user()->has_role($role)) {
+		if (!$this->template->is_logged_in) {
 			throw new Kadmium_Exception_NoPermission();
 		}
+		if (!is_array($roles)) {
+			$roles = array($roles);
+		}
+		foreach($roles as $role) {
+			if ($this->auth->get_user()->has_role($role)) {
+				return true;
+			}
+		}
+		throw new Kadmium_Exception_NoPermission();
 	}
 }
