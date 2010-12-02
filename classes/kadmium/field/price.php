@@ -9,14 +9,14 @@ abstract class Kadmium_Field_Price extends Kadmium_Field_Integer
 		{
 			return NULL;
 		}
-		$value = round($value * 100);
+		$value = round(floatval($value) * 100);
 
 		return (int)$value;
 	}
 
 	public function get($model, $value)
 	{
-		return number_format($value/10000, 2); /* a bit dodgy - seem to need to devide by 100*100! */
+		return number_format($value/10000, 2, '.', ''); /* a bit dodgy - seem to need to devide by 100*100! */
 	}
 
 	public function display($model, $value)
