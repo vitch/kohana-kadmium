@@ -333,7 +333,14 @@ ul.fields li
 	margin: 0;
 	overflow: hidden;
 	padding: 0 0 1em;
-} 
+}
+
+ul.fields li.col3
+{
+	width: 31%;
+	margin: 0 10px 0 0;
+	float: left;
+}
 
 ul.fields h4
 {
