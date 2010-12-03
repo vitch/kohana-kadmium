@@ -85,7 +85,14 @@
 			?>
 				<div id="footer">
 					<p>
-						Currently logged in as <?= $username; ?>. <?=
+						Currently logged in as <strong><?= $username; ?></strong>.
+						<?=
+							Html::anchor(
+								'user/edit',
+								'Edit profile'
+							)
+						?>.
+						<?=
 							Html::anchor(
 								'user/logout',
 								'Logout'

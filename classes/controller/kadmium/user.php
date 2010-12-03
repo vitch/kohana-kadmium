@@ -55,6 +55,18 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 		);
 	}
 
+	public function action_edit()
+	{
+		$this->require_login();
+
+		$this->init_template('Update profile');
+
+		$model = $this->auth->get_user();
+		$model = Jelly::select('user', $model->id());
+
+		$this->show_edit_page_from_model('Profile', $model, false);
+	}
+
 	public function action_loggedin()
 	{
 		$this->require_login();
@@ -77,6 +89,17 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 		$this->template->content = View::factory(
 			'kadmium/error/insufficient_permissions'
 		);
+	}
+
+	// Hack so that we can ignore it when the password isn't updated...
+	protected function include_field($field, $hide_has_many_uniquely = false)
+	{
+		if ($field instanceof Field_Password && $hide_has_many_uniquely) {
+			if (Arr::get($_POST, 'password') == '' && Arr::get($_POST, 'password_confirm') == '' ) {
+				return false;
+			}
+		}
+		return parent::include_field($field, $hide_has_many_uniquely);
 	}
 	
 	private function on_logged_in($next_page = '/')
