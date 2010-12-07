@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die ('No direct script access.');
 
-class Kadmium_Model_User extends Model_Auth_User
+class Model_Kadmium_User extends Model_Auth_User
 {
 
 	public $delete_policy = Kadmium_Model_Core::DELETE_NEVER;
