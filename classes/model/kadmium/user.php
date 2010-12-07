@@ -9,6 +9,8 @@ class Model_Kadmium_User extends Model_Auth_User
     {
 		Model_Auth_User::initialize($meta);
 
+		$meta->table('users');
+
 		$meta->fields('username')->label = 'Username';
 		$meta->fields('username')->prevent_edit = true;
 		$meta->fields('password')->label = 'Password (leave blank for no change)';
