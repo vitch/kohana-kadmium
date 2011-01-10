@@ -21,4 +21,17 @@ abstract class Kadmium_Field_RichText extends Field_Text
 		parent::initialize($model, $column);
 		array_push($this->css_class, 'wysiwyg');
 	}
+
+	/**
+	 * Gets a string representation of the value, formatted according to the
+	 * fields type.
+	 *
+	 * @param   Jelly_Model  $model
+	 * @param   mixed        $value
+	 * @return String
+	 **/
+	public function display($model, $value)
+	{
+		return $value.''; // RichText should allow HTML characters that have been inputted?
+	}
 }

@@ -366,6 +366,11 @@ div.non-editable
 	border-radius: 3px;
 }
 
+div.non-editable table.list-page
+{
+	margin: -2px 0;
+}
+
 table.list-page input[type=text]
 {
 	width: auto;
