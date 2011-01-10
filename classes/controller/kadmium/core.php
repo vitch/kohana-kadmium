@@ -295,11 +295,10 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				}
 			}
 			$builder->order_by($sort_on_field->column);
-			$rpp = 999999999999;
+			$rpp = 9999999999;
 		} else {
 			$rpp = Kohana::config('kadmium')->results_per_list_page;
 		}
-
 		// Nasty workaround because Jelly_Builder->count() doesn't support custom builders
 		$count_loader = Jelly::select($model_name)->select(DB::expr('COUNT(*) AS num'))->execute()->as_array();
 		$count = $count_loader[0]['num'];
