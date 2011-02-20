@@ -12,10 +12,6 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 
 	public function action_login()
 	{
-		if ($this->auth->logged_in()) {
-			$this->on_logged_in();
-		}
-		
 		$feedback_message = '';
 		
 		if (Arr::get($_POST, 'my-action') == 'login') {
@@ -23,6 +19,8 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 				$this->on_logged_in(Arr::get($_POST, 'next'));
 			}
 			$feedback_message = "Sorry - could not log you in with that username and password.";
+		} else if ($this->auth->logged_in()) {
+			$this->on_logged_in();
 		}
 		
 		$this->init_template(
