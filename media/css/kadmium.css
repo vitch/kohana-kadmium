@@ -743,16 +743,23 @@ a.edit
 }
 
 #kadmium-content .main a.delete,
-#kadmium-content.lb a.delete
+#kadmium-content.lb a.delete,
+input[type=submit].delete
 {
 	background: rgb(248, 139, 128);
 	background: rgba(255, 73, 51, .6);
 }
 
 #kadmium-content .main a.delete:hover,
-#kadmium-content.lb a.delete:hover
+#kadmium-content.lb a.delete:hover,
+input[type=submit].delete:hover
 {
 	background: rgb(255, 73, 51);
+}
+input[type=submit].delete
+{
+	clear: none;
+	margin: 0 0 0 1em;
 }
 
 #footer
