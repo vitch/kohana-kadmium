@@ -1,30 +1,40 @@
 <h1><?= $page_title; ?></h1>
 
 <?php
-if ($items->count() == 0) :
+if ($items->count() == 0) {
 ?>
 <div class="error">
 	<p>
-		You don't have any <?= Inflector::plural($item_type); ?> yet. You can <?=
-			Html::anchor(
-				Route::get('kadmium')
-					->uri(array(
-						'controller' => Request::instance()->controller,
-						'action' => 'new'
-					)),
-				'create one',
-				array(
-					'class' => 'link'
-				)
-			);
-		?> now.
+		You don't have any <?= Inflector::plural($item_type); ?> yet.
+		<?php
+			if ($display_add_links) {
+				echo 'You can ' . Html::anchor(
+					$add_link,
+					'create one',
+					array(
+						'class' => 'link'
+					)
+				) . ' now.';
+			}
+		?>
 	</p>
 </div>
 <?php
-else:
+} else {
 ?>
 <p>
-	<?= $add_link; ?>
+<?php
+	if ($display_add_links) {
+
+		echo Html::anchor(
+			$add_link,
+			'Add new ' . strtolower($item_type),
+			array(
+				'class' => 'add',
+			)
+		);
+	}
+?>
 </p>
 <?php
 	echo View::factory(
@@ -36,5 +46,5 @@ else:
 		)
 	);
 	echo $pagination;
-endif;
+}
 ?>

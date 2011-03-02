@@ -317,25 +317,19 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 		$items = $builder->limit($rpp)->offset($pagination->offset)->execute();
 
-		$add_link = Jelly::factory($model_name)->disable_user_add ?
-				'' :
-				Html::anchor(
-					Route::get('kadmium')
-						->uri(array(
-							'controller' => $this->request->controller,
-							'action' => 'new'
-						)),
-					'Add new ' . strtolower($item_type),
-					array(
-						'class' => 'add'
-					)
-				);
+		$add_link = Route::get('kadmium')->uri(
+			array(
+				'controller' => $this->request->controller,
+				'action' => 'new'
+			)
+		);
 
 		$this->template->content = View::factory(
 			'kadmium/list',
 			array(
 				'page_title' => 'List ' . Inflector::plural($item_type),
 				'item_type' => $item_type,
+				'display_add_links' => !Jelly::factory($model_name)->disable_user_add,
 				'add_link' => $add_link,
 				'show_edit' => Jelly::factory($model_name)->disable_user_edit !== TRUE,
 				'items' => $items,
