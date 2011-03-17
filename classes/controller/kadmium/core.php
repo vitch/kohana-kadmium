@@ -177,6 +177,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 	protected function update_model_from_post($meta, $model, $prefix='field-')
 	{
+		$errors = array();
 		foreach ($meta->fields() as $field_id => $field) {
 			if (!$this->include_field($field, TRUE)) {
 				continue;
@@ -189,13 +190,22 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 					$model->set(array($field_id => Arr::get($_FILES, $field_id)));
 				}
 			} else if($field instanceof Field_BelongsTo && $field->edit_inline) {
-				// FIXME: Save the related data...
+				$sub_model = $model->{$field_id};
+				$sub_meta = Jelly::meta($sub_model);
+				$sub_prefix = 'field-' . $field_id . '-';
+				$sub_errors = $this->update_model_from_post($sub_meta, $sub_model, $sub_prefix);
+				if ($sub_errors) {
+					$errors += $sub_errors;
+				}
 			} else {
 				$model->set(array($field_id => Arr::get($_POST, $prefix . $field_id)));
 			}
 		}
 		try {
 			$model->save();
+			if (count($errors)) {
+				return $errors;
+			}
 		} catch (Validate_Exception $e) {
 			return $e->array->errors('');
 		}
