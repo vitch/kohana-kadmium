@@ -614,12 +614,10 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				$label = Form::label($field_id_attr, $field->label);
 			}
 
+			$fields[$label] = $model->input($field->name, $id_attribs);
 			if (isset($validation_errors[$field_id])) {
 				array_push($field->css_class, 'error');
-				$fields[$label] = $model->input($field->name, $id_attribs);
 				$fields[$label]->errors = $validation_errors[$field_id];
-			} else {
-				$fields[$label] = $model->input($field->name, $id_attribs);
 			}
 		}
 	}
