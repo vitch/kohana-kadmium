@@ -175,7 +175,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		);
 	}
 
-	protected function update_model_from_post($meta, $model)
+	protected function update_model_from_post($meta, $model, $prefix='field-')
 	{
 		foreach ($meta->fields() as $field_id => $field) {
 			if (!$this->include_field($field, TRUE)) {
@@ -188,8 +188,10 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				if ($_FILES[$field_id]['tmp_name'] != '' && $_FILES[$field_id]['size'] != 0) {
 					$model->set(array($field_id => Arr::get($_FILES, $field_id)));
 				}
+			} else if($field instanceof Field_BelongsTo && $field->edit_inline) {
+				// FIXME: Save the related data...
 			} else {
-				$model->set(array($field_id => Arr::get($_POST, $field_id)));
+				$model->set(array($field_id => Arr::get($_POST, $prefix . $field_id)));
 			}
 		}
 		try {
@@ -596,7 +598,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			return;
 		}
 
-		$id_attribs = array('attributes'=>array('id'=>$field_id_attr) + $attrs);
+		$id_attribs = array('attributes'=>array('id'=>$field_id_attr) + $attrs, 'name' => $field_id_attr);
 
 		if ($field->prevent_edit) {
 			$label = Form::label($field_id_attr, $field->label);
