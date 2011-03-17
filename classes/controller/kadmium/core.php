@@ -583,14 +583,14 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 	{
 		$fields = array();
 		foreach ($meta->fields() as $field_id => $field) {
-			$this->generate_field($model, $fields, $field_id, $field, $validation_errors);
+			$this->generate_field($model, $fields, $field_id, $field, $validation_errors, array(), $field_prefix);
 		}
 		return $fields;
 	}
 
-	protected function generate_field(Jelly_Model $model, & $fields, $field_id, $field, array $validation_errors = array(), $attrs = array())
+	protected function generate_field(Jelly_Model $model, & $fields, $field_id, $field, array $validation_errors = array(), $attrs = array(), $field_prefix = 'field-')
 	{
-		$field_id_attr = 'field-' . $field->name;
+		$field_id_attr = $field_prefix . $field->name;
 
 		if (!$this->include_field($field, $model->id() == 0)) {
 			return;
@@ -619,7 +619,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				$field_output = View::factory(
 					'kadmium/fields',
 					array(
-						'fields' => $this->generate_fields($sub_model, $sub_meta, 'field-', $validation_errors), // FIXME: Add a different prefix? Unique validation errors?
+						'fields' => $this->generate_fields($sub_model, $sub_meta, 'field-' . $field_id . '-', $validation_errors), // FIXME: Unique validation errors?
 					)
 				);
 			} else {
