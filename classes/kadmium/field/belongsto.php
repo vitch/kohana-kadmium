@@ -2,6 +2,8 @@
 
 abstract class Kadmium_Field_BelongsTo extends Jelly_Field_BelongsTo
 {
+	
+	public $edit_inline = false;
 
 	public function display($model, $value)
 	{

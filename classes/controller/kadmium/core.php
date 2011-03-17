@@ -604,17 +604,30 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$fields[$label] = '<div class="non-editable">' . ($field_str == '' ? '&nbsp;' : $field_str) . '</div>';
 		} else {
 
+			$field_output = $model->input($field->name, $id_attribs);
+
 			if ($field instanceof Field_HasManyUniquely) {
 				$label = '<h3>' . $field->label;
 				if (isset($field->sort_on)) {
 					$label .= ' (drag to sort)';
 				}
 				$label .= '</h3>';
+			} else if ($field instanceof Field_BelongsTo && $field->edit_inline) {
+				$label = '<!-- ' . $field_id . ' -->';
+				$sub_model = $model->{$field_id};
+				$sub_meta = Jelly::meta($sub_model);
+				$field_output = View::factory(
+					'kadmium/fields',
+					array(
+						'fields' => $this->generate_fields($sub_model, $sub_meta, 'field-', $validation_errors), // FIXME: Add a different prefix? Unique validation errors?
+					)
+				);
 			} else {
 				$label = Form::label($field_id_attr, $field->label);
 			}
 
-			$fields[$label] = $model->input($field->name, $id_attribs);
+			$fields[$label] = $field_output;
+
 			if (isset($validation_errors[$field_id])) {
 				array_push($field->css_class, 'error');
 				$fields[$label]->errors = $validation_errors[$field_id];
