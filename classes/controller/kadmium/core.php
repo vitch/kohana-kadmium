@@ -601,7 +601,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		if ($field->prevent_edit) {
 			$label = Form::label($field_id_attr, $field->label);
 			$field_str = $field->display($model, $model->get($field_id));
-			$fields[$label] = '<div class="non-editable">' . ($field_str == '' ? '&nbsp;' : $field_str) . '</div>';
+			$fields[$label] = '<div class="non-editable">' . ($field_str == '' || $field_str == ' ' ? '&nbsp;' : $field_str) . '</div>';
 		} else {
 
 			$field_output = $model->input($field->name, $id_attribs);
