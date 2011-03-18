@@ -151,7 +151,8 @@ $(
 			).each(
 				function()
 				{
-					$(this).data('colorbox').href = this.href + '?lb=true';
+					var q = this.href.indexOf('?') == -1 ? '?' : '&';
+					$(this).data('colorbox').href = this.href + q + 'lb=true';
 				}
 			);
 		}
