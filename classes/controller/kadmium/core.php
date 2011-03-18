@@ -79,10 +79,22 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		if (Request::$is_ajax) {
 			switch(Arr::get($_POST, 'action', Arr::get($_GET, 'action'))) {
 				case 'reload':
-					$field_id = Arr::get($_GET, 'field');
+					$field_ids = explode('-', Arr::get($_GET, 'field'));
+					array_shift($field_ids); // lose the "field" from the start.
 					$fields = array();
-					$field = $model->meta()->fields($field_id);
-					$this->generate_field($model, $fields, $field_id, $field);
+					switch (count($field_ids)) {
+						case 1:
+							$field = $model->meta()->fields($field_ids[0]);
+							$this->generate_field($model, $fields, $field_ids[0], $field);
+							break;
+						case 2:
+							$sub_model = $model->{$field_ids[0]};
+							$field = $sub_model->meta()->fields($field_ids[1]);
+							$this->generate_field($sub_model, $fields, $field_ids[1], $field, array(), array(), 'field-' . $field_ids[0] . '-');
+							break;
+						default:
+							throw new Exception('NotImplemented - dealing with nested edit_inline HasManyUniquely fields');
+					}
 					echo View::factory(
 						'kadmium/fields',
 						array(
