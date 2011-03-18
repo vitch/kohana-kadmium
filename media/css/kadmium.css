@@ -461,6 +461,28 @@ ul.imagefiles li img
 	max-width: 700px;
 }
 
+ul.fields fieldset
+{
+	margin: .5em 0;
+	border-bottom: 2px solid rgba(41, 41, 76, .65);
+	padding: 1em 0 .5em;
+	/*background: rgba(0, 0, 0, .05);*/
+}
+
+ul.fields fieldset legend
+{
+	display: block;
+	width: 683px;
+	font-weight: bold;
+	background: rgb(139, 139, 159);
+	background: rgba(41, 41, 76, .65);
+	color: #fff;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	padding: 4px 8px 5px;
+}
+
 /* Date picker specific styles */
 
 ul.fields li input[type=text].timestamp

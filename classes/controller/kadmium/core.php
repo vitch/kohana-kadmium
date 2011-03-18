@@ -629,9 +629,11 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				$sub_model = $model->{$field_id};
 				$sub_meta = Jelly::meta($sub_model);
 				$field_output = View::factory(
-					'kadmium/fields',
+					'kadmium/fieldset_subedit',
 					array(
-						'fields' => $this->generate_fields($sub_model, $sub_meta, 'field-' . $field_id . '-', $validation_errors), // FIXME: Unique validation errors?
+						'field_id' => $field_id,
+						'label' => $field->label,
+						'fields' => $this->generate_fields($sub_model, $sub_meta, 'field-' . $field_id . '-', $validation_errors),
 					)
 				);
 			} else {
