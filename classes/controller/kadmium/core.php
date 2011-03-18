@@ -74,27 +74,35 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		);
 	}
 
+	// Get's a field from its ID, whether it is edit_inline or not
+	private function get_field_by_id($field_ids, $model)
+	{
+		$field_ids = explode('-', $field_ids);
+		array_shift($field_ids); // lose the "field" from the start.
+		$fields = array();
+		switch (count($field_ids)) {
+			case 1:
+				$field = $model->meta()->fields($field_ids[0]);
+				$this->generate_field($model, $fields, $field_ids[0], $field);
+				break;
+			case 2:
+				$sub_model = $model->{$field_ids[0]};
+				$field = $sub_model->meta()->fields($field_ids[1]);
+				$this->generate_field($sub_model, $fields, $field_ids[1], $field, array(), array(), 'field-' . $field_ids[0] . '-');
+				break;
+			default:
+				throw new Exception('NotImplemented - dealing with nested edit_inline HasManyUniquely fields');
+		}
+		return array($field, $fields);
+
+	}
+
 	protected function show_edit_page_from_model($item_type, $model, $is_new, $extra_redirect_params = array())
 	{
 		if (Request::$is_ajax) {
 			switch(Arr::get($_POST, 'action', Arr::get($_GET, 'action'))) {
 				case 'reload':
-					$field_ids = explode('-', Arr::get($_GET, 'field'));
-					array_shift($field_ids); // lose the "field" from the start.
-					$fields = array();
-					switch (count($field_ids)) {
-						case 1:
-							$field = $model->meta()->fields($field_ids[0]);
-							$this->generate_field($model, $fields, $field_ids[0], $field);
-							break;
-						case 2:
-							$sub_model = $model->{$field_ids[0]};
-							$field = $sub_model->meta()->fields($field_ids[1]);
-							$this->generate_field($sub_model, $fields, $field_ids[1], $field, array(), array(), 'field-' . $field_ids[0] . '-');
-							break;
-						default:
-							throw new Exception('NotImplemented - dealing with nested edit_inline HasManyUniquely fields');
-					}
+					list($field, $fields) = $this->get_field_by_id(Arr::get($_GET, 'field'), $model);
 					echo View::factory(
 						'kadmium/fields',
 						array(
@@ -104,6 +112,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 					$this->auto_render = false;
 					return false;
 				case 'sortItems':
+					// TODO: Ensure it works with nested edit_inline HasManyUniquely fields!
 					$field = $model->meta()->fields(Arr::get($_POST, 'child_id'));
 					$a = $field->foreign;
 					$ids = explode(',', Arr::get($_POST, 'ids', ''));
