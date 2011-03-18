@@ -55,21 +55,15 @@
 	<li>
 		<span>
 		<?php
-			echo Html::anchor(
-				Route::get('kadmium_child_edit')->uri(
-					array(
-						'controller' => Request::current()->controller,
-						'child_action' => 'edit',
-						'parent_id' => $model->id(),
-						'action' => $field->foreign['model'],
-						'id' => 0
-					)
-				),
-				'Add a new ' . Inflector::humanize(Jelly::model_name($value->current())),
+			echo View::factory(
+				$add_link_view,
 				array(
-					'class' => 'add' . $lb_class
+					'model' => $model,
+					'field' => $field,
+					'value' => $value,
+					'lb_class' => $lb_class,
 				)
-			)
+			);
 		?>
 		</span>
 	</li>

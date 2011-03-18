@@ -7,14 +7,9 @@ abstract class Kadmium_Field_HasManyUniquely extends Jelly_Field_HasMany
 
 	public function input($prefix = 'jelly/field', $data = array())
 	{
-		/*
-		$data['ids'] = array();
-		// Grab the IDS
-		foreach ($data['value'] as $model)
-		{
-			$data['ids'][] = $model->id();
+		if (Arr::get($data, 'add_link_view') == '') {
+			$data['add_link_view'] = $prefix . '/hasmanyuniquely/add_link';
 		}
-		*/
 		return parent::input($prefix, $data);
 	}
 
