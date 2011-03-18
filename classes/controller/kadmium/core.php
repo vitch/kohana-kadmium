@@ -213,6 +213,13 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 	protected function show_child_model_page($parent_type_name, $child_type_name, $child_model_name)
 	{
+		$child_id = $this->request->param('id');
+		$model = $this->get_model($child_model_name, $child_id);
+		$this->show_child_model_page_from_model($parent_type_name, $child_type_name, $model);
+	}
+
+	protected function show_child_model_page_from_model($parent_type_name, $child_type_name, $child_model)
+	{
 		// TODO: Check if id corresponds to a valid item?
 		$parent_id = $this->request->param('parent_id');
 
@@ -242,16 +249,14 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				);
 			}
 		}
-		$child_id = $this->request->param('id');
-		$is_new = $child_id == 0;
-		$model = $this->get_model($child_model_name, $child_id);
+		$is_new = $child_model->id() == 0;
 		if ($is_new) {
-			$model->set($model->meta()->foreign_key(), $parent_id);
+			$child_model->set($child_model->meta()->foreign_key(), $parent_id);
 		}
-		$this->init_template(($child_id == 0 ? 'Add' : 'Update') . ' ' . $child_type_name);
+		$this->init_template(($is_new ? 'Add' : 'Update') . ' ' . $child_type_name);
 		$this->show_edit_page_from_model(
 				$child_type_name,
-				$model,
+				$child_model,
 				$is_new,
 				array(
 					'parent_id' => $parent_id,
