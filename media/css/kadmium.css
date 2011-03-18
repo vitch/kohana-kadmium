@@ -412,6 +412,7 @@ ul.fields li select
 	padding: 5px;
 	background: rgb(246, 246, 249);
 	background: rgba(255, 255, 255, .5);
+	/*-webkit-appearance: none; */ /* Stops it from looking nasty in webkit but also looses the arrows :( */
 }
 
 ul.fields li select:focus
