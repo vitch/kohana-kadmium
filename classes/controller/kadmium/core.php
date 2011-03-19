@@ -207,8 +207,8 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				continue;
 			}
 			if ($field instanceof Field_File) {
-				if ($_FILES[$field_id]['tmp_name'] != '' && $_FILES[$field_id]['size'] != 0) {
-					$model->set(array($field_id => Arr::get($_FILES, $field_id)));
+				if ($_FILES[$prefix . $field_id]['tmp_name'] != '' && $_FILES[$prefix . $field_id]['size'] != 0) {
+					$model->set(array($field_id => Arr::get($_FILES, $prefix . $field_id)));
 				}
 			} else if($field instanceof Field_BelongsTo && $field->edit_inline) {
 				$sub_model = $model->{$field_id};
