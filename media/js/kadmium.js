@@ -135,8 +135,9 @@ $(
 					},
 					'onClosed' : function() {
 						var loadingMenu = '#' + openedMenu;
+						var q = location.href.indexOf('?') == -1 ? '?' : '&';
 						$.ajax({
-							url : location.href + '?action=reload&field=' + openedMenu,
+							url : location.href + q + 'action=reload&field=' + openedMenu,
 							success : function (data)
 							{
 								var wrapper = $(loadingMenu).parent();
