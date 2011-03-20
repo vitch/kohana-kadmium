@@ -112,9 +112,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 					$this->auto_render = false;
 					return false;
 				case 'sortItems':
-					// TODO: Ensure it works with nested edit_inline HasManyUniquely fields!
-					$field = $model->meta()->fields(Arr::get($_POST, 'child_id'));
-					$a = $field->foreign;
+					list($field, $fields) = $this->get_field_by_id(Arr::get($_POST, 'child_id'), $model);
 					$ids = explode(',', Arr::get($_POST, 'ids', ''));
 					$index = 1;
 					$foreign_model = $field->foreign['model'];
