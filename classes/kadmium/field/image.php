@@ -11,9 +11,12 @@ abstract class Kadmium_Field_Image extends Jelly_Field_Image
 		return $value == '' ? $value : Html::image($this->get_web_path($path).$value);
 	}
 
-	public function get_web_path($path)
+	public function get_web_path($path, $thumbnail_index = -1)
 	{
-		return $this->web_path ? $this->web_path : str_replace(DOCROOT, '', $path);
+		if ($thumbnail_index == -1 || !isset($this->thumbnails[$thumbnail_index]['web_path'])) {
+			return $this->web_path ? $this->web_path : str_replace(DOCROOT, '', $path);
+		}
+		return $this->thumbnails[$thumbnail_index]['web_path'];
 	}
 
 }

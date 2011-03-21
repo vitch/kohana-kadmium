@@ -10,7 +10,7 @@
 			for ($i = count($field->thumbnails); $i--; $i > -1) {
 				$thumbnail = $field->thumbnails[$i];
 				echo '<li>';
-				echo Html::image($field->get_web_path($thumbnail['path']) . $model->{$field->name});
+				echo Html::image($field->get_web_path($thumbnail['path'], $i) . $model->{$field->name});
 				echo '</li>';
 			}
 		} else {
