@@ -93,7 +93,7 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 	protected function include_field($field, $hide_has_many_uniquely = false)
 	{
 		if ($field instanceof Field_Password && $hide_has_many_uniquely) {
-			if (Arr::get($_POST, 'password') == '' && Arr::get($_POST, 'password_confirm') == '' ) {
+			if (Arr::get($_POST, 'field-password') == '' && Arr::get($_POST, 'field-password_confirm') == '' ) {
 				return false;
 			}
 		}
