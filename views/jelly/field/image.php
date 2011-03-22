@@ -3,7 +3,7 @@
 
 	// If there is an uploaded image then display it.
 	// If there are thumbnails then display those instead.
-	if ($value != '' && !is_array($model->{$field->name})):
+	if ($value != '' && !is_array($model->{$field->name})) {
 
 		echo '<ul class="imagefiles">';
 		if (count($field->thumbnails)) {
@@ -21,5 +21,5 @@
 			echo '</li>';
 		}
 		echo '</ul>';
-	endif;
+	}
 ?>

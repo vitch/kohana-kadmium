@@ -347,11 +347,11 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			)
 		);
 
-		if ($pagination->current_page != $this->request->param('page')) {
+		if ($pagination->__get('current_page') != $this->request->param('page')) {
 			throw new Kadmium_Exception_PageNotFound();
 		}
 
-		$items = $builder->limit($rpp)->offset($pagination->offset)->execute();
+		$items = $builder->limit($rpp)->offset($pagination->__get('offset'))->execute();
 
 		$add_link = Route::get('kadmium')->uri(
 			array(
