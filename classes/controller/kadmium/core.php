@@ -467,6 +467,10 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$fields = $model->meta()->fields();
 		foreach ($fields as $field) {
 			if ($field instanceof Jelly_Field_Relationship) { // TODO: Shouldn't Field_Relationship work? But it's not inherited through...
+				if (isset($field->ignore_for_delete) && $field->ignore_for_delete) {
+					continue;
+				}
+
 				$related_model = $field->foreign['model'];
 
 				$related_model_fields = Jelly::meta($related_model)->fields();

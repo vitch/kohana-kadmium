@@ -2,6 +2,9 @@
 
 abstract class Kadmium_Field_Relationship extends Jelly_Field_Relationship
 {
+
+	public $ignore_for_delete = FALSE;
+
 	/**
 	 * Copied from Jelly_Field_Relationship but allows for null/zero values with an
 	 * additional label if the field specifies it.

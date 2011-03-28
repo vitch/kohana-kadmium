@@ -7,7 +7,7 @@
 <?php
 	foreach ($belongs_to as $item):
 ?>
-		<li>It is being used by the <?= $item['model']; ?> called "<?=
+		<li>It is linked to the <?= $item['model']; ?> called "<?=
 			Html::anchor(
 				$item['link'],
 				$item['name']
