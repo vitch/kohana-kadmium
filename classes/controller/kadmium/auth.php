@@ -34,8 +34,16 @@ class Controller_Kadmium_Auth extends Controller_Template
 
 	protected function require_role($roles)
 	{
+		if ($this->has_role($roles)) {
+			return true;
+		}
+		throw new Kadmium_Exception_NoPermission();
+	}
+
+	protected function has_role($roles)
+	{
 		if (!$this->template->is_logged_in) {
-			throw new Kadmium_Exception_NoPermission();
+			return false;
 		}
 		if (!is_array($roles)) {
 			$roles = array($roles);
@@ -45,6 +53,6 @@ class Controller_Kadmium_Auth extends Controller_Template
 				return true;
 			}
 		}
-		throw new Kadmium_Exception_NoPermission();
+		return false;
 	}
 }
