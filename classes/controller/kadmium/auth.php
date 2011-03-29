@@ -2,6 +2,9 @@
 
 class Controller_Kadmium_Auth extends Controller_Template
 {
+	/**
+	 * @var Auth $auth
+	 */
 	protected $auth;
 	protected $login_required = TRUE;
 	protected $role_required = FALSE;
