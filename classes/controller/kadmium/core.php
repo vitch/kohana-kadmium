@@ -320,6 +320,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 		$this->init_template('List ' . Inflector::plural($item_type));
 		$builder = Jelly::select($model_name);
+		$this->modify_list_builder($builder);
 		if ($sort_on_field) {
 			if (isset($sort_on_field->category_key)) {
 				if (is_array($sort_on_field->category_key)) {
@@ -336,7 +337,9 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$rpp = Kohana::config('kadmium')->results_per_list_page;
 		}
 		// Nasty workaround because Jelly_Builder->count() doesn't support custom builders
-		$count_loader = Jelly::select($model_name)->select(DB::expr('COUNT(*) AS num'))->execute()->as_array();
+		$count_builder = Jelly::select($model_name)->select(DB::expr('COUNT(*) AS num'));
+		$this->modify_list_builder($count_builder);
+		$count_loader = $count_builder->execute()->as_array();
 		$count = $count_loader[0]['num'];
 
 		$pagination = Pagination::factory(
@@ -373,6 +376,12 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 				'extra_button_view' => $extra_button_view,
 			)
 		);
+	}
+
+	// Allow subclasses to add some extra clauses to the Jelly_Builder for the list pages...
+	protected function modify_list_builder(Jelly_Builder $builder)
+	{
+		return $builder;
 	}
 
 	protected function get_delete_link($is_new, $model, $item_type)
