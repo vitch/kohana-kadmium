@@ -526,7 +526,10 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 								->execute();
 
 						foreach ($get_links as $link) {
-							$related = Jelly::select($related_model, $link->{$related_model_field->through['columns'][0]});
+							$related = $link->{$related_model_field->through['columns'][0]};
+							if (!($related instanceof Jelly_Model)) {
+								$related = Jelly::select($related_model, $related);
+							}
 							$belongs_to[] = array(
 								'model' => $related_model,
 								'name' => $related->name(),
