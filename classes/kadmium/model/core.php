@@ -24,4 +24,33 @@ abstract class Kadmium_Model_Core extends Jelly_Model_Core
 		}
 		return (object)$cleaned;
 	}
+
+	// Util method so you can get the actual value for a relationship field without executing a query and
+	// calling ->id() on the loaded relation (sometimes you just want the id and not the related object).
+	public function get_raw($name, $changed = TRUE)
+	{
+		if ($field = $this->_meta->fields($name))
+		{
+			// Alias the name to its actual name
+			$name = $field->name;
+
+			if ($changed AND array_key_exists($name, $this->_changed))
+			{
+				return $this->_changed[$name];
+			}
+			elseif ($changed AND array_key_exists($name, $this->_with))
+			{
+				return $this->_with[$name];
+			}
+			else
+			{
+				return $this->_original[$name];
+			}
+		}
+		// Return unmapped data from custom queries
+		elseif (isset($this->_unmapped[$name]))
+		{
+			return $this->_unmapped[$name];
+		}
+	}
 }
