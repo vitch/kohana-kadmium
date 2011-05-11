@@ -663,7 +663,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 					'jelly/field/hasmanyuniquely/header',
 					array(
 						'label' => $field->label,
-						'is_sortable' => $field->sort_on,
+						'is_sortable' => isset($field->sort_on) && $field->sort_on,
 					)
 				) . '';
 			} else if ($field instanceof Field_BelongsTo && $field->edit_inline) {
