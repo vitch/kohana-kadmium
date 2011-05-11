@@ -659,11 +659,13 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$field_output = $model->input($field->name, $id_attribs);
 
 			if ($field instanceof Field_HasManyUniquely) {
-				$label = '<h3>' . $field->label;
-				if (isset($field->sort_on)) {
-					$label .= ' (drag to sort)';
-				}
-				$label .= '</h3>';
+				$label = View::factory(
+					'jelly/field/hasmanyuniquely/header',
+					array(
+						'label' => $field->label,
+						'is_sortable' => $field->sort_on,
+					)
+				) . '';
 			} else if ($field instanceof Field_BelongsTo && $field->edit_inline) {
 				$label = '<!-- ' . $field_id . ' -->';
 				$sub_model = $model->{$field_id};
