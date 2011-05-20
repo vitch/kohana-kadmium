@@ -336,11 +336,18 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		} else {
 			$rpp = Kohana::config('kadmium')->results_per_list_page;
 		}
-		// Nasty workaround because Jelly_Builder->count() doesn't support custom builders
-		$count_builder = Jelly::select($model_name)->select(DB::expr('COUNT(*) AS num'));
+		$count_builder = Jelly::select($model_name);
 		$this->modify_list_builder($count_builder);
+
+		//$count = $count_builder->count();
+
+		// Nasty workaround because Jelly_Builder->count() doesn't support custom builders so if
+		// your model has a custom builder which e.g. overrides ->execute() to add filtering to the
+		// WHERE clause then Jelly_Builder->count() will ignore this.
+		$count_builder->select(DB::expr('COUNT(*) AS num'));
 		$count_loader = $count_builder->execute()->as_array();
 		$count = $count_loader[0]['num'];
+		//echo Kohana::debug($count, Database::instance()->last_query);
 
 		$pagination = Pagination::factory(
 			array(
