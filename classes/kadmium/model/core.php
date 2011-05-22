@@ -38,10 +38,6 @@ abstract class Kadmium_Model_Core extends Jelly_Model_Core
 			{
 				return $this->_changed[$name];
 			}
-			elseif ($changed AND array_key_exists($name, $this->_with))
-			{
-				return $this->_with[$name];
-			}
 			else
 			{
 				return $this->_original[$name];
