@@ -640,9 +640,26 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 	protected function generate_fields(Jelly_Model $model, Jelly_Meta $meta, $field_prefix, array $validation_errors = array())
 	{
+		$has_autocomplete = FALSE;
 		$fields = array();
 		foreach ($meta->fields() as $field_id => $field) {
 			$this->generate_field($model, $fields, $field_id, $field, $validation_errors, array(), $field_prefix);
+			if ($field instanceof Field_Autocomplete) {
+				$has_autocomplete = TRUE;
+			}
+		}
+		if ($has_autocomplete) {
+			$media = Route::get('kadmium/media');
+			$this->scripts[] = $media->uri(
+				array(
+					 'file' => 'js/jquery.autocomplete.min.js'
+				)
+			);
+			$this->scripts[] = $media->uri(
+				array(
+					 'file' => 'js/kadmium.autocomplete.js'
+				)
+			);
 		}
 		return $fields;
 	}
