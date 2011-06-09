@@ -52,8 +52,13 @@ $(
 						),
 						itemId = itemIdsByName[name] || name,
 						currentIds = hiddenField.val().split(','),
-						li = $('<li />').append(name, removeLink);
-					itemHolder.append(li);
+						li = $('<li />').append(name, removeLink),
+						existingPosition = $.inArray(itemId + '', currentIds);
+					if (existingPosition > -1) {
+						li = itemHolder.find('li:nth-child(' + (existingPosition+1) + ')');
+					} else {
+						itemHolder.append(li);
+					}
 					li.css('background-color', '#f6e6b1')
 						.animate(
 							{
@@ -61,6 +66,9 @@ $(
 							},
 							500
 						);
+					if (existingPosition > -1) {
+						return;
+					}
 					while (currentIds[0] == '') {
 						currentIds.shift();
 					}
