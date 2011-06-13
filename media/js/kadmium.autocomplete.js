@@ -88,7 +88,10 @@ $(
 					hiddenField.val(currentIds.join(','));
 				}
 				textField.autocomplete(
-					itemNames
+					itemNames,
+					{
+						matchContains: hiddenField.data('match-contains')
+					}
 				).result(
 					function(event, item)
 					{

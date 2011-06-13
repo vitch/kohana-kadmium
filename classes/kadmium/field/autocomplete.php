@@ -2,10 +2,14 @@
 
 abstract class Kadmium_Field_Autocomplete extends Field_ManyToMany
 {
+
+	public $match_contains = false;
+
 	public function input($prefix = 'jelly/field', $data = array())
 	{
 		$attrs = Arr::get($data, 'attributes', array());
 		$attrs['class'] = Arr::get($attrs, 'class') . ' js-autocomplete';
+		$attrs['data-match-contains'] = $this->match_contains ? '1' : '0';
 		$data['attributes'] = $attrs;
 		return parent::input($prefix, $data);
 	}
