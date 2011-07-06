@@ -163,6 +163,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 					if (Arr::get($_GET, 'lb') == 'true') {
 						$edit_url .= '?lb=true';
 					}
+					$this->on_new_model_generated($model);
 					$this->request->redirect($edit_url);
 				} else {
 					$feedback_message = '<p>Your ' . strtolower($item_type) . ' was successfully updated.</p>';
@@ -389,6 +390,12 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 	protected function modify_list_builder(Jelly_Builder $builder)
 	{
 		return $builder;
+	}
+
+	// Allow subclasses to react when a new model is sucessfully generated (before the redirect to the edit page)...
+	protected function on_new_model_generated(Jelly_Model $model)
+	{
+		// Nothing here but subclasses can implement...
 	}
 
 	protected function get_delete_link($is_new, $model, $item_type)
