@@ -13,7 +13,9 @@ abstract class Kadmium_Field_HasManyUniquely extends Jelly_Core_Field_HasMany
 		return parent::input($prefix, $data);
 	}
 
-	public function delete($model)
+	// FIXME: Is this necessary or does Jelly_Core_Field_HasMany::delete and
+	// Jelly_Core_Field_HasMany::$delete_dependent avoid the need for it?
+	public function delete($model, $key)
 	{
 		if ($model->delete_policy == Kadmium_Core_Model::DELETE_ALL_CHILDREN) {
 			$items = $model->get($this->name, FALSE)->execute();
