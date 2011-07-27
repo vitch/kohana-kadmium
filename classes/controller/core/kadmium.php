@@ -320,7 +320,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		}
 
 		$this->init_template('List ' . Inflector::plural($item_type));
-		$builder = Jelly::select($model_name);
+		$builder = Jelly::query($model_name);
 		$this->modify_list_builder($builder);
 		if ($sort_on_field) {
 			if (isset($sort_on_field->category_key)) {
@@ -337,19 +337,13 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		} else {
 			$rpp = Kohana::config('kadmium')->results_per_list_page;
 		}
-		$count_builder = Jelly::select($model_name);
+
+		// FIXME: Is this working correctly?
+		$count_builder = Jelly::query($model_name);
 		$this->modify_list_builder($count_builder);
 
-		//$count = $count_builder->count();
-
-		// Nasty workaround because Jelly_Builder->count() doesn't support custom builders so if
-		// your model has a custom builder which e.g. overrides ->execute() to add filtering to the
-		// WHERE clause then Jelly_Builder->count() will ignore this.
-		$count_builder->select(DB::expr('COUNT(*) AS num'));
-		$count_loader = $count_builder->execute()->as_array();
-		$count = $count_loader[0]['num'];
-		//echo Kohana::debug($count, Database::instance()->last_query);
-
+		$count = $count_builder->count();
+		
 		$pagination = Pagination::factory(
 			array(
 				'total_items' => $count,
@@ -358,15 +352,15 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			)
 		);
 
-		if ($pagination->__get('current_page') != $this->request->param('page')) {
+		if ($pagination->current_page() != $this->request->param('page')) {
 			throw new Kadmium_Exception_PageNotFound();
 		}
 
-		$items = $builder->limit($rpp)->offset($pagination->__get('offset'))->execute();
+		$items = $builder->limit($rpp)->offset($pagination->offset())->select();
 
 		$add_link = Route::get('kadmium')->uri(
 			array(
-				'controller' => $this->request->controller,
+				'controller' => $this->request->controller(),
 				'action' => 'new'
 			)
 		);
