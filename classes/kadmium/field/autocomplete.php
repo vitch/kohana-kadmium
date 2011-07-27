@@ -22,12 +22,4 @@ abstract class Kadmium_Field_Autocomplete extends Jelly_Field_ManyToMany
 			return parent::set($value);
 		}
 	}
-
-	public function get($model, $value)
-	{
-		if (is_array($value) && count($value) == 0) {
-			return array();
-		}
-		return parent::get($model, $value);
-	}
 }
