@@ -152,11 +152,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			} else {
 				if ($is_new) {
 					Session::instance()->set('__FLASH__', '<p>Your ' . strtolower($item_type) . ' was successfully created.</p>');
-					$edit_url = $this->request->route->uri(
+					$edit_url = $this->request->route()->uri(
 						$extra_redirect_params +
 						array(
 							'action' => 'edit',
-							'controller' => $this->request->controller,
+							'controller' => $this->request->controller(),
 							'id' => $model->id(),
 						)
 					);
@@ -257,7 +257,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				$this->after_edit_form_content = Html::anchor(
 					Route::get('kadmium')
 						->uri(array(
-							'controller' => $this->request->controller,
+							'controller' => $this->request->controller(),
 							'action' => 'edit',
 							'id' => $parent_id,
 						)
@@ -280,7 +280,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				$is_new,
 				array(
 					'parent_id' => $parent_id,
-					'action' => $this->request->action
+					'action' => $this->request->action()
 				)
 			);
 	}
