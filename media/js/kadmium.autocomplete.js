@@ -53,7 +53,7 @@ $(
 						),
 						itemId = itemIdsByName[name] || name,
 						currentIds = hiddenField.val().split(','),
-						li = $('<li />').append(name, removeLink),
+						li = $('<li />').append(name, removeLink).attr('rel', itemId),
 						existingPosition = $.inArray(itemId + '', currentIds);
 					if (existingPosition > -1) {
 						li = itemHolder.find('li:nth-child(' + (existingPosition+1) + ')');
@@ -112,6 +112,24 @@ $(
 						}
 					}
 				);
+				if (isSortable) {
+					itemHolder.sortable(
+						{
+							items: '>li',
+							stop: function(event, ui)
+							{
+								var ids = [];
+								itemHolder.find('>li').each(
+									function(i)
+									{
+										ids.push($(this).attr('rel'));
+									}
+								);
+								hiddenField.val(ids.join(','));
+							}
+						}
+					);
+				}
 			}
 		);
 	}

@@ -516,6 +516,11 @@ ul.autocomplete-options li a.js-remove-option
 	cursor: pointer;
 }
 
+ul.autocomplete-options.ui-sortable li
+{
+	cursor: pointer;
+}
+
 .autocomplete-inp
 {
 	width: 100%;
