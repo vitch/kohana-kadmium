@@ -47,7 +47,7 @@
 									),
 									$sub_label,
 									array(
-										'class' => Request::current()->controller == $sub_controller ? 'active' : ''
+										'class' => Request::current()->controller() == $sub_controller ? 'active' : ''
 									)
 								);
 								echo '</li>';
@@ -66,7 +66,7 @@
 								),
 								$label,
 								array(
-									'class' => Request::current()->controller == $controller ? 'active' : ''
+									'class' => Request::current()->controller() == $controller ? 'active' : ''
 								)
 							);
 							echo '</li>';
