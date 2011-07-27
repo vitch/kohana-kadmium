@@ -629,7 +629,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	protected function get_model($model_name, $id = 0)
 	{
 		if ($id > 0) {
-			$model = Jelly::select($model_name, $id);
+			$model = Jelly::query($model_name, $id)->select();
 			if (!$model->loaded()) {
 				throw new HTTP_Exception_404();
 			}
