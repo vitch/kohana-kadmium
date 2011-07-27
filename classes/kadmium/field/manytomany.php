@@ -43,7 +43,9 @@ abstract class Kadmium_Field_ManyToMany extends Jelly_Core_Field_ManyToMany
 			return parent::get($model, $value);
 		}
 		if ($model->changed($this->name)) {
-			throw new Exception('Will this cause errors?');
+			// FIXME: This happens when e.g. validation errors prevent an item from being saved...
+			// The order is lost in these cases - is this a problem?
+			return parent::get($model, $value);
 		}
 
 		// Special code to deal with when we want to be able to sort on a field in the join table...
