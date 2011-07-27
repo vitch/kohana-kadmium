@@ -82,12 +82,12 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$fields = array();
 		switch (count($field_ids)) {
 			case 1:
-				$field = $model->meta()->fields($field_ids[0]);
+				$field = $model->meta()->field($field_ids[0]);
 				$this->generate_field($model, $fields, $field_ids[0], $field);
 				break;
 			case 2:
 				$sub_model = $model->{$field_ids[0]};
-				$field = $sub_model->meta()->fields($field_ids[1]);
+				$field = $sub_model->meta()->field($field_ids[1]);
 				$this->generate_field($sub_model, $fields, $field_ids[1], $field, array(), array(), 'field-' . $field_ids[0] . '-');
 				break;
 			default:
