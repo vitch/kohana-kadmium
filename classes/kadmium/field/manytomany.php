@@ -30,4 +30,31 @@ abstract class Kadmium_Field_ManyToMany extends Jelly_Core_Field_ManyToMany
 		return parent::input($prefix, $data);
 	}
 
+	/**
+	 * Returns a Jelly_Builder that can be selected, updated, or deleted.
+	 *
+	 * @param   Jelly_Model    $model
+	 * @param   mixed          $value
+	 * @return  Jelly_Builder
+	 */
+	public function get($model, $value)
+	{
+		if (!isset($this->sort_on)) {
+			return parent::get($model, $value);
+		}
+		if ($model->changed($this->name)) {
+			throw new Exception('Will this cause errors?');
+		}
+
+		// Special code to deal with when we want to be able to sort on a field in the join table...
+		$result = Jelly::query($this->foreign['model'])
+						->join($this->through['model'])
+						->on($this->through['model'] . '.' . $this->through['fields'][1], '=', $this->foreign['model'] . '.:primary_key')
+						->where($this->through['model'] . '.' . $this->through['fields'][0], '=', $model->id())
+						->order_by($this->through['model'] . '.' . $this->sort_on)
+		               ->type(Database::SELECT);
+		
+		return $result;
+	}
+
 }
