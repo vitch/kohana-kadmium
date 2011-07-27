@@ -13,7 +13,8 @@ $(
 					itemNames = [],
 					itemHolder = $('<ul class="autocomplete-options" />'),
 					initialIds = hiddenField.val().split(','),
-					options = autocompleteOptions['options-' + hiddenId]
+					options = autocompleteOptions['options-' + hiddenId],
+					isSortable = hiddenField.data('sortable')
 					;
 				label.attr('for', hiddenId + '-inp');
 				container.append(
