@@ -27,6 +27,8 @@ abstract class Kadmium_Core_Field extends Jelly_Core_Field
 	/**
 	 * Displays the particular field as a form item
 	 *
+	 * (Borrowed from old Jelly)
+	 *
 	 * @param string $prefix The prefix to put before the filename to be rendered
 	 * @return View
 	 **/
@@ -45,7 +47,17 @@ abstract class Kadmium_Core_Field extends Jelly_Core_Field
 		}
 		$data['attributes'] = $attrs;
 
-		return parent::input($prefix, $data);
+		// Get the view name
+		$view = $this->_input_view($prefix);
+
+		// Grant acces to all of the vars plus the field object
+		$data = array_merge(get_object_vars($this), $data, array('field' => $this));
+
+		// Make sure there is an 'attrs' array set to prevent error in view
+		$data['attributes'] = Arr::get($data, 'attributes', array());
+
+		// By default, a view object only needs a few defaults to display it properly
+		return View::factory($view, $data);
 	}
 
 	/**
@@ -59,5 +71,41 @@ abstract class Kadmium_Core_Field extends Jelly_Core_Field
 	public function display($model, $value)
 	{
 		return Html::chars($value.'');
+	}
+
+	/**
+	 * Used internally to allow fields to inherit input views from parent classes
+	 *
+	 * (Borrowed from old Jelly)
+	 *
+	 * @param   Jelly_Field  $class [optional]
+	 * @return  string
+	 */
+	protected function _input_view($prefix, $field_class = NULL)
+	{
+		if (is_null($field_class))
+		{
+			$field_class = get_class($this);
+		}
+
+		// Determine the view name, which matches the class name
+		$file = strtolower($field_class);
+
+		// Could be prefixed by Jelly_Field, or just Field_
+		$file = str_replace(array('jelly_field_', 'field_'), array('', ''), $file);
+
+		// Allowing a prefix means inputs can be rendered from different paths
+		$view = $prefix.'/'.$file;
+
+		// Check we can find a view for this field type, if not inherit view from parent
+		if ( ! Kohana::find_file('views', $view)
+			// Don't try going beyond this base Jelly_Field class!
+			AND get_parent_class($field_class) !== __CLASS__)
+		{
+			return $this->_input_view($prefix, get_parent_class($field_class));
+		}
+
+		// Either we've found a suitable view or there is no suitable one so just return what it should be
+		return $view;
 	}
 }

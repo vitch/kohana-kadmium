@@ -49,4 +49,41 @@ abstract class Kadmium_Core_Model extends Jelly_Core_Model
 			return $this->_unmapped[$name];
 		}
 	}
+
+	/**
+	 * Returns a view object that represents the field.
+	 *
+	 * If $prefix is an array, it will be used for the data
+	 * and $prefix will be set to the default.
+	 *
+	 * (Borrowed from older Jelly code)
+	 *
+	 * @param   string        $name
+	 * @param   string|array  $prefix
+	 * @param   array         $data
+	 * @return  View
+	 */
+	public function input($name, $prefix = NULL, $data = array())
+	{
+		$field = $this->_meta->field($name);
+
+		// More data munging. But it makes the API so much more intuitive
+		if (is_array($prefix))
+		{
+			$data = $prefix;
+			$prefix = NULL;
+		}
+
+		// Set a default prefix if it's NULL
+		if ($prefix === NULL)
+		{
+			$prefix = $this->_meta->input_prefix();
+		}
+
+		// Ensure there is a default value. Some fields override this
+		$data['value'] = $this->__get($name);
+		$data['model'] = $this;
+
+		return $field->input($prefix, $data);
+	}
 }
