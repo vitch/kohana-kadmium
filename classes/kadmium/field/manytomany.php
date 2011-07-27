@@ -29,4 +29,5 @@ abstract class Kadmium_Field_ManyToMany extends Jelly_Core_Field_ManyToMany
 		
 		return parent::input($prefix, $data);
 	}
+
 }
