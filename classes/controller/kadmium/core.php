@@ -99,7 +99,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 
 	protected function show_edit_page_from_model($item_type, $model, $is_new, $extra_redirect_params = array())
 	{
-		if (Request::$is_ajax) {
+		if ($this->request->is_ajax()) {
 			switch(Arr::get($_POST, 'action', Arr::get($_GET, 'action'))) {
 				case 'reload':
 					list($field, $fields) = $this->get_field_by_id(Arr::get($_GET, 'field'), $model);
@@ -243,7 +243,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		// TODO: Check if id corresponds to a valid item?
 		$parent_id = $this->request->param('parent_id');
 
-		if (Request::$is_ajax || Arr::get($_GET, 'lb') == 'true') {
+		if ($this->request->is_ajax() || Arr::get($_GET, 'lb') == 'true') {
 			$this->template = View::factory('kadmium/lightbox_template');
 			$this->after_edit_form_content = Html::anchor(
 				'#',
@@ -432,7 +432,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 			$this->page_not_found();
 		}
 
-		if (Request::$is_ajax || Arr::get($_GET, 'lb') == 'true') {
+		if ($this->request->is_ajax() || Arr::get($_GET, 'lb') == 'true') {
 			$this->template = View::factory('kadmium/lightbox_template');
 		}
 
