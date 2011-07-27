@@ -15,7 +15,7 @@ abstract class Kadmium_Field_HasManyUniquely extends Jelly_Field_HasMany
 
 	public function delete($model)
 	{
-		if ($model->delete_policy == Kadmium_Model_Core::DELETE_ALL_CHILDREN) {
+		if ($model->delete_policy == Kadmium_Core_Model::DELETE_ALL_CHILDREN) {
 			$items = $model->get($this->name, FALSE)->execute();
 			foreach($items as $item) {
 				$item->delete();

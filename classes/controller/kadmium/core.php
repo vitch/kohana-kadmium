@@ -401,7 +401,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 	protected function get_delete_link($is_new, $model, $item_type)
 	{
 		$delete_link = '';
-		if(!$is_new && $model->delete_policy != Kadmium_Model_Core::DELETE_NEVER) {
+		if(!$is_new && $model->delete_policy != Kadmium_Core_Model::DELETE_NEVER) {
 			$uri_param = $this->request->param('child_action') ? 'child_action' : 'action';
 
 			$delete_uri = $this->request->uri(
@@ -440,7 +440,7 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 		$this->init_template($page_title);
 
 		switch ($model->delete_policy) {
-			case Kadmium_Model_Core::DELETE_NEVER:
+			case Kadmium_Core_Model::DELETE_NEVER:
 				if ($this->request->param('parent_id')) {
 					$uri_params = array(
 						'child_action' => 'edit',
@@ -466,10 +466,10 @@ class Controller_Kadmium_Core extends Controller_Kadmium_Base
 					)
 				);
 				break;
-			case Kadmium_Model_Core::DELETE_ALL_CHILDREN:
+			case Kadmium_Core_Model::DELETE_ALL_CHILDREN:
 				$this->_show_delete_page($page_title, $item_type, $model);
 				break;
-			case Kadmium_Model_Core::DELETE_ONLY_SPINSTER:
+			case Kadmium_Core_Model::DELETE_ONLY_SPINSTER:
 				list($belongs_to, $children) = $this->get_relations($model);
 
 				if (count($belongs_to) || count($children)) {

@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-abstract class Kadmium_Field_Core extends Jelly_Field_Core
+abstract class Kadmium_Core_Field extends Jelly_Core_Field
 {
 
 	/**
