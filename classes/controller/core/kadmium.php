@@ -308,7 +308,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 					)
 				)->save($id);
 				*/
-				Jelly::select($model_name, $id)->set(
+				Jelly::query($model_name, $id)->select()->set(
 					array(
 						$sort_on_field->column => $index++,
 					)
@@ -493,7 +493,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				$related_model_fields = Jelly::meta($related_model)->fields();
 				foreach ($related_model_fields as $related_model_field) {
 					if ($related_model_field instanceof Jelly_Field_BelongsTo && $related_model_field->foreign['model'] == $model_name) {
-						$dependencies = Jelly::select($related_model)->where($related_model_field->name, '=', $model_id)->execute();
+						$dependencies = Jelly::query($related_model)->where($related_model_field->name, '=', $model_id)->select();
 
 						if ($field instanceof Jelly_Field_HasManyUniquely) {
 							$add_to_array = 'children';
@@ -528,15 +528,15 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 							);
 						}
 					} elseif ($related_model_field instanceof Jelly_Field_ManyToMany && $related_model_field->foreign['model'] == $model_name) {
-						$get_links = Jelly::select($related_model_field->through['model'])
+						$get_links = Jelly::query($related_model_field->through['model'])
 								->select($related_model_field->through['columns'][0])
 								->where($related_model_field->through['columns'][1], '=', $model_id)
-								->execute();
+								->select();
 
 						foreach ($get_links as $link) {
 							$related = $link->{$related_model_field->through['columns'][0]};
 							if (!($related instanceof Jelly_Model)) {
-								$related = Jelly::select($related_model, $related);
+								$related = Jelly::query($related_model, $related)->select();
 							}
 							$belongs_to[] = array(
 								'model' => $related_model,

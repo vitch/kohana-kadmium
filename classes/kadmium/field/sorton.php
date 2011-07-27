@@ -21,7 +21,7 @@ abstract class Kadmium_Field_SortOn extends Jelly_Field_Integer
 	public function save($model, $value, $loaded)
 	{
 		if ($value == null) {
-			$builder = Jelly::select($model->meta()->model());
+			$builder = Jelly::query($model->meta()->model())->select();
 			if (isset($this->category_key)) {
 				// TODO: There must be a way to just get at the value without having to execute the
 				// query and then get it back out?!??!

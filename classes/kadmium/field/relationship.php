@@ -18,7 +18,7 @@ abstract class Kadmium_Field_Relationship extends Jelly_Core_Field_Relationship
 		{
 
 			$options = array();
-			$loaded_options = Jelly::select($this->foreign['model'])->execute();
+			$loaded_options = Jelly::query($this->foreign['model'])->select();
 			foreach($loaded_options as $option) {
 				$options[$option->id()] = $option->name();
 			}
