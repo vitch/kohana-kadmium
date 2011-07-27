@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-abstract class Kadmium_Field_Image extends Jelly_Field_Image
+abstract class Kadmium_Field_Image extends Jelly_Core_Field_Image
 {
 
 	public $web_path = '';

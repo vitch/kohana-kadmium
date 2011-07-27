@@ -1,5 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Field_HasMany extends Kadmium_Field_HasMany
+class Jelly_Field_HasMany extends Kadmium_Field_HasMany
 {
 }

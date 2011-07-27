@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-abstract class Kadmium_Field_File extends Jelly_Field_File
+abstract class Kadmium_Field_File extends Jelly_Core_Field_File
 {
 	public $web_path = '';
 

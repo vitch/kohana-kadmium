@@ -5,7 +5,7 @@
  *
  * @package  Kadmium
  */
-abstract class Kadmium_Field_Boolean extends Jelly_Field_Boolean
+abstract class Kadmium_Field_Boolean extends Jelly_Core_Field_Boolean
 {
 
 	/**

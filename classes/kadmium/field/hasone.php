@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-abstract class Kadmium_Field_HasOne extends Jelly_Field_HasOne
+abstract class Kadmium_Field_HasOne extends Jelly_Core_Field_HasOne
 {
 
 	public function display($model, $value)

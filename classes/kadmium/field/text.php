@@ -5,7 +5,7 @@
  *
  * @package  Jelly
  */
-abstract class Kadmium_Field_Text extends Jelly_Field_Text
+abstract class Kadmium_Field_Text extends Jelly_Core_Field_Text
 {
 	public $show_in_list = false;
 }

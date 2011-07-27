@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-abstract class Kadmium_Field_Timestamp extends Jelly_Field_Timestamp
+abstract class Kadmium_Field_Timestamp extends Jelly_Core_Field_Timestamp
 {
 
 	var $pretty_format = 'Y-m-d';

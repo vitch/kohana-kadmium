@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-abstract class Kadmium_Field_Relationship extends Jelly_Field_Relationship
+abstract class Kadmium_Field_Relationship extends Jelly_Core_Field_Relationship
 {
 
 	public $ignore_for_delete = FALSE;

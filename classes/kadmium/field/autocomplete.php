@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-abstract class Kadmium_Field_Autocomplete extends Field_ManyToMany
+abstract class Kadmium_Field_Autocomplete extends Jelly_Field_ManyToMany
 {
 
 	public $match_contains = false;

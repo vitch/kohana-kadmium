@@ -6,7 +6,7 @@
  *
  * @package  Jelly
  */
-abstract class Kadmium_Field_RichText extends Field_Text
+abstract class Kadmium_Field_RichText extends Jelly_Field_Text
 {
 
 	/**

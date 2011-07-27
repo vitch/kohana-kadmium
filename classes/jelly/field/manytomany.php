@@ -1,5 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Field_RichText extends Kadmium_Field_RichText
+class Jelly_Field_ManyToMany extends Kadmium_Field_ManyToMany
 {
 }

@@ -205,11 +205,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			if ($field->prevent_edit) {
 				continue;
 			}
-			if ($field instanceof Field_File) {
+			if ($field instanceof Jelly_Field_File) {
 				if ($_FILES[$prefix . $field_id]['tmp_name'] != '' && $_FILES[$prefix . $field_id]['size'] != 0) {
 					$model->set(array($field_id => Arr::get($_FILES, $prefix . $field_id)));
 				}
-			} else if($field instanceof Field_BelongsTo && $field->edit_inline) {
+			} else if($field instanceof Jelly_Field_BelongsTo && $field->edit_inline) {
 				$sub_model = $model->{$field_id};
 				$sub_meta = Jelly::meta($sub_model);
 				$sub_prefix = 'field-' . $field_id . '-';
@@ -291,7 +291,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$fields = Jelly::meta($model_name)->fields();
 		$sort_on_field = FALSE;
 		foreach($fields as $field) {
-			if ($field instanceof Field_SortOn) {
+			if ($field instanceof Jelly_Field_SortOn) {
 				$sort_on_field = $field;
 				break;
 			}
@@ -489,7 +489,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$children = array();
 		$fields = $model->meta()->fields();
 		foreach ($fields as $field) {
-			if ($field instanceof Jelly_Field_Relationship) { // TODO: Shouldn't Field_Relationship work? But it's not inherited through...
+			if ($field instanceof Jelly_Field_Relationship) {
 				if (isset($field->ignore_for_delete) && $field->ignore_for_delete) {
 					continue;
 				}
@@ -498,10 +498,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 				$related_model_fields = Jelly::meta($related_model)->fields();
 				foreach ($related_model_fields as $related_model_field) {
-					if ($related_model_field instanceof Field_BelongsTo && $related_model_field->foreign['model'] == $model_name) {
+					if ($related_model_field instanceof Jelly_Field_BelongsTo && $related_model_field->foreign['model'] == $model_name) {
 						$dependencies = Jelly::select($related_model)->where($related_model_field->name, '=', $model_id)->execute();
 
-						if ($field instanceof Field_HasManyUniquely) {
+						if ($field instanceof Jelly_Field_HasManyUniquely) {
 							$add_to_array = 'children';
 							$link_route = Route::get('kadmium_child_edit');
 							$uri_params = array(
@@ -533,7 +533,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 								)
 							);
 						}
-					} elseif ($related_model_field instanceof Field_ManyToMany && $related_model_field->foreign['model'] == $model_name) {
+					} elseif ($related_model_field instanceof Jelly_Field_ManyToMany && $related_model_field->foreign['model'] == $model_name) {
 						$get_links = Jelly::select($related_model_field->through['model'])
 								->select($related_model_field->through['columns'][0])
 								->where($related_model_field->through['columns'][1], '=', $model_id)
@@ -651,7 +651,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$fields = array();
 		foreach ($meta->fields() as $field_id => $field) {
 			$this->generate_field($model, $fields, $field_id, $field, $validation_errors, array(), $field_prefix);
-			if ($field instanceof Field_Autocomplete) {
+			if ($field instanceof Jelly_Field_Autocomplete) {
 				$has_autocomplete = TRUE;
 			}
 		}
@@ -689,7 +689,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 			$field_output = $model->input($field->name, $id_attribs);
 
-			if ($field instanceof Field_HasManyUniquely) {
+			if ($field instanceof Jelly_Field_HasManyUniquely) {
 				$label = View::factory(
 					'jelly/field/hasmanyuniquely/header',
 					array(
@@ -697,7 +697,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 						'is_sortable' => isset($field->sort_on) && $field->sort_on,
 					)
 				) . '';
-			} else if ($field instanceof Field_BelongsTo && $field->edit_inline) {
+			} else if ($field instanceof Jelly_Field_BelongsTo && $field->edit_inline) {
 				$label = '<!-- ' . $field_id . ' -->';
 				$sub_model = $model->{$field_id};
 				$sub_meta = Jelly::meta($sub_model);
@@ -724,17 +724,17 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 	protected function include_field($field, $hide_has_many_uniquely = FALSE)
 	{
-		if ($field instanceof Field_Primary) {
+		if ($field instanceof Jelly_Field_Primary) {
 			return FALSE;
 		}
 		if ($field->show_in_edit === FALSE) {
 			return FALSE;
 		}
-		if ($field instanceof Field_Timestamp && ($field->auto_now_create || $field->auto_now_update)) {
+		if ($field instanceof Jelly_Field_Timestamp && ($field->auto_now_create || $field->auto_now_update)) {
 			return FALSE;
 		}
-		// We don't update Field_HasManyUniquely fields but we do need to include them when we are layout out the form (as they appear as a series of links to actually update the fields).
-		if ($hide_has_many_uniquely && $field instanceof Field_HasManyUniquely) {
+		// We don't update Jelly_Field_HasManyUniquely fields but we do need to include them when we are layout out the form (as they appear as a series of links to actually update the fields).
+		if ($hide_has_many_uniquely && $field instanceof Jelly_Field_HasManyUniquely) {
 			return FALSE;
 		}
 		return TRUE;
