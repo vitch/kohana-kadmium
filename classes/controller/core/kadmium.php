@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Kadmium_Core extends Controller_Kadmium_Base
+class Controller_Core_Kadmium extends Controller_Kadmium_Base
 {
 
 	public $template = 'kadmium/template';
