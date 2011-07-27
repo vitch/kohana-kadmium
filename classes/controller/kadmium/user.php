@@ -60,7 +60,7 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 		$this->init_template('Update profile');
 
 		$model = $this->auth->get_user();
-		$model = Jelly::select('kadmium_user', $model->id());
+		$model = Jelly::query('kadmium_user', $model->id())->select();
 
 		$this->show_edit_page_from_model('Profile', $model, false);
 	}
