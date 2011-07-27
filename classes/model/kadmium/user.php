@@ -18,10 +18,6 @@ class Model_Kadmium_User extends Model_Auth_User
 //			'min_length' => array(6)
 //		);
 		$meta->field('email')->label = 'Email address';
-		$meta->field('email')->rules = array(
-			'not_empty' => array(TRUE),
-			'max_length' => array(127)
-		);
 
 		// Hide all of these fields from editing...
 		$meta->field('logins')->show_in_edit = FALSE;

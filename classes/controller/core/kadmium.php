@@ -226,8 +226,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			if (count($errors)) {
 				return $errors;
 			}
-		} catch (Validate_Exception $e) {
-			return $e->array->errors('');
+		} catch (Jelly_Validation_Exception $e) {
+			return $e->errors('');
 		}
 	}
 
