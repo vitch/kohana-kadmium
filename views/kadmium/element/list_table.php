@@ -53,7 +53,7 @@
 			echo Html::anchor(
 				Route::get('kadmium')
 					->uri(array(
-						'controller' => Request::instance()->controller,
+						'controller' => Request::current()->controller(),
 						'action' => 'edit',
 						'id' => $item->id(),
 					)),
