@@ -33,7 +33,7 @@
 				echo Html::anchor(
 					Route::get('kadmium_child_edit')->uri(
 						array(
-							'controller' => Request::current()->controller,
+							'controller' => Request::current()->controller(),
 							'child_action' => 'edit',
 							'parent_id' => $model->id(),
 							'action' => Jelly::model_name($child_model),
