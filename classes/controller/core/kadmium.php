@@ -429,7 +429,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	{
 		$model = $this->get_model($model_name, $id);
 		if (!$model->loaded()) {
-			$this->page_not_found();
+			throw new HTTP_Exception_404();
 		}
 
 		if ($this->request->is_ajax() || Arr::get($_GET, 'lb') == 'true') {
@@ -637,7 +637,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		if ($id > 0) {
 			$model = Jelly::select($model_name, $id);
 			if (!$model->loaded()) {
-				$this->page_not_found();
+				throw new HTTP_Exception_404();
 			}
 		} else {
 			$model = Jelly::factory($model_name);
@@ -738,16 +738,6 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			return FALSE;
 		}
 		return TRUE;
-	}
-
-	protected function page_not_found()
-	{
-		$this->request->status = 404;
-		$this->auto_render = false;
-		echo Request::factory('/' . Kohana::config('kadmium')->base_path . '/error/page_not_found')
-				->execute()
-				->send_headers()
-				->response;
 	}
 
 }
