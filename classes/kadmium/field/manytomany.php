@@ -17,6 +17,16 @@ abstract class Kadmium_Field_ManyToMany extends Jelly_Core_Field_ManyToMany
 		$attrs = Arr::get($data, 'attributes', array());
 		$attrs['title'] = 'Select ' . $this->label . '...';
 		$data['attributes'] = $attrs;
+
+		$data['ids'] = array();
+		foreach ($data['value'] as $model)
+		{
+			$data['ids'][] = $model->id();
+		}
+		// Could use
+		// $data['ids'] = $data['value']->as_array(null, 'id');
+		// but how to generalise it so that "id" isn't hard coded?
+		
 		return parent::input($prefix, $data);
 	}
 }
