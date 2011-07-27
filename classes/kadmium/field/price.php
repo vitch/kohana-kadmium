@@ -5,7 +5,7 @@ abstract class Kadmium_Field_Price extends Kadmium_Field_Integer
 
 	public function set($value)
 	{
-		if ($value === NULL OR ($this->null AND empty($value)))
+		if ($this->allow_null AND $value === NULL)
 		{
 			return NULL;
 		}
