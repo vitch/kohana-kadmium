@@ -118,7 +118,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 					$foreign_model = $field->foreign['model'];
 					$sort_on_field = $field->sort_on;
 					foreach ($ids as $id) {
-						Jelly::select($foreign_model, $id)->set(
+						Jelly::query($foreign_model, $id)->select()->set(
 							array(
 								$sort_on_field => $index++,
 							)
