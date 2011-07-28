@@ -23,4 +23,26 @@ abstract class Kadmium_Core_Meta extends Jelly_Core_Meta
 		return $this->input_prefix;
 	}
 
+	// Overridden to add automatic sorting of models containing a Jelly_Field_SortOn
+	public function finalize($model)
+	{
+		if ($this->_initialized)
+			return;
+
+		if (count($this->sorting()) == 0) {
+			foreach($this->fields() as $column => $field) {
+				if ($field instanceof Jelly_Field_SortOn) {
+					$this->sorting(
+						array(
+							$column => 'asc'
+						)
+					);
+					break;
+				}
+			}
+		}
+		
+		parent::finalize($model);
+	}
+
 }
