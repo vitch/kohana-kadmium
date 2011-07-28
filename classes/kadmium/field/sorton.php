@@ -23,10 +23,7 @@ abstract class Kadmium_Field_SortOn extends Jelly_Field_Integer
 		if ($value == null) {
 			$builder = Jelly::query($model->meta()->model());
 			if (isset($this->category_key)) {
-				// TODO: There must be a way to just get at the value without having to execute the
-				// query and then get it back out?!??! get_raw doesn't work..
-				$foreign = $model->get($this->category_key)->execute();
-				$builder->where($this->category_key, '=', $foreign->get($foreign->meta()->primary_key()));
+				$builder->where($this->category_key, '=', $model->get_raw($this->category_key));
 			}
 			$value = $builder->count() + 1;
 		}
