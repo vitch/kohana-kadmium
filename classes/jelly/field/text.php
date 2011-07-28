@@ -2,5 +2,4 @@
 
 class Jelly_Field_Text extends Kadmium_Field_Text
 {
-	public $show_in_list = false;
 }
