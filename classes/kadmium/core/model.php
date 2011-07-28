@@ -29,7 +29,7 @@ abstract class Kadmium_Core_Model extends Jelly_Core_Model
 	// calling ->id() on the loaded relation (sometimes you just want the id and not the related object).
 	public function get_raw($name, $changed = TRUE)
 	{
-		if ($field = $this->_meta->fields($name))
+		if ($field = $this->_meta->field($name))
 		{
 			// Alias the name to its actual name
 			$name = $field->name;
