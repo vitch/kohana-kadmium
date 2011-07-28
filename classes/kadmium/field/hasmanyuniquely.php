@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-abstract class Kadmium_Field_HasManyUniquely extends Jelly_Core_Field_HasMany
+abstract class Kadmium_Field_HasManyUniquely extends Jelly_Field_HasMany
 {
 
 	var $show_in_list = FALSE;
@@ -35,7 +35,6 @@ abstract class Kadmium_Field_HasManyUniquely extends Jelly_Core_Field_HasMany
 	 **/
 	public function display($model, $value)
 	{
-
 		return View::factory(
 			'kadmium/element/list_table',
 			array(
