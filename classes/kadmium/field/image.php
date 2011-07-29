@@ -3,6 +3,8 @@
 abstract class Kadmium_Field_Image extends Jelly_Core_Field_Image
 {
 
+	public $show_in_list = FALSE;
+
 	public $web_path = '';
 
 	public function display($model, $value)
