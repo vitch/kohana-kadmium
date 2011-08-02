@@ -617,7 +617,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	{
 		$name = $model->name();
 		if ($name instanceof Jelly_Builder) {
-			$name = $name->execute()->name();
+			$name = $name->select()->name();
 		}
 		return $name;
 	}

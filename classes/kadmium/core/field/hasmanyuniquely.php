@@ -18,7 +18,7 @@ abstract class Kadmium_Core_Field_HasManyUniquely extends Jelly_Field_HasMany
 	public function delete($model, $key)
 	{
 		if ($model->delete_policy == Kadmium_Core_Model::DELETE_ALL_CHILDREN) {
-			$items = $model->get($this->name, FALSE)->execute();
+			$items = $model->get($this->name, FALSE)->select(); // Can we just use ->delete now?
 			foreach($items as $item) {
 				$item->delete();
 			}
@@ -38,7 +38,7 @@ abstract class Kadmium_Core_Field_HasManyUniquely extends Jelly_Field_HasMany
 		return View::factory(
 			'kadmium/element/list_table',
 			array(
-				'items' => $value->execute(),
+				'items' => $value->select(),
 				'show_edit' => FALSE,
 				'extra_button_view' => '',
 			)

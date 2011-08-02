@@ -8,7 +8,7 @@ abstract class Kadmium_Core_Field_BelongsTo extends Jelly_Core_Field_BelongsTo
 	public function display($model, $value)
 	{
 		if ($value instanceof Jelly_Builder) {
-			$value = $value->execute();
+			$value = $value->select();
 		}
 		return $value->name();
 	}
