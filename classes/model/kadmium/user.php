@@ -13,7 +13,7 @@ class Model_Kadmium_User extends Model_Auth_User
 		$meta->field('username')->prevent_edit = true;
 		$meta->field('password')->label = 'Password (leave blank for no change)';
 //		$meta->field('password_confirm')->label = 'Confirm password';
-//		$meta->field('password')->rules = $meta->fields('password_confirm')->rules = array(
+//		$meta->field('password')->rules = $meta->field('password_confirm')->rules = array(
 //			'max_length' => array(50),
 //			'min_length' => array(6)
 //		);
