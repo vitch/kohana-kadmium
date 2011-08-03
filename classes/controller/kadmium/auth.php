@@ -42,6 +42,14 @@ class Controller_Kadmium_Auth extends Controller_Template
 
 	protected function has_role($roles)
 	{
+		if(is_array($roles)) {
+			foreach($roles as $role) {
+				if ($this->auth->logged_in($role)) {
+					return TRUE;
+				}
+			}
+			return FALSE;
+		}
 		return $this->auth->logged_in($roles);
 	}
 }
