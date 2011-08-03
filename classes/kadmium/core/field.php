@@ -47,21 +47,6 @@ abstract class Kadmium_Core_Field extends Jelly_Core_Field
 		}
 		$data['attributes'] = $attrs;
 
-		// Relationship fields need to load their options in for display on the view
-		// TODO: Is there a better test than whether isset($this->foreign) for a relationship?
-		if (!isset($data['options']) && isset($this->foreign))
-		{
-			$options = array();
-//			$loaded_options = Jelly::query($this->foreign['model'])->select();
-//			foreach($loaded_options as $option) {
-//				$options[$option->id()] = $option->name();
-//			}
-//			if (isset($this->allow_nil)) {
-//				$options = array($this->allow_nil) + $options;
-//			}
-			$data['options'] = $options;
-		}
-
 		// Get the view name
 		$view = $this->_input_view($prefix);
 
