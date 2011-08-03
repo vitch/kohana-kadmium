@@ -8,6 +8,9 @@
 abstract class Kadmium_Core_Field_Boolean extends Jelly_Core_Field_Boolean
 {
 
+	public $label_true = 'Yes';
+	public $label_false = 'No';
+
 	/**
 	 * Gets a string representation of the value, formatted according to the
 	 * fields type.
