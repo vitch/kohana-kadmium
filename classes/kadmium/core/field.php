@@ -52,13 +52,13 @@ abstract class Kadmium_Core_Field extends Jelly_Core_Field
 		if (!isset($data['options']) && isset($this->foreign))
 		{
 			$options = array();
-			$loaded_options = Jelly::query($this->foreign['model'])->select();
-			foreach($loaded_options as $option) {
-				$options[$option->id()] = $option->name();
-			}
-			if (isset($this->allow_nil)) {
-				$options = array($this->allow_nil) + $options;
-			}
+//			$loaded_options = Jelly::query($this->foreign['model'])->select();
+//			foreach($loaded_options as $option) {
+//				$options[$option->id()] = $option->name();
+//			}
+//			if (isset($this->allow_nil)) {
+//				$options = array($this->allow_nil) + $options;
+//			}
 			$data['options'] = $options;
 		}
 
