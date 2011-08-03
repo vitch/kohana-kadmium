@@ -483,14 +483,21 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$children = array();
 		$fields = $model->meta()->fields();
 		foreach ($fields as $field) {
-			if ($field instanceof Jelly_Field_Relationship) {
-				if (isset($field->ignore_for_delete) && $field->ignore_for_delete) {
-					continue;
-				}
+
+			if (isset($field->ignore_for_delete) && $field->ignore_for_delete) {
+				continue;
+			}
+
+			if ( // FIXME: kinda ugly - need to check if all of these are necessary...
+				$field instanceof Jelly_Field_ManyToMany ||
+				$field instanceof Jelly_Field_BelongsTo ||
+				$field instanceof Jelly_Field_HasMany ||
+				$field instanceof Jelly_Field_HasOne
+			) {
 
 				$related_model = $field->foreign['model'];
-
 				$related_model_fields = Jelly::meta($related_model)->fields();
+
 				foreach ($related_model_fields as $related_model_field) {
 					if ($related_model_field instanceof Jelly_Field_BelongsTo && $related_model_field->foreign['model'] == $model_name) {
 						$dependencies = Jelly::query($related_model)->where($related_model_field->name, '=', $model_id)->select();

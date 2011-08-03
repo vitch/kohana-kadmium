@@ -17,7 +17,12 @@ abstract class Kadmium_Core_Model extends Jelly_Core_Model
 	{
 		$cleaned = array();
 		foreach($this->meta()->fields() as $field_id=>$field) {
-			if ($field instanceof Jelly_Field_Relationship) {
+			if ( // FIXME: ugly - a whitelist might be better? Or just a check if $this->get is a Jelly_Builder or something?
+				$field instanceof Jelly_Field_ManyToMany ||
+				$field instanceof Jelly_Field_BelongsTo ||
+				$field instanceof Jelly_Field_HasMany ||
+				$field instanceof Jelly_Field_HasOne
+			) {
 				continue;
 			}
 			$cleaned[$field_id] = Html::chars($this->get($field_id));
