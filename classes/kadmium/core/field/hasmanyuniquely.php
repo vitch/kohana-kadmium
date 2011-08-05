@@ -3,7 +3,12 @@
 abstract class Kadmium_Core_Field_HasManyUniquely extends Jelly_Field_HasMany
 {
 
-	var $show_in_list = FALSE;
+	public $show_in_list = FALSE;
+	// Default to not warning when deleting
+	public $ignore_for_delete = TRUE;
+	// And automatically deleting the associated children (since they can't be uniquely associated with anything else
+	// at a later date anyway)
+	public $delete_dependent = TRUE;
 
 	public function input($prefix = 'jelly/field', $data = array())
 	{
@@ -11,18 +16,6 @@ abstract class Kadmium_Core_Field_HasManyUniquely extends Jelly_Field_HasMany
 			$data['add_link_view'] = $prefix . '/hasmanyuniquely/add_link';
 		}
 		return parent::input($prefix, $data);
-	}
-
-	// FIXME: Is this necessary or does Jelly_Core_Field_HasMany::delete and
-	// Jelly_Core_Field_HasMany::$delete_dependent avoid the need for it?
-	public function delete($model, $key)
-	{
-		if ($model->delete_policy == Kadmium_Core_Model::DELETE_ALL_CHILDREN) {
-			$items = $model->get($this->name, FALSE)->select(); // Can we just use ->delete now?
-			foreach($items as $item) {
-				$item->delete();
-			}
-		}
 	}
 
 	/**
