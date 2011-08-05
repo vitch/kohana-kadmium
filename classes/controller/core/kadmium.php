@@ -536,14 +536,15 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 						}
 					} elseif ($related_model_field instanceof Jelly_Field_ManyToMany && $related_model_field->foreign['model'] == $model_name) {
 						$get_links = Jelly::query($related_model_field->through['model'])
-								->select($related_model_field->through['columns'][0])
-								->where($related_model_field->through['columns'][1], '=', $model_id)
-								->select();
+										->where($related_model_field->through['fields'][1], '=', $model_id)
+										->select();
 
 						foreach ($get_links as $link) {
-							$related = $link->{$related_model_field->through['columns'][0]};
-							if (!($related instanceof Jelly_Model)) {
-								$related = Jelly::query($related_model, $related)->select();
+							$related = $link->{$related_model_field->through['fields'][0]};
+							if (!$related->loaded()) {
+								// TODO: throw error? Send email to admin? Delete row from link table if the related model doesn't exist?
+								// Try to get to the root of the problem and why this happened in the first place?
+								echo Debug::vars('Problem loading ' . $related_model . ' ' . $link->get_raw($related_model_field->through['fields'][0]));
 							}
 							$belongs_to[] = array(
 								'model' => $related_model,
