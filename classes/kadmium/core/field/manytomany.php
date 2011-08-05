@@ -30,6 +30,21 @@ abstract class Kadmium_Core_Field_ManyToMany extends Jelly_Core_Field_ManyToMany
 	}
 
 	/**
+	 * Overridden to delete any records from the join table.
+	 *
+	 * @param   Jelly_Model  $model
+	 * @param   mixed        $key
+	 * @return  void
+	 */
+	public function delete($model, $key)
+	{
+		Jelly::query($this->through['model'])
+				->where($this->through['model'] . '.' . $this->through['fields'][0], '=', $model->id())
+				->delete();
+		return parent::delete($model, $key);
+	}
+
+	/**
 	 * Returns a Jelly_Builder that can be selected, updated, or deleted.
 	 *
 	 * @param   Jelly_Model    $model
