@@ -17,7 +17,7 @@ abstract class Kadmium_Core_Field_Autocomplete extends Jelly_Field_ManyToMany
 
 	public function set($value)
 	{
-		if (is_string($value)) {
+		if (is_string($value) && $value != '') {
 			return $this->_ids(explode(',', $value));
 		} else {
 			return parent::set($value);
