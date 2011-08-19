@@ -16,7 +16,7 @@
 			<th><?= $field->label; ?></th>
 <?php
 			endforeach;
-			if ($show_edit):
+			if ($show_edit || $extra_button_view):
 ?>
 			<th>&nbsp;</th>
 <?php
@@ -38,11 +38,11 @@
 			<td><?= $field->display($item, $item->get($field_id)); ?></td>
 <?php
 		endforeach;
-		if ($show_edit):
+		if ($show_edit || $extra_button_view):
 ?>
 	<td>
 		<?php
-			if ($extra_button_view != ''){
+			if ($extra_button_view) {
 				echo View::factory(
 					$extra_button_view,
 					array(
@@ -50,15 +50,17 @@
 					)
 				);
 			}
-			echo Html::anchor(
-				Route::get('kadmium')
-					->uri(array(
-						'controller' => Request::current()->controller(),
-						'action' => 'edit',
-						'id' => $item->id(),
-					)),
-				'Edit'
-			);
+			if ($show_edit) {
+				echo Html::anchor(
+					Route::get('kadmium')
+						->uri(array(
+							'controller' => Request::current()->controller(),
+							'action' => 'edit',
+							'id' => $item->id(),
+						)),
+					'Edit'
+				);
+			}
 		?>
 	</td>
 <?php
