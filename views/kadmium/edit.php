@@ -18,8 +18,10 @@ endif
 		echo $fields;
 		?>
 	</ul>
-<input type="submit" name="my-action" value="<?= $page_title; ?>" />
 <?php
+if ($show_submit) {
+	echo Form::submit('my-action', $page_title);
+}
 if ($delete_link != ''){
 	echo $delete_link;
 }

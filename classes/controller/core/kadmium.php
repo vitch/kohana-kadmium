@@ -190,6 +190,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 						'fields' => $this->generate_fields($model, $meta, 'field-', $validation_errors),
 					)
 				),
+				'show_submit' => $this->should_show_submit($model, $meta),
 				'after_form_content' => $this->after_edit_form_content,
 			)
 		);
@@ -645,6 +646,23 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			$model = Jelly::factory($model_name);
 		}
 		return $model;
+	}
+
+	protected function should_show_submit(Jelly_Model $model, Jelly_Meta $meta)
+	{
+		foreach ($meta->fields() as $field_id => $field) {
+			if (!$this->include_field($field, $model->id() == 0)) {
+				continue;
+			}
+			if ($field->prevent_edit) {
+				continue;
+			}
+			if ($field instanceof Jelly_Field_HasManyUniquely) {
+				continue;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	protected function generate_fields(Jelly_Model $model, Jelly_Meta $meta, $field_prefix, array $validation_errors = array())
