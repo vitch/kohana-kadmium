@@ -27,7 +27,7 @@ abstract class Kadmium_Core_Field_Autocomplete extends Jelly_Field_ManyToMany
 	public function save($model, $value, $loaded)
 	{
 		parent::save($model, $value, $loaded);
-		if (isset($this->sort_on)) {
+		if (isset($this->sort_on) && $value) {
 			$i = 1;
 			foreach($value as $linked_id) {
 				if (!$linked_id) {
