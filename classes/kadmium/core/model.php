@@ -91,4 +91,17 @@ abstract class Kadmium_Core_Model extends Jelly_Core_Model
 
 		return $field->input($prefix, $data);
 	}
+
+	/**
+	 * Returns a name that this Model can be identified as.
+	 *
+	 * This implementation simply uses Jelly::model_name but it is provided as a hook you can override
+	 * if you want to have control over the name a model is referred to as.
+	 *
+	 * @return String
+	 */
+	public function model_name()
+	{
+		return Inflector::humanize(Jelly::model_name($this));
+	}
 }

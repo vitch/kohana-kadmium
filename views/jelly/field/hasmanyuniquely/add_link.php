@@ -9,7 +9,7 @@ echo Html::anchor(
 			'id' => 0
 		)
 	),
-	'Add a new ' . Inflector::humanize(Jelly::model_name($value->current())),
+	'Add a new ' . $value->current()->model_name(),
 	array(
 		'class' => 'add' . $lb_class
 	)
