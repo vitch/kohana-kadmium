@@ -32,6 +32,9 @@ abstract class Kadmium_Core_Field_Timestamp extends Jelly_Core_Field_Timestamp
 		if (is_string($value)) {
 			return $value;
 		}
+		if ($value === NULL) {
+			return '';
+		}
 		return date($this->pretty_format, $value);
 	}
 }
