@@ -9,7 +9,7 @@ echo Html::anchor(
 			'id' => 0
 		)
 	),
-	'Add a new ' . $value->current()->model_name(),
+	'Add a new ' . $value->current()->pretty_model_name(),
 	array(
 		'class' => 'add' . $lb_class
 	)

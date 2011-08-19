@@ -100,7 +100,7 @@ abstract class Kadmium_Core_Model extends Jelly_Core_Model
 	 *
 	 * @return String
 	 */
-	public function model_name()
+	public function pretty_model_name()
 	{
 		return Inflector::humanize(Jelly::model_name($this));
 	}
