@@ -347,6 +347,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		
 		$pagination = Pagination::factory(
 			array(
+				'group' => 'kadmium',
 				'total_items' => $count,
 				'items_per_page' => $rpp,
 				'page' => $this->request->param('page')
