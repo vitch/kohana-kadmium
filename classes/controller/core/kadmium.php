@@ -417,7 +417,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 			$delete_link = Html::anchor(
 				$delete_uri,
-				'Delete ' . $item_type,
+				$this->get_delete_button_label($item_type),
 				array(
 					'class' => 'delete'
 				)
@@ -604,7 +604,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 	private function _show_delete_page($page_title, $item_type, Jelly_Model $model)
 	{
-		if (Arr::get($_POST, 'my-action') == $page_title) {
+		$delete_button_label = $this->get_delete_button_label($item_type);
+		if (Arr::get($_POST, 'my-action') == $delete_button_label) {
 			// IsPostBack
 			$name = $this->_get_item_name($model);
 			$model->delete();
@@ -621,6 +622,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'kadmium/delete',
 				array(
 					'page_title' => $page_title,
+					'delete_button_label' => $delete_button_label,
 					'item_type' => $item_type,
 					'item_name' => $this->_get_item_name($model)
 				)
@@ -769,6 +771,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	protected function get_save_button_label($item_type, $is_new)
 	{
 		return $this->get_page_heading($item_type, $is_new);
+	}
+
+	protected function get_delete_button_label($item_type)
+	{
+		return 'Delete ' . $item_type;
 	}
 
 	protected function get_page_heading($item_type, $is_new)
