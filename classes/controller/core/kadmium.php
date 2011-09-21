@@ -150,6 +150,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			if (count($validation_errors) > 0) {
 				$error_message = '<p>There ' . (count($validation_errors) > 1 ? 'were errors' : 'was an error') . ' saving your ' . strtolower($item_type) . '. Please see below for more information.</p>';
 			} else {
+				// Allow a method to hook into the point where the save has completed
+				if (method_exists($this, $this->request->action() . '_save_complete')) {
+					call_user_func(array($this, $this->request->action() . '_save_complete'), $model, $is_new);
+				}
 				if ($is_new) {
 					Session::instance()->set('__FLASH__', '<p>Your ' . strtolower($item_type) . ' was successfully created.</p>');
 					$edit_url = $this->request->route()->uri(
