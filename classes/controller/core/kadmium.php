@@ -16,26 +16,24 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$media = Route::get('kadmium/media');
 
 		$this->styles = $this->styles + array(
-			'http://yui.yahooapis.com/2.8.1/build/reset-fonts/reset-fonts.css'  => 'all',
-			//$media->uri(array('file' => 'css/reset-fonts.css'))  => 'all',
-			'http://yui.yahooapis.com/2.8.1/build/base/base-min.css' => 'all',
-			$media->uri(array('file' => 'css/datePicker.css'))  => 'all',
-			$media->uri(array('file' => 'css/jquery.asmselect.css'))  => 'all',
-			$media->uri(array('file' => 'colorbox/styles/colorbox.css'))  => 'all',
-			$media->uri(array('file' => 'css/kadmium.css'))  => 'all',
+			$media->uri(array('file' => 'css/lib/bootstrap.1.3.0.min.css'))  => 'all',
+			$media->uri(array('file' => 'css/kadmium_bootstrapped.css'))  => 'all',
+//			$media->uri(array('file' => 'css/datePicker.css'))  => 'all',
+//			$media->uri(array('file' => 'css/jquery.asmselect.css'))  => 'all',
+//			$media->uri(array('file' => 'colorbox/styles/colorbox.css'))  => 'all',
+//			$media->uri(array('file' => 'css/kadmium.css'))  => 'all',
 		);
 
 		$this->scripts = $this->scripts + array(
-			'http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js',
-			//$media->uri(array('file' => 'js/jquery-1.4.2.min.js')),
-			$media->uri(array('file' => 'js/date.js')),
-			$media->uri(array('file' => 'js/jquery.datePicker.js')),
-			$media->uri(array('file' => 'tiny_mce/jquery.tinymce.js')),
-			$media->uri(array('file' => 'js/jquery.asmselect.js')),
-			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
-			$media->uri(array('file' => 'js/jquery-ui-1.8.6.custom.min.js')), // For it's drag and drop...
-			$media->uri(array('file' => 'js/wysiwyg.js')),
-			$media->uri(array('file' => 'js/kadmium.js')),
+			'http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js',
+//			$media->uri(array('file' => 'js/date.js')),
+//			$media->uri(array('file' => 'js/jquery.datePicker.js')),
+//			$media->uri(array('file' => 'tiny_mce/jquery.tinymce.js')),
+//			$media->uri(array('file' => 'js/jquery.asmselect.js')),
+//			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
+//			$media->uri(array('file' => 'js/jquery-ui-1.8.6.custom.min.js')), // For it's drag and drop...
+//			$media->uri(array('file' => 'js/wysiwyg.js')),
+//			$media->uri(array('file' => 'js/kadmium.js')),
 		);
 
 		$this->template->show_profiler = false;
@@ -419,7 +417,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				$delete_uri,
 				$this->get_delete_button_label($item_type),
 				array(
-					'class' => 'delete'
+					'class' => 'btn danger'
 				)
 			);
 		}
@@ -595,7 +593,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 					$this->request->uri($uri_params),
 					'&lt; Back to ' . strtolower($item_type),
 					array(
-						'class' => 'back'
+						'class' => 'btn'
 					)
 				)
 			)

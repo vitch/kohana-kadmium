@@ -1,21 +1,49 @@
-<ul class="pagination">
+<div class="pagination">
+	<ul>
 
-	<?php if ($page->previous_page() !== FALSE): ?>
-		<li class="link-back"><a href="<?php echo $page->url($page->previous_page()) ?>">prev</a></li>
-	<?php endif ?>
+		<?php
 
-	<?php for ($i = 1; $i <= $page->total_pages(); $i++): ?>
-		<li<?php if ($i == $page->current_page()):
-			echo ' class="selected"';
-		endif;
-		?>>
-			<a href="<?php echo $page->url($i) ?>"><?php echo $i ?></a>
-		</li>
-	<?php endfor ?>
+			if ($page->previous_page() === FALSE){
+				echo '<li class="prev disabled">';
+				echo Html::anchor(
+					'#',
+					'&larr; Previous'
+				);
+				echo '</li>';
+			} else {
+				echo '<li class="prev">';
+				echo Html::anchor(
+					$page->url($page->previous_page()),
+					'&larr; Previous'
+				);
+				echo '</li>';
+			}
 
-	<?php if ($page->next_page() !== FALSE): ?>
-		<li class="link"><a href="<?php echo $page->url($page->next_page()) ?>">next</a></li>
-	<?php endif ?>
+			for ($i = 1; $i <= $page->total_pages(); $i++) {
+				echo '<li' . ($i == $page->current_page() ? ' class="active"' : '') . '>';
+				echo Html::anchor(
+					$page->url($i),
+					$i
+				);
+				echo '</li>';
+			}
 
 
-</ul><!-- .pagination -->
+			if ($page->next_page() === FALSE){
+				echo '<li class="next disabled">';
+				echo Html::anchor(
+					'#',
+					'Next &rarr;'
+				);
+				echo '</li>';
+			} else {
+				echo '<li class="next">';
+				echo Html::anchor(
+					$page->url($page->next_page()),
+					'Next &rarr;'
+				);
+				echo '</li>';
+			}
+		?>
+	</ul>
+</div>

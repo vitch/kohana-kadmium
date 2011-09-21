@@ -1,5 +1,5 @@
 
-<table class="list-page">
+<table class="zebra-striped">
 <?php
 	foreach ($items as $item):
 		if (!isset($fields)) {

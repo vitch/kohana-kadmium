@@ -1,19 +1,28 @@
-	<?php
-		foreach ($fields as $label => $field):
-	?>
-	<li<?= isset($field->li_class) ? ' class="' . $field->li_class . '"' : ''; ?>>
-		<?= $label; ?>
-		<?= $field; ?>
+<?php
+	foreach ($fields as $label => $field) {
+		$wrapper_class = 'clearfix';
+		if (isset($field->li_class)) { // TODO: What is this used for again?
+			$wrapper_class .= ' ' . $field->li_class;
+		}
+		if (isset($field->errors)) {
+			$wrapper_class .= ' error';
+		}
+?>
+	<div class="<?= $wrapper_class; ?>">
 		<?php
-		if (isset($field->errors)):
+			echo $label;
+			echo '<div class="input">';
+			echo $field;
+			if (isset($field->errors)) {
 		?>
-		<div class="error-message">
-			<?= $field->errors; ?>
-		</div>
+				<div class="alert-message error">
+					<?= $field->errors; ?>
+				</div>
 		<?php
-		endif;
+			}
+			echo '</div>';
 		?>
-	</li>
-	<?php
-		endforeach
-	?>
+	</div>
+<?php
+	}
+?>

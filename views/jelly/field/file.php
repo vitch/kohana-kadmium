@@ -1,6 +1,6 @@
 <?php
 echo Form::file($name, $attributes + array('id' => 'field-'.$name));
-if ($value != '' && !is_array($model->{$field->name})):
+if ($value != '' && !is_array($model->{$field->name})) {
 	echo '<label>Current file:</label>';
 	echo '<div style="clear: left">';
 	echo Html::anchor(
@@ -11,5 +11,5 @@ if ($value != '' && !is_array($model->{$field->name})):
 		)
 	);
 	echo '</div>';
-endif;
+}
 ?>
