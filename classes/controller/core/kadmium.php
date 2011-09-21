@@ -131,7 +131,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		}
 
 		// TODO: Check model->loaded() here?
-		$title = $this->get_save_button_name($item_type, $is_new);
+		$title = $this->get_page_heading_name($item_type, $is_new);
 		$this->init_template($title);
 		$meta = Jelly::meta($model);
 
@@ -139,7 +139,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$error_message = '';
 		$validation_errors = array();
 
-		if (Arr::get($_POST, 'my-action') == $title) {
+		if (Arr::get($_POST, 'my-action') == $this->get_save_button_name($item_type, $is_new)) {
 			// IsPostBack
 
 			$update_result = $this->update_model_from_post($meta, $model);
@@ -184,6 +184,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			'kadmium/edit',
 			array(
 				'page_title' => $title,
+				'save_button_label' => $this->get_save_button_name($item_type, $is_new),
 				'item' => $model,
 				'feedback_message' => $feedback_message,
 				'error_message' => $error_message,
@@ -766,6 +767,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	}
 
 	protected function get_save_button_name($item_type, $is_new)
+	{
+		return $this->get_page_heading_name($item_type, $is_new);
+	}
+
+	protected function get_page_heading_name($item_type, $is_new)
 	{
 		return ($is_new ? 'Add' : 'Update') . ' ' . $item_type;
 	}

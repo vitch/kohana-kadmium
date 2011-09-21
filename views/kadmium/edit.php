@@ -20,7 +20,7 @@ endif
 	</ul>
 <?php
 if ($show_submit) {
-	echo Form::submit('my-action', $page_title);
+	echo Form::submit('my-action', $save_button_label);
 }
 if ($delete_link != ''){
 	echo $delete_link;
