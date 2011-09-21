@@ -131,7 +131,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		}
 
 		// TODO: Check model->loaded() here?
-		$title = ($is_new ? 'Add' : 'Update') . ' ' . $item_type;
+		$title = $this->get_save_button_name($item_type, $is_new);
 		$this->init_template($title);
 		$meta = Jelly::meta($model);
 
@@ -763,6 +763,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			return FALSE;
 		}
 		return TRUE;
+	}
+
+	protected function get_save_button_name($item_type, $is_new)
+	{
+		return ($is_new ? 'Add' : 'Update') . ' ' . $item_type;
 	}
 
 }
