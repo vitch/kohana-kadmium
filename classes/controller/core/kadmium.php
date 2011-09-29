@@ -28,12 +28,12 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			'http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js',
 //			$media->uri(array('file' => 'js/date.js')),
 //			$media->uri(array('file' => 'js/jquery.datePicker.js')),
-//			$media->uri(array('file' => 'tiny_mce/jquery.tinymce.js')),
+			$media->uri(array('file' => 'tiny_mce/jquery.tinymce.js')),
 //			$media->uri(array('file' => 'js/jquery.asmselect.js')),
 //			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
-//			$media->uri(array('file' => 'js/jquery-ui-1.8.6.custom.min.js')), // For it's drag and drop...
-//			$media->uri(array('file' => 'js/wysiwyg.js')),
-//			$media->uri(array('file' => 'js/kadmium.js')),
+			$media->uri(array('file' => 'js/jquery-ui-1.8.6.custom.min.js')), // For it's drag and drop...
+			$media->uri(array('file' => 'js/wysiwyg.js')),
+			$media->uri(array('file' => 'js/kadmium.js')),
 		);
 
 		$this->template->show_profiler = false;
