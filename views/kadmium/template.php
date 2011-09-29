@@ -17,19 +17,19 @@
 	</head>
 	<body class="<?= $is_logged_in ? 'logged-in' : 'logged-out'; ?>">
 		<div class="topbar">
-			<div class="topbar-inner">
-				<?= View::factory(
-						'kadmium/element/topbar',
-						array(
-							'project_name' => $project_name,
-							'is_logged_in' => $is_logged_in,
-							'edit_user_link' => 'user/edit',
-							'user_name' => $user_name,
-							'logout_link' => 'user/logout',
-						)
-					);
-				?>
-			</div>
+			<?php
+				echo View::factory(
+					'kadmium/element/topbar',
+					array(
+						'project_name' => $project_name,
+						'is_logged_in' => $is_logged_in,
+						'navigation_controllers' => $navigation_controllers,
+						'edit_user_link' => 'user/edit',
+						'user_name' => $user_name,
+						'logout_link' => 'user/logout',
+					)
+				);
+			?>
 		</div>
 
 		<!--[if IE LT 7]>
@@ -43,65 +43,7 @@
 				</p>
 			</div>
 		<![endif]-->
-		<div class="container-fluid">
-			<?php
-				if ($is_logged_in) {
-			?>
-			<div class="sidebar">
-				<div class="well">
-					<ul class="navigation">
-					<?php
-							foreach ($navigation_controllers as $controller=>$label)
-							{
-								if (is_array($label)) {
-					?>
-						<li class="subnav">
-							<h3><?= $controller; ?></h3>
-							<ul>
-							<?php
-									foreach ($label as $sub_controller=>$sub_label)
-									{
-										echo '<li>';
-										echo Html::anchor(
-											Route::get('kadmium_list')->uri(
-												array(
-													'controller' => $sub_controller
-												)
-											),
-											$sub_label,
-											array(
-												'class' => Request::current()->controller() == $sub_controller ? 'active' : ''
-											)
-										);
-										echo '</li>';
-									}
-							?>
-							</ul>
-						</li>
-					<?php
-								} else {
-									echo '<li>';
-									echo Html::anchor(
-										Route::get('kadmium_list')->uri(
-											array(
-												'controller' => $controller
-											)
-										),
-										$label,
-										array(
-											'class' => Request::current()->controller() == $controller ? 'active' : ''
-										)
-									);
-									echo '</li>';
-								}
-							}
-					?>
-					</ul>
-				</div>
-			</div>
-			<?php
-				}
-			?>
+		<div class="container">
 			<div class="content">
 				<?php
 					echo $content;
