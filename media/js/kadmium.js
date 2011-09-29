@@ -2,37 +2,15 @@
 $(
 	function()
 	{
-		Date.format = 'yyyy-mm-dd';
-		$('input.timestamp').datePicker({startDate:'1980-01-01'});
+//		Date.format = 'yyyy-mm-dd';
+//		$('input.timestamp').datePicker({startDate:'1980-01-01'});
 
-		$('select[multiple]').asmSelect({
-			addItemTarget: 'bottom',
-			animate: true,
-			highlight: false,
-			sortable: false
-		});
-
-		// Collapsible side nav panes
-		$('ul.navigation ul').each(
-			function()
-			{
-				var ul = $(this).hide();
-				var isOpen = false;
-				var h3 = ul.prev('h3').css('cursor', 'pointer').bind(
-					'click',
-					function()
-					{
-						ul[isOpen ? 'slideUp' : 'slideDown']();
-						isOpen = !isOpen;
-						h3[isOpen ? 'addClass' : 'removeClass']('open');
-					}
-				);
-				if (ul.has('a.active').length > 0) {
-					ul.show();
-					h3.trigger('click');
-				}
-			}
-		);
+//		$('select[multiple]').asmSelect({
+//			addItemTarget: 'bottom',
+//			animate: true,
+//			highlight: false,
+//			sortable: false
+//		});
 
 		// Handle sorting for list tables...
 		var hasSortableTable = false; // TODO: Will break if there is more than one list-table on the page
@@ -122,42 +100,42 @@ $(
 
 		var openedMenu;
 
-		// Handle colorbox so the add image etc are in pop up boxes...
-		var initColorboxes = function(context) {
-			$('a.lb', context).colorbox(
-				{
-					'iframe' : true,
-					'scrolling' : true,
-					'width' : 820,
-					'height' : $(window).height() - 50,
-					'onOpen' : function() {
-						openedMenu = $(this).parents('ul').attr('rel');
-					},
-					'onClosed' : function() {
-						var loadingMenu = '#' + openedMenu;
-						var q = location.href.indexOf('?') == -1 ? '?' : '&';
-						$.ajax({
-							url : location.href + q + 'action=reload&field=' + openedMenu,
-							success : function (data)
-							{
-								var wrapper = $(loadingMenu).parent();
-								wrapper.html($(data).children());
-								initColorboxes(wrapper);
-								initSortable(loadingMenu);
-							}
-						});
-						openedMenu = undefined;
-					}
-				}
-			).each(
-				function()
-				{
-					var q = this.href.indexOf('?') == -1 ? '?' : '&';
-					$(this).data('colorbox').href = this.href + q + 'lb=true';
-				}
-			);
-		}
-		initColorboxes();
+//		// Handle colorbox so the add image etc are in pop up boxes...
+//		var initColorboxes = function(context) {
+//			$('a.lb', context).colorbox(
+//				{
+//					'iframe' : true,
+//					'scrolling' : true,
+//					'width' : 820,
+//					'height' : $(window).height() - 50,
+//					'onOpen' : function() {
+//						openedMenu = $(this).parents('ul').attr('rel');
+//					},
+//					'onClosed' : function() {
+//						var loadingMenu = '#' + openedMenu;
+//						var q = location.href.indexOf('?') == -1 ? '?' : '&';
+//						$.ajax({
+//							url : location.href + q + 'action=reload&field=' + openedMenu,
+//							success : function (data)
+//							{
+//								var wrapper = $(loadingMenu).parent();
+//								wrapper.html($(data).children());
+//								initColorboxes(wrapper);
+//								initSortable(loadingMenu);
+//							}
+//						});
+//						openedMenu = undefined;
+//					}
+//				}
+//			).each(
+//				function()
+//				{
+//					var q = this.href.indexOf('?') == -1 ? '?' : '&';
+//					$(this).data('colorbox').href = this.href + q + 'lb=true';
+//				}
+//			);
+//		}
+//		initColorboxes();
 
 		$('a.js-close-link').bind(
 			'click',
@@ -229,12 +207,6 @@ $(
 					}
 				}
 			);
-		}
-
-		// Help IE out with some of the CSS selectors it has trouble with which are relied on by the design
-		if ($.browser.msie) {
-			$('table.list-page tr:odd').addClass('odd');
-			$('table.list-page tr:even').addClass('even');
 		}
 
 		// store the value of all form fields so we can warn the user if they edit and then try to leave without saving...
