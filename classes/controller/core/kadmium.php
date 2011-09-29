@@ -710,12 +710,17 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		if ($field->prevent_edit) {
 			$label = Form::label($field_id_attr, $field->label);
 			$field_str = $field->display($model, $model->get($field_id));
-			$fields[$label] = '<div class="non-editable">' . ($field_str == '' || $field_str == ' ' ? '&nbsp;' : $field_str) . '</div>';
+			$fields[$label] = View::factory(
+				'jelly/field/disabled',
+				array(
+					'text' => $field_str,
+				)
+			);
 		} else {
 
 			$field_output = $model->input($field->name, $id_attribs);
 
-			if ($field instanceof Jelly_Field_HasManyUniquely) {
+			if ($field instanceof Jelly_Field_HasManyUniquely || $field instanceof Jelly_Field_Autocomplete) {
 				$label = View::factory(
 					'jelly/field/hasmanyuniquely/header',
 					array(

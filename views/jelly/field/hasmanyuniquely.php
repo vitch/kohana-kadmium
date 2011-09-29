@@ -51,20 +51,14 @@
 	endforeach;
 	?>
 </ul>
-<ul class="has-many-uniquely" rel="<?= $name; ?>">
-	<li>
-		<span>
-		<?php
-			echo View::factory(
-				$add_link_view,
-				array(
-					'model' => $model,
-					'field' => $field,
-					'value' => $value,
-					'lb_class' => $lb_class,
-				)
-			);
-		?>
-		</span>
-	</li>
-</ul>
+<?php
+	echo View::factory(
+		$add_link_view,
+		array(
+			'model' => $model,
+			'field' => $field,
+			'value' => $value,
+			'lb_class' => $lb_class,
+		)
+	);
+?>
