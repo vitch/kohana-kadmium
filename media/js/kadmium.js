@@ -109,7 +109,11 @@ $(
 					'width' : 1020,
 					'height' : $(window).height() - 50,
 					'onOpen' : function() {
-						openedMenu = $(this).parents('ul').attr('rel');
+						var ul = $(this).parents('ul');
+						if (ul.length == 0) {
+							ul = $(this).siblings('ul');
+						}
+						openedMenu = ul.attr('rel');
 					},
 					'onClosed' : function() {
 						var loadingMenu = '#' + openedMenu;
@@ -118,7 +122,7 @@ $(
 							url : location.href + q + 'action=reload&field=' + openedMenu,
 							success : function (data)
 							{
-								var wrapper = $(loadingMenu).parent();
+								var wrapper = $(loadingMenu).parent().parent();
 								wrapper.html($(data).children());
 								initColorboxes(wrapper);
 								initSortable(loadingMenu);
