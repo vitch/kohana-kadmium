@@ -100,42 +100,42 @@ $(
 
 		var openedMenu;
 
-//		// Handle colorbox so the add image etc are in pop up boxes...
-//		var initColorboxes = function(context) {
-//			$('a.lb', context).colorbox(
-//				{
-//					'iframe' : true,
-//					'scrolling' : true,
-//					'width' : 820,
-//					'height' : $(window).height() - 50,
-//					'onOpen' : function() {
-//						openedMenu = $(this).parents('ul').attr('rel');
-//					},
-//					'onClosed' : function() {
-//						var loadingMenu = '#' + openedMenu;
-//						var q = location.href.indexOf('?') == -1 ? '?' : '&';
-//						$.ajax({
-//							url : location.href + q + 'action=reload&field=' + openedMenu,
-//							success : function (data)
-//							{
-//								var wrapper = $(loadingMenu).parent();
-//								wrapper.html($(data).children());
-//								initColorboxes(wrapper);
-//								initSortable(loadingMenu);
-//							}
-//						});
-//						openedMenu = undefined;
-//					}
-//				}
-//			).each(
-//				function()
-//				{
-//					var q = this.href.indexOf('?') == -1 ? '?' : '&';
-//					$(this).data('colorbox').href = this.href + q + 'lb=true';
-//				}
-//			);
-//		}
-//		initColorboxes();
+		// Handle colorbox so the add image etc are in pop up boxes...
+		var initColorboxes = function(context) {
+			$('a.lb', context).colorbox(
+				{
+					'iframe' : true,
+					'scrolling' : true,
+					'width' : 1020,
+					'height' : $(window).height() - 50,
+					'onOpen' : function() {
+						openedMenu = $(this).parents('ul').attr('rel');
+					},
+					'onClosed' : function() {
+						var loadingMenu = '#' + openedMenu;
+						var q = location.href.indexOf('?') == -1 ? '?' : '&';
+						$.ajax({
+							url : location.href + q + 'action=reload&field=' + openedMenu,
+							success : function (data)
+							{
+								var wrapper = $(loadingMenu).parent();
+								wrapper.html($(data).children());
+								initColorboxes(wrapper);
+								initSortable(loadingMenu);
+							}
+						});
+						openedMenu = undefined;
+					}
+				}
+			).each(
+				function()
+				{
+					var q = this.href.indexOf('?') == -1 ? '?' : '&';
+					$(this).data('colorbox').href = this.href + q + 'lb=true';
+				}
+			);
+		}
+		initColorboxes();
 
 		$('a.js-close-link').bind(
 			'click',

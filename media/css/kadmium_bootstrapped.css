@@ -113,6 +113,20 @@ textarea.lines-20
 	height: 20em;
 }
 
+/* colorbox */
+
+#colorbox,
+#cboxOverlay,
+#cboxWrapper
+{
+	z-index: 10001;
+}
+#kadmium-content
+{
+	width: 940px;
+	margin: -60px auto 0;
+}
+
 /* Autocomplete specific styles */
 
 ul.autocomplete-options

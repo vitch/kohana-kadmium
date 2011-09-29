@@ -17,10 +17,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 		$this->styles = $this->styles + array(
 			$media->uri(array('file' => 'css/lib/bootstrap.1.3.0.min.css'))  => 'all',
-			$media->uri(array('file' => 'css/kadmium_bootstrapped.css'))  => 'all',
 //			$media->uri(array('file' => 'css/datePicker.css'))  => 'all',
 //			$media->uri(array('file' => 'css/jquery.asmselect.css'))  => 'all',
-//			$media->uri(array('file' => 'colorbox/styles/colorbox.css'))  => 'all',
+			$media->uri(array('file' => 'colorbox/styles/colorbox.css'))  => 'all',
+			$media->uri(array('file' => 'css/kadmium_bootstrapped.css'))  => 'all',
 //			$media->uri(array('file' => 'css/kadmium.css'))  => 'all',
 		);
 
@@ -30,7 +30,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 //			$media->uri(array('file' => 'js/jquery.datePicker.js')),
 			$media->uri(array('file' => 'tiny_mce/jquery.tinymce.js')),
 //			$media->uri(array('file' => 'js/jquery.asmselect.js')),
-//			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
+			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
 			$media->uri(array('file' => 'js/jquery-ui-1.8.6.custom.min.js')), // For it's drag and drop...
 			$media->uri(array('file' => 'js/wysiwyg.js')),
 			$media->uri(array('file' => 'js/kadmium.js')),
