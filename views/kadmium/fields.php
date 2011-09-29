@@ -15,9 +15,9 @@
 			echo $field;
 			if (isset($field->errors)) {
 		?>
-				<div class="alert-message error">
+				<span class="help-inline">
 					<?= $field->errors; ?>
-				</div>
+				</span>
 		<?php
 			}
 			echo '</div>';
