@@ -10,6 +10,17 @@ body
 {
 	display: block;
 }
+
+ul.imagefiles
+{
+	margin: 5px 0;
+	list-style: none;
+}
+ul.imagefiles li
+{
+	float: left;
+	margin: 0 10px 0 0;
+}
 footer
 {
 	clear: both;
