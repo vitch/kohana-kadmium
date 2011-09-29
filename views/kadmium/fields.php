@@ -12,7 +12,15 @@
 		<?php
 			echo $label;
 			echo '<div class="input">';
-			echo $field;
+			if (isset($field->prepend)) {
+				echo '<div class="input-prepend">';
+				echo '<span class="add-on">' . $field->prepend . '</span>';
+				echo $field;
+				echo '</div>';
+			} else {
+				echo $field;
+
+			}
 			if (isset($field->errors)) {
 		?>
 				<span class="help-inline">
