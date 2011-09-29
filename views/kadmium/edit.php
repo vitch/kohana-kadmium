@@ -9,7 +9,7 @@
 		<?php
 		elseif ($feedback_message != ''):
 		?>
-		<div class="alert-message feedback"><?= $feedback_message; ?></div>
+		<div class="alert-message success"><?= $feedback_message; ?></div>
 		<?php
 		endif
 		?>
