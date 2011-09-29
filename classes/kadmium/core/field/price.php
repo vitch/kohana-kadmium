@@ -2,6 +2,7 @@
 
 abstract class Kadmium_Core_Field_Price extends Jelly_Field_Integer
 {
+	public $prepend = '£';
 
 	public function set($value)
 	{
