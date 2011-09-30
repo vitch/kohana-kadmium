@@ -263,37 +263,15 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$this->show_child_model_page_from_model($parent_type_name, $child_type_name, $model);
 	}
 
-	protected function show_child_model_page_from_model($parent_type_name, $child_type_name, $child_model)
+	protected function show_child_model_page_from_model($parent_type_name, $child_type_name, $child_model) // TODO: Refactor out unused $parent_type_name
 	{
 		// TODO: Check if id corresponds to a valid item?
 		$parent_id = $this->request->param('parent_id');
 
 		if ($this->is_in_lightbox()) {
 			$this->template = View::factory('kadmium/lightbox_template');
-			$this->after_edit_form_content = Html::anchor(
-				'#',
-				'&lt; Back to ' . $parent_type_name,
-				array(
-					'class' => 'back js-close-link'
-				)
-			);
-		} else {
-			if (!isset($this->after_edit_form_content)) {
-				$this->after_edit_form_content = Html::anchor(
-					Route::get('kadmium')
-						->uri(array(
-							'controller' => $this->request->controller(),
-							'action' => 'edit',
-							'id' => $parent_id,
-						)
-					),
-					'&lt; Back to ' . $parent_type_name,
-					array(
-						'class' => 'back'
-					)
-				);
-			}
 		}
+		
 		$is_new = $child_model->id() == 0;
 		if ($is_new) {
 			$child_model->set($child_model->meta()->foreign_key(), $parent_id);
