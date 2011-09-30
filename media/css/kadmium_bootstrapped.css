@@ -137,10 +137,9 @@ textarea.lines-20
 ul.autocomplete-options
 {
 	list-style: none;
-	padding: .5em 0;
-	margin: 0;
+	padding: 5px 0;
+	margin: -5px 0 0;
 	overflow: hidden;
-	clear: left;
 }
 
 ul.autocomplete-options li
