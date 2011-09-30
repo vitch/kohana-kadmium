@@ -31,14 +31,8 @@
 					if ($delete_link != '') {
 						$action_buttons[] = $delete_link;
 					}
-					if ($cancel_uri != '') {
-						$action_buttons[] = Html::anchor(
-							$cancel_uri,
-							'Cancel',
-							array(
-								'class' => 'btn'
-							)
-						);
+					if ($cancel_link != '') {
+						$action_buttons[] = $cancel_link;
 					}
 					echo implode(' ', $action_buttons);
 				?>

@@ -187,7 +187,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'feedback_message' => $feedback_message,
 				'error_message' => $error_message,
 				'delete_link' => $this->get_delete_link($is_new, $model, $item_type),
-				'cancel_uri' => $this->get_cancel_uri($model),
+				'cancel_link' => $this->get_cancel_link($model),
 				'fields' => View::factory(
 					'kadmium/fields',
 					array(
@@ -248,7 +248,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		// TODO: Check if id corresponds to a valid item?
 		$parent_id = $this->request->param('parent_id');
 
-		if ($this->request->is_ajax() || Arr::get($_GET, 'lb') == 'true') {
+		if ($this->is_in_lightbox()) {
 			$this->template = View::factory('kadmium/lightbox_template');
 			$this->after_edit_form_content = Html::anchor(
 				'#',
@@ -445,6 +445,17 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		);
 	}
 
+	protected function get_cancel_link($model)
+	{
+		return Html::anchor(
+			$this->get_cancel_uri($model),
+			'Cancel',
+			array(
+				'class' => 'btn' . ($this->is_in_lightbox() ? ' js-close-link' : ''),
+			)
+		);
+	}
+
 	protected function show_delete_page($item_type, $model_name, $id)
 	{
 		$model = $this->get_model($model_name, $id);
@@ -452,7 +463,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			throw new HTTP_Exception_404();
 		}
 
-		if ($this->request->is_ajax() || Arr::get($_GET, 'lb') == 'true') {
+		if ($this->is_in_lightbox()) {
 			$this->template = View::factory('kadmium/lightbox_template');
 		}
 
@@ -805,6 +816,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	protected function get_page_heading($item_type, $is_new)
 	{
 		return ($is_new ? 'Add' : 'Update') . ' ' . $item_type;
+	}
+
+	protected function is_in_lightbox()
+	{
+		return $this->request->is_ajax() || Arr::get($_GET, 'lb') == 'true';
 	}
 
 }
