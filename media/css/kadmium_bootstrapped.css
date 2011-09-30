@@ -63,7 +63,7 @@ ul.has-many-uniquely li a.edit
 	top: 2px;
 }
 
-ul.has-many-uniquely.img-list li a.edit
+ul.img-list li a.edit
 {
 	background: #F5F5F5;
 	border: 0;
@@ -76,6 +76,11 @@ ul.has-many-uniquely li span
 {
 	padding: 5px 30px 5px 5px;
 	display: block;
+}
+
+ul.img-list li span
+{
+	padding: 5px;
 }
 
 ul.sortable li
