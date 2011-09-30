@@ -30,7 +30,7 @@ if ($items->count() == 0) {
 			$add_link,
 			'Add new ' . strtolower($item_type),
 			array(
-				'class' => 'add',
+				'class' => 'btn',
 			)
 		);
 	}
