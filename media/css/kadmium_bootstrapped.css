@@ -6,6 +6,10 @@ body
 {
 	margin: 10px 0 0;
 }
+table td
+{
+	vertical-align: middle;
+}
 .dropdown:hover .dropdown-menu
 {
 	display: block;
