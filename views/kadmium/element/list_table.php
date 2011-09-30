@@ -58,7 +58,10 @@
 							'action' => 'edit',
 							'id' => $item->id(),
 						)),
-					'Edit'
+					'Edit',
+					array(
+						'class' => 'btn'
+					)
 				);
 			}
 		?>
