@@ -182,22 +182,42 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			'kadmium/edit',
 			array(
 				'page_title' => $title,
-				'save_button_label' => $this->get_save_button_label($item_type, $is_new),
 				'item' => $model,
+				'action_buttons' => $this->get_action_buttons($model, $meta, $item_type, $is_new),
 				'feedback_message' => $feedback_message,
 				'error_message' => $error_message,
-				'delete_link' => $this->get_delete_link($is_new, $model, $item_type),
-				'cancel_link' => $this->get_cancel_link($model),
 				'fields' => View::factory(
 					'kadmium/fields',
 					array(
 						'fields' => $this->generate_fields($model, $meta, 'field-', $validation_errors),
 					)
 				),
-				'show_submit' => $this->should_show_submit($model, $meta),
 				'after_form_content' => $this->after_edit_form_content,
 			)
 		);
+	}
+
+	protected function get_action_buttons($model, $meta, $item_type, $is_new)
+	{
+		$action_buttons = array();
+		if($this->should_show_submit($model, $meta)) {
+			$action_buttons[] = Form::submit(
+				'my-action',
+				$this->get_save_button_label($item_type, $is_new),
+				array(
+					'class' => 'btn primary'
+				)
+			);
+		}
+		$delete_link = $this->get_delete_link($is_new, $model, $item_type);
+		if ($delete_link) {
+			$action_buttons[] = $delete_link;
+		}
+		$cancel_link = $this->get_cancel_link($model);
+		if ($cancel_link) {
+			$action_buttons[] = $cancel_link;
+		}
+		return $action_buttons;
 	}
 
 	protected function update_model_from_post($meta, $model, $prefix='field-')
