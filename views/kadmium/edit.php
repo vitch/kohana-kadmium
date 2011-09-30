@@ -18,18 +18,29 @@
 			<?= $fields; ?>
 			<div class="actions">
 				<?php
+					$action_buttons = array();
 					if ($show_submit) {
-						echo Form::submit(
+						$action_buttons[] = Form::submit(
 							'my-action',
 							$save_button_label,
 							array(
 								'class' => 'btn primary'
 							)
-						) . ' ';
+						);
 					}
-					if ($delete_link != ''){
-						echo $delete_link;
+					if ($delete_link != '') {
+						$action_buttons[] = $delete_link;
 					}
+					if ($cancel_uri != '') {
+						$action_buttons[] = Html::anchor(
+							$cancel_uri,
+							'Cancel',
+							array(
+								'class' => 'btn'
+							)
+						);
+					}
+					echo implode(' ', $action_buttons);
 				?>
 			</div>
 		</form>

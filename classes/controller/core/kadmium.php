@@ -187,6 +187,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'feedback_message' => $feedback_message,
 				'error_message' => $error_message,
 				'delete_link' => $this->get_delete_link($is_new, $model, $item_type),
+				'cancel_uri' => $this->get_cancel_uri($model),
 				'fields' => View::factory(
 					'kadmium/fields',
 					array(
@@ -422,6 +423,26 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			);
 		}
 		return $delete_link;
+	}
+
+	protected function get_cancel_uri($model)
+	{
+		// Child page - back to parent
+		if ($this->request->param('child_action')) {
+			return Route::get('kadmium')->uri(
+				array(
+					'controller' => $this->request->controller(),
+					'action' => 'edit',
+					'id' => $this->request->param('parent_id'),
+				)
+			);
+		}
+		// Top level page - back to list
+		return Route::get('kadmium_list')->uri(
+			array(
+				'controller' => $this->request->controller()
+			)
+		);
 	}
 
 	protected function show_delete_page($item_type, $model_name, $id)
