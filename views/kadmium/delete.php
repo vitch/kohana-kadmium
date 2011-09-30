@@ -13,10 +13,11 @@
 							'class' => 'btn small danger'
 						)
 					) . ' ';
+					$action_param = Request::current()->param('child_action') ? 'child_action' : 'action';
 					echo Html::anchor(
 						Request::current()->uri(
 							array(
-								'action' => 'edit',
+								$action_param => 'edit',
 							)
 						),
 						'Cancel',
