@@ -756,6 +756,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 					array(
 						'label' => $field->label,
 						'is_sortable' => isset($field->sort_on) && $field->sort_on,
+						'num_items' => $model->get($field->name)->count(),
 					)
 				) . '';
 			} else if ($field instanceof Jelly_Field_BelongsTo && $field->edit_inline) {
