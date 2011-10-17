@@ -25,6 +25,15 @@ class Controller_Kadmium_Auth extends Controller_Template
 		}
 	}
 
+	public function after()
+	{
+		if ($this->auth->logged_in()) {
+			$this->response->headers('Cache-control', 'private');
+		}
+
+		return parent::after();
+	}
+
 	protected function require_login()
 	{
 		if($this->auth->logged_in() == 0) {
