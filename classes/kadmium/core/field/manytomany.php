@@ -56,7 +56,7 @@ abstract class Kadmium_Core_Field_ManyToMany extends Jelly_Core_Field_ManyToMany
 		if (!isset($this->sort_on)) {
 			return parent::get($model, $value);
 		}
-		if ($model->changed($this->name)) {
+		if ($model->changed($this->name) && $value) {
 			// FIXME: This happens when e.g. validation errors prevent an item from being saved...
 			// The order is lost in these cases - is this a problem?
 			return parent::get($model, $value);
