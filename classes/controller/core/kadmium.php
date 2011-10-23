@@ -457,6 +457,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	protected function show_delete_page($item_type, $model_name, $id)
 	{
 		$model = $this->get_model($model_name, $id);
+		$this->show_delete_page_from_model($item_type, $model);
+	}
+
+	protected function show_delete_page_from_model($item_type, $model)
+	{
 		if (!$model->loaded()) {
 			throw new HTTP_Exception_404();
 		}
