@@ -23,4 +23,14 @@ abstract class Kadmium_Core_Field_Boolean extends Jelly_Core_Field_Boolean
 	{
 		return $value ? $this->label_true : $this->label_false;
 	}
+
+	public function input($prefix = 'jelly/field', $data = array())
+	{
+		$attrs = Arr::get($data, 'attributes', array());
+		$css_class = Arr::get($attrs, 'class');
+		$css_class .= ($css_class == '' ? '' : ' ') . 'xxlarge';
+		$attrs['class'] = $css_class;
+		$data['attributes'] = $attrs;
+		return parent::input($prefix, $data);
+	}
 }
