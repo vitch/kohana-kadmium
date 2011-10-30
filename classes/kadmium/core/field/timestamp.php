@@ -31,4 +31,9 @@ abstract class Kadmium_Core_Field_Timestamp extends Jelly_Core_Field_Timestamp
 	{
 		return date($this->pretty_format, strtotime($value));
 	}
+
+	public function get($model, $value)
+	{
+		return strtotime($value);
+	}
 }
