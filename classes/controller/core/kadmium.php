@@ -141,6 +141,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$error_message = '';
 		$validation_errors = array();
 
+		$auto_close = FALSE;
+
 		if (Arr::get($_POST, 'my-action') == $this->get_save_button_label($item_type, $is_new)) {
 			// IsPostBack
 
@@ -182,6 +184,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			Session::instance()->delete('__FLASH__');
 		}
 
+		if ($feedback_message) {
+			$auto_close = $this->is_in_lightbox() && $model->auto_close_lightbox;
+		}
+
 		$this->template->content = View::factory(
 			'kadmium/edit',
 			array(
@@ -190,6 +196,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'action_buttons' => $this->get_action_buttons($model, $meta, $item_type, $is_new),
 				'feedback_message' => $feedback_message,
 				'error_message' => $error_message,
+				'auto_close' => $auto_close,
 				'fields' => View::factory(
 					'kadmium/fields',
 					array(
@@ -645,6 +652,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		if (Arr::get($_POST, 'my-action') == $delete_button_label) {
 			// IsPostBack
 			$name = $this->_get_item_name($model);
+			$auto_close = $this->is_in_lightbox() && $model->auto_close_lightbox;
 			$model->delete();
 			$this->template->content = View::factory(
 				'kadmium/deleted',
@@ -652,6 +660,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 					'page_title' => $page_title,
 					'item_type' => $item_type,
 					'item_name' => $name,
+					'auto_close' => $auto_close,
 				)
 			);
 		} else {

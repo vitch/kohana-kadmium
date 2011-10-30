@@ -32,3 +32,12 @@
 		?>
 	</div>
 </div>
+<?php
+	if ($auto_close) {
+?>
+<script type="text/javascript">
+	parent.$.fn.colorbox.close();
+</script>
+<?php
+	}
+?>
