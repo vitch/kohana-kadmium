@@ -101,10 +101,12 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			switch(Arr::get($_POST, 'action', Arr::get($_GET, 'action'))) {
 				case 'reload':
 					list($field, $fields) = $this->get_field_by_id(Arr::get($_GET, 'field'), $model);
-					echo View::factory(
-						'kadmium/fields',
-						array(
-							'fields' => $fields
+					$this->response->body(
+						View::factory(
+							'kadmium/fields',
+							array(
+								'fields' => $fields
+							)
 						)
 					);
 					$this->auto_render = false;
@@ -123,7 +125,9 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 						)->save();
 					}
 					$this->auto_render = false;
-					echo '{complete:1}';
+					$this->response->body(
+						'{complete:1}'
+					);
 					return false;
 			}
 		}
