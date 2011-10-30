@@ -5,24 +5,18 @@
 			Are you sure you want to delete the <?= $item_type; ?> called <strong><?= $item_name; ?></strong>?
 		</p>
 			<div class="alert-actions">
-				<?php
-					echo Form::submit(
-						'my-action',
-						$delete_button_label,
+				<?=
+					implode(
+						' ',
 						array(
-							'class' => 'btn small danger'
-						)
-					) . ' ';
-					$action_param = Request::current()->param('child_action') ? 'child_action' : 'action';
-					echo Html::anchor(
-						Request::current()->uri(
-							array(
-								$action_param => 'edit',
-							)
-						),
-						'Cancel',
-						array(
-							'class' => 'btn small'
+							Form::submit(
+								'my-action',
+								$delete_button_label,
+								array(
+									'class' => 'btn small danger'
+								)
+							),
+							$cancel_button
 						)
 					);
 				?>

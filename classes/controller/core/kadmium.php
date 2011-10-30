@@ -655,11 +655,29 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				)
 			);
 		} else {
+			$action_param = Request::current()->param('child_action') ? 'child_action' : 'action';
+			$cancel_uri = Request::current()->uri(
+				array(
+					$action_param => 'edit',
+				)
+			);
+			if ($this->is_in_lightbox()) {
+				$cancel_uri .= '?lb=true';
+			}
+			$cancel_button = Html::anchor(
+				$cancel_uri,
+				'Cancel',
+				array(
+					'class' => 'btn small'
+				)
+			);
+
 			$this->template->content = View::factory(
 				'kadmium/delete',
 				array(
 					'page_title' => $page_title,
 					'delete_button_label' => $delete_button_label,
+					'cancel_button' => $cancel_button,
 					'item_type' => $item_type,
 					'item_name' => $this->_get_item_name($model)
 				)
