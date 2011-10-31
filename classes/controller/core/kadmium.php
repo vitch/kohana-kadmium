@@ -299,7 +299,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			);
 	}
 
-	protected function show_list_page($item_type, $model_name, $extra_button_view = '')
+	protected function show_list_page($item_type, $model_name, $extra_button_view = '', $view_file = 'kadmium/list')
 	{
 		// update any sort on fields...
 		$fields = Jelly::meta($model_name)->fields();
@@ -381,7 +381,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		);
 
 		$this->template->content = View::factory(
-			'kadmium/list',
+			$view_file,
 			array(
 				'page_title' => 'List ' . Inflector::plural($item_type),
 				'item_type' => $item_type,
