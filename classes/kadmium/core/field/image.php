@@ -21,4 +21,24 @@ abstract class Kadmium_Core_Field_Image extends Jelly_Core_Field_Image
 		return $this->thumbnails[$thumbnail_index]['web_path'];
 	}
 
+	protected function _transform(Image $image, array $transformations)
+	{
+		// Process tranformations
+		foreach ($transformations as $transformation => $params)
+		{
+			if ($transformation !== 'factory' OR $transformation !== 'save' OR $transformation !== 'render')
+			{
+				if ($transformation == 'resize') {
+					if ($image->width < $params[0] && $image->height < $params[1]) {
+						continue;
+					}
+				}
+				// Call the method excluding the factory, save and render methods
+				call_user_func_array(array($image, $transformation), $params);
+			}
+		}
+
+		return $image;
+	}
+
 }
