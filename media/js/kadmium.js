@@ -28,7 +28,7 @@ $(
 							}
 						)
 						.addClass('sorter')
-						.text($span.text())
+						.text(' ')
 						.bind(
 							'click',
 							function()

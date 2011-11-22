@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "IconicStrokeRegular";
+  font-style: normal;
+  font-weight: normal;
+  src: url('fonts/iconic_stroke.eot');
+  src: local('@fontFamily'), url('fonts/iconic_stroke.eot?#iefix') format('embedded-opentype'), url('fonts/iconic_stroke.woff') format('woff'), url('fonts/iconic_stroke.ttf') format('truetype'), url('fonts/iconic_stroke.svg#IconicStrokeRegular') format('svg'), url("fonts/iconic_stroke.otf") format('opentype');
+}
 body
 {
 	margin: 60px 0 0;
@@ -226,6 +233,23 @@ ul.autocomplete-options.ui-sortable li
 .ac_over {
 	background-color: #0A246A;
 	color: white;
+}
+
+a.sorter
+{
+}
+a.sorter:before
+{
+	color: #000;
+    content: "l";
+    font-family: "IconicStrokeRegular";
+    font-size: 14px;
+    line-height: normal;
+}
+a.sorter:hover,
+a.sorter:hover:before
+{
+	text-decoration: none;
 }
 
 
