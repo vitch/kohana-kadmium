@@ -755,6 +755,9 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		if ($field instanceof Jelly_Field_Primary) {
 			return FALSE;
 		}
+		if ($field instanceof Jelly_Field_Expression) {
+			return FALSE;
+		}
 		if ($field->show_in_edit === FALSE) {
 			return FALSE;
 		}
