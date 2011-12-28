@@ -688,17 +688,31 @@ table.list-page th
 table.list-page th:first-of-type
 {
 	border-left: 0;
-	-moz-border-radius-topleft: 3px;
-	-webkit-border-radius-topleft: 3px;
-	border-radius-topleft: 3px;
+	-moz-border-radius: 3px 0 0 0;
+	-webkit-border-radius: 3px 0 0 0;
+	border-radius: 3px 0 0 0;
 }
 
 table.list-page th:last-of-type
 {
 	border-right: 0;
-	-moz-border-radius-topright: 3px;
-	-webkit-border-radius-topright: 3px;
-	border-radius-topright: 3px;
+	-moz-border-radius: 0 3px 0 0;
+	-webkit-border-radius: 0 3px 0 0;
+	border-radius: 0 3px 0 0;
+}
+
+table.list-page tfoot th:first-of-type
+{
+	-moz-border-radius: 0 0 0 3px;
+	-webkit-border-radius: 0 0 0 3px;
+	border-radius: 0 0 0 3px;
+}
+
+table.list-page tfoot th:last-of-type
+{
+	-moz-border-radius: 0 0 3px 0;
+	-webkit-border-radius: 0 0 3px 0;
+	border-radius: 0 0 3px 0;
 }
 
 table.list-page td
