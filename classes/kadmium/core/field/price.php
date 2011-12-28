@@ -3,6 +3,8 @@
 abstract class Kadmium_Core_Field_Price extends Jelly_Field_Integer
 {
 
+	public $currency_symbol = '£';
+
 	public function set($value)
 	{
 		if ($this->allow_null AND $value === NULL)
@@ -21,6 +23,6 @@ abstract class Kadmium_Core_Field_Price extends Jelly_Field_Integer
 
 	public function display($model, $value)
 	{
-		return $value . '';
+		return $this->currency_symbol . $value;
 	}
 }
