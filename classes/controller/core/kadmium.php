@@ -8,6 +8,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	protected $after_edit_form_content;
 	protected $styles = array();
 	protected $scripts = array();
+	protected $breadcrumb = array();
+	protected $show_breadcrumb = TRUE;
 
 	public function before()
 	{
@@ -52,6 +54,14 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				if ($this->auth->logged_in($role)) {
 					$this->template->navigation_controllers += $controllers;
 				}
+			}
+		}
+
+		if ($this->show_breadcrumb && $this->auto_render) {
+	//		$this->breadcrumb[$this->request->uri()] = $this->template->html_title;
+			$this->breadcrumb['#'] = $this->template->html_title;
+			if (!$this->is_in_lightbox()) {
+				$this->template->content->breadcrumb = $this->breadcrumb;
 			}
 		}
 		
@@ -133,7 +143,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		}
 
 		// TODO: Check model->loaded() here?
-		$title = $this->get_page_heading($item_type, $is_new);
+		$title = $this->get_page_heading($model, $is_new);
 		$this->init_template($title);
 		$meta = Jelly::meta($model);
 
@@ -143,7 +153,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 		$auto_close = FALSE;
 
-		if (Arr::get($_POST, 'my-action') == $this->get_save_button_label($item_type, $is_new)) {
+		if (Arr::get($_POST, 'my-action') == $this->get_save_button_label($model, $is_new)) {
 			// IsPostBack
 
 			$update_result = $this->update_model_from_post($meta, $model);
@@ -174,6 +184,9 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 					$this->on_new_model_generated($model);
 					$this->request->redirect($edit_url);
 				} else {
+					// Redo after any changes have been made so a new name is reflected in the title and breadcrumb
+					$title = $this->get_page_heading($model, $is_new);
+					$this->init_template($title);
 					$feedback_message = '<p>Your ' . strtolower($item_type) . ' was successfully updated.</p>';
 				}
 			}
@@ -187,6 +200,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		if ($feedback_message) {
 			$auto_close = $this->is_in_lightbox() && $model->auto_close_lightbox;
 		}
+		
+		$this->add_to_breadcrumb($model);
 
 		$this->template->content = View::factory(
 			'kadmium/edit',
@@ -208,13 +223,90 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		);
 	}
 
+	protected function add_to_breadcrumb(Jelly_Model $model, Request $request = null)
+	{
+		if ($request == NULL) {
+			$request = $this->request;
+		}
+		if (Route::name($request->route()) == 'kadmium_child_edit') {
+
+			$parent_model = $model->{$model->meta()->foreign_key()};
+			$parent_fk = $parent_model->meta()->foreign_key();
+			$grandparent = $parent_model->{$parent_fk};
+//			echo Debug::vars(
+//				'model',
+//				get_class($model),
+//				'fk',
+//				$model->meta()->foreign_key(),
+//				'parent',
+//				get_class($parent_model),
+//				'parent_fk',
+//				$parent_fk,
+//				'grandparent',
+//				get_class($grandparent)
+//			);
+			
+			if ($grandparent) {
+				$parent_uri = $request->uri(
+					array(
+						'child_action' => 'edit',
+						'parent_id' => $grandparent->id(),
+						'action' => $parent_model->pretty_model_name(),
+						'id' => $parent_model->id(),
+					)
+				);
+			} else {
+				$parent_uri = Route::get('kadmium')->uri(
+					array(
+						'controller' => $request->controller(),
+						'action' => 'edit',
+						'id' => $parent_model->id(),
+					)
+				);
+			}
+			$this->add_to_breadcrumb(
+				$parent_model,
+				Request::factory($parent_uri)
+			);
+			$this->breadcrumb[$parent_uri] = $this->get_page_heading($parent_model, FALSE);
+
+			if ($request->param('child_action') == 'delete') {
+				$this->breadcrumb[
+					$request->uri(
+						array(
+							'child_action' => 'edit'
+						)
+					)
+				] = $this->get_page_heading($model, FALSE);
+			}
+		} else {
+			$this->breadcrumb[
+				$request->uri(
+					array(
+						'action' => 'list',
+						'id' => ''
+					)
+				)
+			] = 'List ' . Inflector::plural($model->pretty_model_name());
+			if ($request->action() == 'delete') {
+				$this->breadcrumb[
+					$request->uri(
+						array(
+							'action' => 'edit'
+						)
+					)
+				] = $this->get_page_heading($model, FALSE);
+			}
+		}
+	}
+
 	protected function get_action_buttons($model, $meta, $item_type, $is_new)
 	{
 		$action_buttons = array();
 		if($this->should_show_submit($model, $meta)) {
 			$action_buttons[] = Form::submit(
 				'my-action',
-				$this->get_save_button_label($item_type, $is_new),
+				$this->get_save_button_label($model, $is_new),
 				array(
 					'class' => 'btn primary'
 				)
@@ -333,7 +425,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			return;
 		}
 
-		$this->init_template('List ' . Inflector::plural($item_type));
+		$page_title = 'List ' . Inflector::plural(Jelly::factory($model_name)->pretty_model_name());
+		$this->init_template($page_title);
 		$builder = Jelly::query($model_name);
 		$this->modify_list_builder($builder);
 		if ($sort_on_field) {
@@ -383,7 +476,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$this->template->content = View::factory(
 			$view_file,
 			array(
-				'page_title' => 'List ' . Inflector::plural($item_type),
+				'page_title' => $page_title,
 				'item_type' => $item_type,
 				'display_add_links' => !Jelly::factory($model_name)->disable_user_add,
 				'add_link' => $add_link,
@@ -495,6 +588,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 						'action' => 'edit',
 					);
 				}
+				$this->add_to_breadcrumb($model);
 				$this->template->content = View::factory(
 					'kadmium/delete_forbidden',
 					array(
@@ -627,6 +721,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'action' => 'edit',
 			);
 		}
+		$this->add_to_breadcrumb($model);
 		$this->template->content = View::factory(
 			'kadmium/delete_dependencies',
 			array(
@@ -680,6 +775,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 					'class' => 'btn small'
 				)
 			);
+			
+			$this->add_to_breadcrumb($model);
 
 			$this->template->content = View::factory(
 				'kadmium/delete',
@@ -838,9 +935,9 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		return TRUE;
 	}
 
-	protected function get_save_button_label($item_type, $is_new)
+	protected function get_save_button_label(Jelly_Model $model, $is_new)
 	{
-		return $this->get_page_heading($item_type, $is_new);
+		return $this->get_page_heading($model, $is_new);
 	}
 
 	protected function get_delete_button_label($item_type)
@@ -848,9 +945,9 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		return 'Delete ' . $item_type;
 	}
 
-	protected function get_page_heading($item_type, $is_new)
+	protected function get_page_heading(Jelly_Model $model, $is_new)
 	{
-		return ($is_new ? 'Add' : 'Update') . ' ' . $item_type;
+		return ($is_new ? 'Add' : 'Update') . ' ' . $model->pretty_model_name();
 	}
 
 	protected function is_in_lightbox()

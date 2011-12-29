@@ -1,5 +1,13 @@
 <div class="row">
 	<div class="span16">
+		<?=
+			View::factory(
+				'kadmium/element/breadcrumb',
+				array(
+					'breadcrumb' => isset($breadcrumb) ? $breadcrumb : null,
+				)
+			);
+		?>
 		<h1><?= $page_title; ?></h1>
 
 		<?php
