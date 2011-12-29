@@ -744,10 +744,22 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	private function _show_delete_page($page_title, $item_type, Jelly_Model $model)
 	{
 		$delete_button_label = $this->get_delete_button_label($item_type);
+		$action_param = Request::current()->param('child_action') ? 'child_action' : 'action';
 		if (Arr::get($_POST, 'my-action') == $delete_button_label) {
 			// IsPostBack
 			$name = $this->_get_item_name($model);
 			$auto_close = $this->is_in_lightbox() && $model->auto_close_lightbox;
+
+			$this->add_to_breadcrumb(
+				$model,
+				Request::factory(
+					$this->request->uri(
+						array(
+							$action_param => 'edit',
+						)
+					)
+				)
+			);
 			$model->delete();
 			$this->template->content = View::factory(
 				'kadmium/deleted',
@@ -759,7 +771,6 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				)
 			);
 		} else {
-			$action_param = Request::current()->param('child_action') ? 'child_action' : 'action';
 			$cancel_uri = Request::current()->uri(
 				array(
 					$action_param => 'edit',
