@@ -58,17 +58,34 @@
 			<?php
 						} else {
 							echo '<li>';
-							echo Html::anchor(
-								Route::get('kadmium_list')->uri(
+							$route_parts = explode('/', $controller);
+							$request = Request::current();
+							if (count($route_parts) > 1) {
+								echo Html::anchor(
+									Route::get('kadmium')->uri(
+										array(
+											'controller' => $route_parts[0],
+											'action' => $route_parts[1],
+										)
+									),
+									$label,
 									array(
-										'controller' => $controller
+										'class' => $request->controller() == $route_parts[0] && $request->action() == $route_parts[1] ? 'active' : ''
 									)
-								),
-								$label,
-								array(
-									'class' => Request::current()->controller() == $controller ? 'active' : ''
-								)
-							);
+								);
+							} else {
+								echo Html::anchor(
+									Route::get('kadmium_list')->uri(
+										array(
+											'controller' => $controller
+										)
+									),
+									$label,
+									array(
+										'class' => $request->controller() == $controller && Route::name($request->route()) == 'kadmium_list' ? 'active' : ''
+									)
+								);
+							}
 							echo '</li>';
 						}
 					}
