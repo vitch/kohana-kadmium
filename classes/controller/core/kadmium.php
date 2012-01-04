@@ -251,7 +251,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 					array(
 						'child_action' => 'edit',
 						'parent_id' => $grandparent->id(),
-						'action' => $parent_model->pretty_model_name(),
+						'action' => Jelly::model_name($parent_model),
 						'id' => $parent_model->id(),
 					)
 				);
