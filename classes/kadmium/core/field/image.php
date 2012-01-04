@@ -7,6 +7,8 @@ abstract class Kadmium_Core_Field_Image extends Jelly_Core_Field_Image
 
 	public $web_path = '';
 
+	public $prevent_resize_zoom = TRUE;
+
 	public function display($model, $value)
 	{
 		$path = count($this->thumbnails) ? $this->thumbnails[0]['path'] : $this->path;
@@ -21,6 +23,13 @@ abstract class Kadmium_Core_Field_Image extends Jelly_Core_Field_Image
 		return $this->thumbnails[$thumbnail_index]['web_path'];
 	}
 
+	/**
+	 * Default Jelly implementation overridden so that we don't enlarge images when we resize them
+	 *
+	 * @param Image $image
+	 * @param array $transformations
+	 * @return Image
+	 */
 	protected function _transform(Image $image, array $transformations)
 	{
 		// Process tranformations
@@ -28,7 +37,7 @@ abstract class Kadmium_Core_Field_Image extends Jelly_Core_Field_Image
 		{
 			if ($transformation !== 'factory' OR $transformation !== 'save' OR $transformation !== 'render')
 			{
-				if ($transformation == 'resize') {
+				if ($this->prevent_resize_zoom && $transformation == 'resize') {
 					if ($image->width < $params[0] && $image->height < $params[1]) {
 						continue;
 					}
