@@ -28,7 +28,7 @@
 							echo '<ul class="dropdown-menu">';
 							foreach ($label as $sub_controller=>$sub_label)
 							{
-								echo '<li' . (Request::current()->controller() == $sub_controller ? 'class="active"' : '') . '>';
+								echo '<li' . (Request::current()->controller() == $sub_controller ? ' class="active"' : '') . '>';
 								echo Html::anchor(
 									Route::get('kadmium_list')->uri(
 										array(
