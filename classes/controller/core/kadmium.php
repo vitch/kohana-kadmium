@@ -60,7 +60,9 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 		if ($this->show_breadcrumb && $this->auto_render) {
 	//		$this->breadcrumb[$this->request->uri()] = $this->template->html_title;
-			$this->breadcrumb['#'] = $this->template->html_title;
+			if (!array_key_exists('#', $this->breadcrumb)) {
+				$this->breadcrumb['#'] = $this->template->html_title;
+			}
 			if (!$this->is_in_lightbox()) {
 				$this->template->content->breadcrumb = $this->breadcrumb;
 			}
