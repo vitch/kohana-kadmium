@@ -10,6 +10,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	protected $scripts = array();
 	protected $breadcrumb = array();
 	protected $show_breadcrumb = TRUE;
+	protected $include_list_in_breadcrumb = TRUE;
 
 	public function before()
 	{
@@ -280,14 +281,16 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				] = $this->get_page_heading($model, FALSE);
 			}
 		} else {
-			$this->breadcrumb[
-				$request->uri(
-					array(
-						'action' => 'list',
-						'id' => ''
+			if ($this->include_list_in_breadcrumb) {
+				$this->breadcrumb[
+					$request->uri(
+						array(
+							'action' => 'list',
+							'id' => ''
+						)
 					)
-				)
-			] = 'List ' . Inflector::plural($model->pretty_model_name());
+				] = 'List ' . Inflector::plural($model->pretty_model_name());
+			}
 			if ($request->action() == 'delete') {
 				$this->breadcrumb[
 					$request->uri(
