@@ -44,7 +44,7 @@ $(
 				$.fx.off = false;
 				function addItem(name)
 				{
-					var removeLink = $('<a class="js-remove-option">x</a>').bind(
+					var removeLink = $('<a class="js-remove-option btn danger">x</a>').bind(
 							'click',
 							function()
 							{
@@ -53,7 +53,7 @@ $(
 						),
 						itemId = itemIdsByName[name] || name,
 						currentIds = hiddenField.val().split(','),
-						li = $('<li />').append(name, removeLink).attr('rel', itemId),
+						li = $('<li class="well" />').append(name, removeLink).attr('rel', itemId),
 						existingPosition = $.inArray(itemId + '', currentIds);
 					if (existingPosition > -1) {
 						li = itemHolder.find('li:nth-child(' + (existingPosition+1) + ')');

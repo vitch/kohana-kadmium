@@ -157,22 +157,17 @@ ul.autocomplete-options li
 {
 	float: left;
 	margin: 0 .5em .5em 0;
-	background: rgb(255, 255, 255);
-    background: rgba(255, 255, 255, 0.5);
     font-size: 93%;
-    padding: 5px 7px 5px;
+    padding: 5px 24px 5px 7px;
     min-width: 35px;
-    border: 0;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-	width: auto;
+	position: relative;
 }
 
 ul.autocomplete-options li a.js-remove-option
 {
-	margin: 0 0 0 .5em;
-	cursor: pointer;
+	position: absolute;
+	right: 4px;
+	padding: 0 3px 1px;
 }
 
 ul.autocomplete-options.ui-sortable li
