@@ -8,7 +8,7 @@ Route::set('kadmium/media', 'kadmium/media(/<file>)', array('file' => '.+'))
 		'file'       => NULL,
 	));
 
-$kadmium_config = Kohana::config('kadmium');
+$kadmium_config = Kohana::$config->load('kadmium');
 $base_path = $kadmium_config->base_path;
 
 // Routes for the kadmium based controllers...

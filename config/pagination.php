@@ -6,7 +6,7 @@ return array(
 	'kadmium' => array(
 		'current_page'   => array('source' => 'route', 'key' => 'page'),
 		'total_items'    => 0,
-		'items_per_page' => Kohana::config('kadmium')->results_per_list_page,
+		'items_per_page' => Kohana::$config->load('kadmium')->results_per_list_page,
 		'view'           => 'kadmium/element/pagination',
 		'auto_hide'      => TRUE,
 	),

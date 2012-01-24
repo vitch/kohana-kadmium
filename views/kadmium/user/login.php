@@ -13,7 +13,7 @@ echo View::factory(
 	'kadmium/user/login_form',
 	array(
 		'username' => $username,
-		'redirect' => Kohana::config('kadmium')->base_path
+		'redirect' => Kohana::$config->load('kadmium')->base_path
 	)
 );
 

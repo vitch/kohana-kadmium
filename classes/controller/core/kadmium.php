@@ -47,7 +47,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 		$this->template->styles = $this->styles;
 		$this->template->scripts = $this->scripts;
-		$kadmium_config = Kohana::config('kadmium');
+		$kadmium_config = Kohana::$config->load('kadmium');
 		$this->template->navigation_controllers = $kadmium_config->navigation_controllers;
 
 		if (isset($kadmium_config->navigation_controllers_by_role) && $this->auth->logged_in()) {
@@ -447,7 +447,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			$builder->order_by($sort_on_field->column);
 			$rpp = 9999999999;
 		} else {
-			$rpp = Kohana::config('kadmium')->results_per_list_page;
+			$rpp = Kohana::$config->load('kadmium')->results_per_list_page;
 		}
 
 		// FIXME: Is this working correctly?

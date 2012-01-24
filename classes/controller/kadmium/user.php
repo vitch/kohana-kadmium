@@ -48,7 +48,7 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 		$this->template->content = View::factory(
 			'kadmium/user/logged_out',
 			array(
-				'admin_url' => Kohana::config('kadmium')->base_path
+				'admin_url' => Kohana::$config->load('kadmium')->base_path
 			)
 		);
 	}

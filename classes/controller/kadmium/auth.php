@@ -16,7 +16,7 @@ class Controller_Kadmium_Auth extends Controller_Template
 		if ($this->login_required) {
 			$this->require_login();
 		}
-		$this->template->project_name = Kohana::config('kadmium')->site_name;
+		$this->template->project_name = Kohana::$config->load('kadmium')->site_name;
 		$this->template->is_logged_in = $this->auth->logged_in();
 		if ($this->role_required) {
 			$this->require_role($this->role_required);
