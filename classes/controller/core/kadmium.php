@@ -554,7 +554,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	{
 		return Html::anchor(
 			$this->get_cancel_uri($model),
-			'Cancel',
+			$this->get_cancel_button_label($model),
 			array(
 				'class' => 'btn' . ($this->is_in_lightbox() ? ' js-close-link' : ''),
 			)
@@ -959,6 +959,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	protected function get_delete_button_label($item_type)
 	{
 		return 'Delete ' . $item_type;
+	}
+
+	protected function get_cancel_button_label(Jelly_Model $model)
+	{
+		return 'Back';
 	}
 
 	protected function get_page_heading(Jelly_Model $model, $is_new)
