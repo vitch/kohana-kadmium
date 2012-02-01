@@ -174,10 +174,12 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				if ($is_new) {
 					Session::instance()->set('__FLASH__', '<p>Your ' . strtolower($item_type) . ' was successfully created.</p>');
 					$edit_url = $this->request->route()->uri(
+						$this->request->param() +
 						$extra_redirect_params +
 						array(
-							'action' => 'edit',
+							'directory' => $this->request->directory(),
 							'controller' => $this->request->controller(),
+							'action' => 'edit',
 							'id' => $model->id(),
 						)
 					);
