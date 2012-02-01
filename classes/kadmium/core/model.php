@@ -107,8 +107,9 @@ abstract class Kadmium_Core_Model extends Jelly_Core_Model
 
 	public function get_edit_link()
 	{
+		// TODO: Deal with when it's a child/ lightbox controller...
 		$params = array(
-			'controller' => Request::current()->controller(),
+			'controller' => $this->get_admin_controller(),
 		);
 		if ($this->id()) {
 			$params['action'] = 'edit';
@@ -117,5 +118,10 @@ abstract class Kadmium_Core_Model extends Jelly_Core_Model
 			$params['action'] = 'new';
 		}
 		return Route::get('kadmium')->uri($params);
+	}
+
+	protected function get_admin_controller()
+	{
+		return Jelly::model_name($this);
 	}
 }
