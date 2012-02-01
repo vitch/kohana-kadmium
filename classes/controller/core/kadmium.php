@@ -652,20 +652,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 						if ($field instanceof Jelly_Field_HasManyUniquely) {
 							$add_to_array = 'children';
-							$link_route = Route::get('kadmium_child_edit');
-							$uri_params = array(
-								'controller' => $model_name,
-								'child_action' => 'edit',
-								'action' => $related_model,
-								'parent_id' => $model_id
-							);
 						} else {
 							$add_to_array = 'belongs_to';
-							$link_route = Route::get('kadmium');
-							$uri_params = array(
-								'controller' => $related_model,
-								'action' => 'edit',
-							);
 						}
 
 						foreach ($dependencies as $dependency) {
@@ -674,11 +662,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 								array(
 									'model' => $related_model,
 									'name' => $dependency->name(),
-									'link' => $link_route->uri(
-										$uri_params + array(
-											'id' => $dependency->id(),
-										)
-									)
+									'link' => $dependency->get_edit_link(),
 								)
 							);
 						}
