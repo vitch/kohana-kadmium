@@ -104,4 +104,18 @@ abstract class Kadmium_Core_Model extends Jelly_Core_Model
 	{
 		return Inflector::humanize(Jelly::model_name($this));
 	}
+
+	public function get_edit_link()
+	{
+		$params = array(
+			'controller' => Request::current()->controller(),
+		);
+		if ($this->id()) {
+			$params['action'] = 'edit';
+			$params['id'] = $this->id();
+		} else {
+			$params['action'] = 'new';
+		}
+		return Route::get('kadmium')->uri($params);
+	}
 }

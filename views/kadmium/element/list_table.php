@@ -52,12 +52,7 @@
 			}
 			if ($show_edit) {
 				echo Html::anchor(
-					Route::get('kadmium')
-						->uri(array(
-							'controller' => Request::current()->controller(),
-							'action' => 'edit',
-							'id' => $item->id(),
-						)),
+					$item->get_edit_link(),
 					'Edit',
 					array(
 						'class' => 'btn'
