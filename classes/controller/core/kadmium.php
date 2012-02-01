@@ -173,12 +173,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				}
 				if ($is_new) {
 					Session::instance()->set('__FLASH__', '<p>Your ' . strtolower($item_type) . ' was successfully created.</p>');
-					$edit_url = $this->request->route()->uri(
-						$this->request->param() +
+					$edit_url = Request_Utils::uri(
+						$this->request,
 						$extra_redirect_params +
 						array(
-							'directory' => $this->request->directory(),
-							'controller' => $this->request->controller(),
 							'action' => 'edit',
 							'id' => $model->id(),
 						)
@@ -252,7 +250,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 //			);
 			
 			if ($grandparent) {
-				$parent_uri = $request->uri(
+				$parent_uri = Request_Utils::uri(
+					$request,
 					array(
 						'child_action' => 'edit',
 						'parent_id' => $grandparent->id(),
@@ -277,7 +276,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 			if ($request->param('child_action') == 'delete') {
 				$this->breadcrumb[
-					$request->uri(
+					Request_Utils::uri(
+						$request,
 						array(
 							'child_action' => 'edit'
 						)
@@ -287,7 +287,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		} else {
 			if ($this->include_list_in_breadcrumb) {
 				$this->breadcrumb[
-					$request->uri(
+					Request_Utils::uri(
+						$request,
 						array(
 							'action' => 'list',
 							'id' => ''
@@ -297,7 +298,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			}
 			if ($request->action() == 'delete') {
 				$this->breadcrumb[
-					$request->uri(
+					Request_Utils::uri(
+						$request,
 						array(
 							'action' => 'edit'
 						)
@@ -506,7 +508,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		if(!$is_new && $model->delete_policy != Kadmium_Core_Model::DELETE_NEVER) {
 			$uri_param = $this->request->param('child_action') ? 'child_action' : 'action';
 
-			$delete_uri = $this->request->uri(
+			$delete_uri = Request_Utils::uri(
+				$this->request,
 				array(
 					$uri_param => 'delete',
 				)
@@ -596,7 +599,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 						'item_type' => $item_type,
 						'item_name' => $this->_get_item_name($model),
 						'edit_link' => Html::anchor(
-							$this->request->uri($uri_params),
+							Request_Utils::uri($this->request, $uri_params),
 							'&lt; Back to ' . strtolower($item_type),
 							array(
 								'class' => 'back'
@@ -731,7 +734,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'belongs_to' => $belongs_to,
 				'children' => $children,
 				'edit_link' => Html::anchor(
-					$this->request->uri($uri_params),
+					Request_Utils::uri($this->request, $uri_params),
 					'&lt; Back to ' . strtolower($item_type),
 					array(
 						'class' => 'btn'
@@ -753,7 +756,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			$this->add_to_breadcrumb(
 				$model,
 				Request::factory(
-					$this->request->uri(
+					Request_Utils::uri(
+						$this->request,
 						array(
 							$action_param => 'edit',
 						)
@@ -771,7 +775,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				)
 			);
 		} else {
-			$cancel_uri = Request::current()->uri(
+			$cancel_uri = Request_Utils::uri(
+				$this->request,
 				array(
 					$action_param => 'edit',
 				)
