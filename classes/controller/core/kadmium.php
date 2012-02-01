@@ -471,20 +471,13 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 		$items = $builder->limit($rpp)->offset($pagination->offset())->select();
 
-		$add_link = Route::get('kadmium')->uri(
-			array(
-				'controller' => $this->request->controller(),
-				'action' => 'new'
-			)
-		);
-
 		$this->template->content = View::factory(
 			$view_file,
 			array(
 				'page_title' => $page_title,
 				'item_type' => $item_type,
 				'display_add_links' => !Jelly::factory($model_name)->disable_user_add,
-				'add_link' => $add_link,
+				'add_link' => $this->get_add_link(),
 				'show_edit' => Jelly::factory($model_name)->disable_user_edit !== TRUE,
 				'items' => $items,
 				'pagination' => $pagination->render(),
@@ -497,6 +490,16 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	protected function modify_list_builder(Jelly_Builder $builder)
 	{
 		return $builder;
+	}
+
+	protected function get_add_link()
+	{
+		return Route::get('kadmium')->uri(
+			array(
+				'controller' => $this->request->controller(),
+				'action' => 'new'
+			)
+		);
 	}
 
 	// Allow subclasses to react when a new model is sucessfully generated (before the redirect to the edit page)...
