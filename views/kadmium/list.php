@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="span16">
+	<div class="span12">
 	<?=
 		View::factory(
 			'kadmium/element/breadcrumb',
@@ -8,7 +8,9 @@
 			)
 		);
 	?>
-	<h1><?= $page_title; ?></h1>
+	<div class="page-header">
+		<h1><?= $page_title; ?></h1>
+	</div>
 
 	<?php
 	if ($items->count() == 0) {

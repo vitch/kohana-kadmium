@@ -19,7 +19,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$media = Route::get('kadmium/media');
 
 		$this->styles = $this->styles + array(
-			$media->uri(array('file' => 'css/lib/bootstrap.1.3.0.min.css'))  => 'all',
+			$media->uri(array('file' => 'css/lib/bootstrap.2.0.min.css'))  => 'all',
 //			$media->uri(array('file' => 'css/datePicker.css'))  => 'all',
 //			$media->uri(array('file' => 'css/jquery.asmselect.css'))  => 'all',
 			$media->uri(array('file' => 'colorbox/styles/colorbox.css'))  => 'all',
@@ -317,7 +317,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'my-action',
 				$this->get_save_button_label($model, $is_new),
 				array(
-					'class' => 'btn primary'
+					'class' => 'btn btn-primary'
 				)
 			);
 		}
@@ -523,7 +523,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				$delete_uri,
 				$this->get_delete_button_label($item_type),
 				array(
-					'class' => 'btn danger'
+					'class' => 'btn btn-danger'
 				)
 			);
 		}

@@ -3,7 +3,7 @@
 <?php
 if ($feedback_message != '') {
 ?>
-<div class="alert-message error">
+<div class="alert alert-error">
 	<p><?= $feedback_message; ?></p>
 </div>
 <?php

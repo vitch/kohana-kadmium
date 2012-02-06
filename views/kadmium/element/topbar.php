@@ -1,5 +1,5 @@
 
-<div class="fill">
+<div class="navbar-inner">
 	<div class="container">
 		<?= Html::anchor(
 				'',

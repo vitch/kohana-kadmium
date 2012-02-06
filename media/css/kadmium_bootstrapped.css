@@ -7,12 +7,41 @@
 }
 body
 {
-	margin: 60px 0 0;
+
 }
-.input .alert-message
+
+/* Fix for bootstrap button mess */
+.form-actions a.btn,
+.alert .alert-actions a.btn
+{
+	vertical-align: middle;
+	line-height: 16.3667px;
+}
+
+.navbar .pull-right
+{
+	color: #888;
+	margin: 10px 0 0;
+}
+.navbar .pull-right a
+{
+	color: #ddd;
+}
+
+.input .alert
 {
 	margin: 10px 0 0;
 }
+
+.alert .alert-actions
+{
+	margin: 10px 0 0;
+}
+.alert .alert-actions input.btn
+{
+	margin-bottom: 0;
+}
+
 table td
 {
 	vertical-align: middle;

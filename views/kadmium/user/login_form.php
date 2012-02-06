@@ -38,7 +38,7 @@
 			'',
 			'Log in',
 			array(
-				'class' => 'btn large primary',
+				'class' => 'btn btn-large btn-primary',
 			)
 		);
 	?>

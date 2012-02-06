@@ -1,6 +1,6 @@
 <?php
 	foreach ($fields as $label => $field) {
-		$wrapper_class = 'clearfix';
+		$wrapper_class = 'control-group';
 		if (isset($field->li_class)) { // TODO: What is this used for again?
 			$wrapper_class .= ' ' . $field->li_class;
 		}
@@ -11,7 +11,7 @@
 	<div class="<?= $wrapper_class; ?>">
 		<?php
 			echo $label;
-			echo '<div class="input">';
+			echo '<div class="controls">';
 			if (isset($field->prepend)) {
 				echo '<div class="input-prepend">';
 				echo '<span class="add-on">' . $field->prepend . '</span>';
@@ -19,7 +19,6 @@
 				echo '</div>';
 			} else {
 				echo $field;
-
 			}
 			if (isset($field->errors)) {
 		?>

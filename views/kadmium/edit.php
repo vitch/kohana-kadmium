@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="span16">
+	<div class="span12">
 		<?=
 			View::factory(
 				'kadmium/element/breadcrumb',
@@ -8,23 +8,26 @@
 				)
 			);
 		?>
-		<h1><?= $page_title; ?></h1>
+
+		<div class="page-header">
+			<h1><?= $page_title; ?></h1>
+		</div>
 
 		<?php
 		if ($error_message != ''):
 		?>
-		<div class="alert-message error"><?= $error_message; ?></div>
+		<div class="alert alert-block alert-error"><?= $error_message; ?></div>
 		<?php
 		elseif ($feedback_message != ''):
 		?>
-		<div class="alert-message success"><?= $feedback_message; ?></div>
+		<div class="alert alert-block alert-success"><?= $feedback_message; ?></div>
 		<?php
 		endif
 		?>
 
-		<form method="post" class="saveableNOT" enctype="multipart/form-data">
+		<form method="post" class="saveableNOT form-horizontal" enctype="multipart/form-data">
 			<?= $fields; ?>
-			<div class="actions">
+			<div class="form-actions">
 				<?php
 					echo implode(' ', $action_buttons);
 				?>

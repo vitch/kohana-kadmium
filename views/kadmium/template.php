@@ -16,7 +16,7 @@
 
 	</head>
 	<body class="<?= $is_logged_in ? 'logged-in' : 'logged-out'; ?>">
-		<div class="topbar">
+		<div class="navbar">
 			<?php
 				echo View::factory(
 					'kadmium/element/topbar',
