@@ -19,18 +19,16 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$media = Route::get('kadmium/media');
 
 		$this->styles = $this->styles + array(
-			$media->uri(array('file' => 'css/lib/bootstrap.1.3.0.min.css'))  => 'all',
-//			$media->uri(array('file' => 'css/datePicker.css'))  => 'all',
-//			$media->uri(array('file' => 'css/jquery.asmselect.css'))  => 'all',
+			$media->uri(array('file' => 'css/lib/bootstrap.2.0.min.css'))  => 'all',
+			$media->uri(array('file' => 'css/bootstrap-datepicker.css'))  => 'all',
+			$media->uri(array('file' => 'css/jquery.asmselect.css'))  => 'all',
 			$media->uri(array('file' => 'colorbox/styles/colorbox.css'))  => 'all',
 			$media->uri(array('file' => 'css/kadmium_bootstrapped.css'))  => 'all',
-//			$media->uri(array('file' => 'css/kadmium.css'))  => 'all',
 		);
 
 		$this->scripts = $this->scripts + array(
-			'http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js',
-//			$media->uri(array('file' => 'js/date.js')),
-//			$media->uri(array('file' => 'js/jquery.datePicker.js')),
+			'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js',
+			$media->uri(array('file' => 'js/bootstrap-datepicker.js')),
 			$media->uri(array('file' => 'tiny_mce/jquery.tinymce.js')),
 //			$media->uri(array('file' => 'js/jquery.asmselect.js')),
 			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),

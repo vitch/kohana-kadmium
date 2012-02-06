@@ -16,7 +16,7 @@ abstract class Kadmium_Core_Field_Timestamp extends Jelly_Core_Field_Timestamp
 	public function initialize($model, $column)
 	{
 		parent::initialize($model, $column);
-		array_push($this->css_class, 'timestamp');
+		array_push($this->css_class, 'span2');
 	}
 
 	/**
