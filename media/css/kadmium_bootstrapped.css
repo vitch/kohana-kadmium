@@ -169,7 +169,7 @@ textarea.lines-20
 #kadmium-content
 {
 	width: 940px;
-	margin: -60px auto 0;
+	margin: 0 auto;
 }
 
 /* Autocomplete specific styles */
