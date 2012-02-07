@@ -658,7 +658,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 							array_push(
 								$$add_to_array,
 								array(
-									'model' => $related_model,
+									'model' => Jelly::factory($related_model)->pretty_model_name(),
 									'name' => $dependency->name(),
 									'link' => $dependency->get_edit_link(),
 								)
@@ -681,7 +681,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 								'name' => $related->name(),
 								'link' => Route::get('kadmium')->uri(
 									array(
-										'controller' => $related_model,
+										'controller' => Jelly::factory($related_model)->pretty_model_name(),
 										'action' => 'edit',
 										'id' => $related->id(),
 									)
