@@ -451,7 +451,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 						$builder->order_by($o);
 					}
 				} else {
-					$builder->order_by($sort_on_field->category_key);
+					$builder->order_by($sort_on_field->category_key, $sort_on_field->category_dir);
 				}
 			}
 			$builder->order_by($sort_on_field->column);

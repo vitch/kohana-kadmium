@@ -9,6 +9,7 @@ abstract class Kadmium_Core_Field_SortOn extends Jelly_Field_Integer
 {
 	public $show_in_edit = false;
 	public $category_key;
+	public $category_dir = 'ASC';
 	public $label = 'Sort';
 
 	/**
