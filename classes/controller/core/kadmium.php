@@ -410,19 +410,28 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		}
 		if ($sort_on_field && Arr::get($_POST, 'my-action') == 'sortItems') {
 			$ids = explode(',', Arr::get($_POST, 'ids', ''));
-			$index = 1;
+			$has_category = isset($sort_on_field->category_key);
+			if ($has_category) {
+				$indexes = array();
+			} else {
+				$index = 0;
+			}
 			foreach ($ids as $id) {
-				/*
-				// Should work but is resetting the is_published field to 0??!
-				Jelly::factory($model_name)->set(
+				$sorting_model = Jelly::query($model_name, $id)->select();
+				if ($has_category) {
+					$key = 'k_' . $sorting_model->get_raw($sort_on_field->category_key);
+					if (!array_key_exists($key, $indexes)) {
+						$index = 1;
+					} else {
+						$index = $indexes[$key] + 1;
+					}
+					$indexes[$key] = $index;
+				} else {
+					$index ++;
+				}
+				$sorting_model->set(
 					array(
-						$sort_on_field => $index++,
-					)
-				)->save($id);
-				*/
-				Jelly::query($model_name, $id)->select()->set(
-					array(
-						$sort_on_field->column => $index++,
+						$sort_on_field->column => $index,
 					)
 				)->save();
 			}
