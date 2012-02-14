@@ -38,7 +38,9 @@
 				endforeach;
 			?>
 			</ul>
+			<div class="alert-actions">
+			<?= $edit_link; ?>
+			</div>
 		</div>
-		<?= $edit_link; ?>
 	</div>
 </div>
