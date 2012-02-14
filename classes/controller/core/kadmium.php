@@ -291,7 +291,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 							'id' => ''
 						)
 					)
-				] = 'List ' . Inflector::plural($model->pretty_model_name());
+				] = $this->get_list_page_heading($model);
 			}
 			if ($request->action() == 'delete') {
 				$this->breadcrumb[
@@ -440,7 +440,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			return;
 		}
 
-		$page_title = 'List ' . Inflector::plural(Jelly::factory($model_name)->pretty_model_name());
+		$page_title = $this->get_list_page_heading($model_name);
 		$this->init_template($page_title);
 		$builder = Jelly::query($model_name);
 		$this->modify_list_builder($builder);
@@ -939,6 +939,14 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			return FALSE;
 		}
 		return TRUE;
+	}
+
+	protected function get_list_page_heading($model)
+	{
+		if (!$model instanceof Jelly_Model) {
+			$model = Jelly::factory($model);
+		}
+		return 'List ' . Inflector::plural($model->pretty_model_name());
 	}
 
 	protected function get_save_button_label(Jelly_Model $model, $is_new)
