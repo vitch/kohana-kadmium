@@ -4,7 +4,7 @@
 			View::factory(
 				'kadmium/element/breadcrumb',
 				array(
-					'breadcrumb' => $breadcrumb,
+					'breadcrumb' => isset($breadcrumb) ? $breadcrumb : null,
 				)
 			);
 		?>
