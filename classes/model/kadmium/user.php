@@ -25,4 +25,9 @@ class Model_Kadmium_User extends Model_Auth_User
 		$meta->field('user_tokens')->show_in_edit = FALSE;
 		$meta->field('roles')->show_in_edit = FALSE;
 	}
+
+	public function pretty_model_name()
+	{
+		return 'profile';
+	}
 }

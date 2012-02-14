@@ -59,6 +59,8 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 
 		$this->init_template('Update profile');
 
+		$this->include_list_in_breadcrumb = FALSE;
+
 		$model = $this->auth->get_user();
 		$model = Jelly::query('kadmium_user', $model->id())->select();
 
@@ -88,6 +90,12 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 			'kadmium/error/insufficient_permissions'
 		);
 	}
+
+	protected function get_cancel_uri($model)
+	{
+		return Kohana::$config->load('kadmium')->base_path;
+	}
+
 
 	// Hack so that we can ignore it when the password isn't updated...
 	// FIXME: Can this be done much nicer with the new validation system?
