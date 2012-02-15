@@ -8,6 +8,7 @@
 abstract class Kadmium_Core_Field_SortOn extends Jelly_Field_Integer
 {
 	public $show_in_edit = false;
+	public $append_at_end = true;
 	public $category_key;
 	public $category_dir = 'ASC';
 	public $label = 'Sort';
@@ -23,12 +24,26 @@ abstract class Kadmium_Core_Field_SortOn extends Jelly_Field_Integer
 	public function save($model, $value, $loaded)
 	{
 		if ($value == null) {
-			$builder = Jelly::query($model->meta()->model());
-			if (isset($this->category_key)) {
-				$builder->where($this->category_key, '=', $model->get_raw($this->category_key));
+			if ($this->append_at_end) {
+				$builder = Jelly::query($model->meta()->model());
+				if (isset($this->category_key)) {
+					$builder->where($this->category_key, '=', $model->get_raw($this->category_key));
+				}
+				$value = $builder->count() + 1;
+			} else {
+				$builder = Jelly::query($model->meta()->model());
+				if (isset($this->category_key)) {
+					$builder->where($this->category_key, '=', $model->get_raw($this->category_key));
+				}
+				$builder->set(
+					array(
+						$this->column => Db::expr($this->column . '+1')
+					)
+				)->update();
+				$value = 1;
 			}
-			$value = $builder->count() + 1;
 		}
+		echo Debug::vars($this);
 		return $value;
 	}
 
