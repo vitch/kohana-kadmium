@@ -7,6 +7,8 @@ abstract class Kadmium_Core_Field_Image extends Jelly_Core_Field_Image
 
 	public $web_path = '';
 
+	public $delete_file = TRUE;
+
 	public function display($model, $value)
 	{
 		$path = count($this->thumbnails) ? $this->thumbnails[0]['path'] : $this->path;
