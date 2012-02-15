@@ -43,7 +43,6 @@ abstract class Kadmium_Core_Field_SortOn extends Jelly_Field_Integer
 				$value = 1;
 			}
 		}
-		echo Debug::vars($this);
 		return $value;
 	}
 
