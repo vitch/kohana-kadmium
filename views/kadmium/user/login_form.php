@@ -1,6 +1,6 @@
 <?=
 	Form::open(
-		null,
+		'user/login',
 		array(
 			'class' => 'form-horizontal',
 		)
