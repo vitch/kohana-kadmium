@@ -1,1 +1,1 @@
-<input type="text" disabled="" placeholder="<?= $text; ?>" class="xxlarge disabled">
+<input type="text" disabled="" placeholder="<?= $text; ?>" class="span7 disabled">
