@@ -15,7 +15,11 @@ abstract class Kadmium_Core_Field_ManyToMany extends Jelly_Core_Field_ManyToMany
 	public function input($prefix = 'jelly/field', $data = array())
 	{
 		$attrs = Arr::get($data, 'attributes', array());
+		$attrs['class'] = Arr::get($attrs, 'class', '') . ' span7 manytomany';
 		$attrs['title'] = 'Select ' . $this->label . '...';
+		if (isset($this->sort_on) && $this->sort_on) {
+			$attrs['data-sortable'] = 1;
+		}
 		$data['attributes'] = $attrs;
 		$data['ids'] = array();
 		foreach ($data['value'] as $model)
@@ -42,6 +46,25 @@ abstract class Kadmium_Core_Field_ManyToMany extends Jelly_Core_Field_ManyToMany
 				->where($this->through['model'] . '.' . $this->through['fields'][0], '=', $model->id())
 				->delete();
 		return parent::delete($model, $key);
+	}
+
+	public function save($model, $value, $loaded)
+	{
+		parent::save($model, $value, $loaded);
+		if (isset($this->sort_on) && $value) {
+			$i = 1;
+			foreach($value as $linked_id) {
+				if (!$linked_id) {
+					continue;
+				}
+				$link_model = Jelly::query($this->through['model'])
+					->where($this->through['fields'][0], '=', $model->id())
+					->where($this->through['fields'][1], '=', $linked_id)
+					->limit(1)
+					->select();
+				$link_model->set($this->sort_on, $i++)->save();
+			}
+		}
 	}
 
 	// Over-ridden so that if value includes commas we automatically explode it into an array - a bit hacky but should be OK?!

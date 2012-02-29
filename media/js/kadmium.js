@@ -227,7 +227,8 @@ $(
                         select = $(this),
                         selectedHolder = $('<ul class="autocomplete-selected"></ul>'),
                         inp = $('<input type="text" class="span7" />'),
-                        hiddenInput = $('<input type="hidden" />').attr('name', select.attr('name').split('[]').join(''))
+                        hiddenInput = $('<input type="hidden" />').attr('name', select.attr('name').split('[]').join('')),
+                        loadedOptions = []
                         ;
                     $.each(
                         this.options,
@@ -236,29 +237,60 @@ $(
                             labels.push(option.text);
                             idsByLabel[option.text] = option.value;
                             if (option.selected) {
-                                addItem(option.text);
+                                loadedOptions.push(
+                                    {
+                                        position: $(option).data('pos'),
+                                        label: option.text,
+                                        id: option.value
+                                    }
+                                );
                             }
+                        }
+                    );
+                    loadedOptions.sort(
+                        function(a, b)
+                        {
+                            return a.position > b.position;
+                        }
+                    );
+                    $.each(
+                        loadedOptions,
+                        function(i, option)
+                        {
+                            addItem(option.label);
                         }
                     );
                     function addItem(label)
                     {
                         var id = idsByLabel[label],
-                            li = $('<li />').text(label).append(
-                                    $('<a href="#">x</a>').bind(
-                                        'click',
-                                        function()
-                                        {
-                                            li.remove();
-                                            selectedItems.splice(selectedItems.indexOf(id), 1)
-                                            hiddenInput.val(selectedItems.join(','));
-                                            labels.push(label);
-                                            return false;
-                                        }
-                                    )
-                                );
+                            li = $('<li />')
+                                    .text(label)
+                                    .attr('rel', id)
+                                    .append(
+                                        $('<a href="#">x</a>').bind(
+                                            'click',
+                                            function()
+                                            {
+                                                li.remove();
+                                                updateHiddenField();
+                                                labels.push(label);
+                                                return false;
+                                            }
+                                        )
+                                    );
                         labels.splice(labels.indexOf(label), 1);
-                        selectedItems.push(id);
                         selectedHolder.append(li);
+                        updateHiddenField();
+                    }
+                    function updateHiddenField()
+                    {
+                        selectedItems = [];
+                        selectedHolder.find('>li').each(
+                            function(i)
+                            {
+                                selectedItems.push($(this).attr('rel'));
+                            }
+                        );
                         hiddenInput.val(selectedItems.join(','));
                     }
                     select.before(selectedHolder).after(
@@ -282,8 +314,20 @@ $(
                             }
                         )
                     );
+
+                    if (select.data('sortable')) {
+                        selectedHolder.sortable(
+                            {
+                                items: '>li',
+                                stop: function(event, ui)
+                                {
+                                    updateHiddenField();
+                                }
+                            }
+                        );
+                    }
+
                     select.remove();
-//                    console.log(labels, idsByLabel, selectedItems);
                 }
             )
         }

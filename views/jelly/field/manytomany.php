@@ -1,9 +1,24 @@
-<select name="<?php echo $name ?>[]" <?php echo HTML::attributes($attributes + array('id' => 'field-'.$name, 'class' => 'span7 manytomany')) ?> multiple="multiple">
-	<?php foreach(Jelly::query($foreign['model'])->select() as $related): ?>
-		<?php if (in_array($related->id(), $ids)): ?>
-			<option value="<?php echo $related->id() ?>" selected='selected'><?php echo $related->name()?></option>
-		<?php else: ?>
-			<option value="<?php echo $related->id() ?>"><?php echo $related->name()?></option>
-		<?php endif; ?>
-	<?php endforeach; ?>
-</select>
+<?php
+	echo '<select ' .
+		HTML::attributes(
+			$attributes +
+			array(
+				'id' => 'field-'.$name,
+				'name' => $name . '[]',
+				'multiple' => 'multiple'
+			)
+		) .
+		'>';
+	foreach(Jelly::query($foreign['model'])->select() as $related) {
+		$option_attributes = array(
+			'value' => $related->id(),
+		);
+		$pos = array_search($related->id(), $ids);
+		if ($pos !== FALSE) {
+			$option_attributes['selected'] = 'selected';
+			$option_attributes['data-pos'] = $pos;
+		}
+		echo '<option ' . Html::attributes($option_attributes) . '>' . $related->name() . '</option>';
+	}
+	echo '</select>';
+?>
