@@ -118,16 +118,18 @@ $(
 					'onClosed' : function() {
 						var loadingMenu = '#' + openedMenu;
 						var q = location.href.indexOf('?') == -1 ? '?' : '&';
-						$.ajax({
-							url : location.href + q + 'action=reload&field=' + openedMenu,
-							success : function (data)
-							{
-								var wrapper = $(loadingMenu).parent().parent();
-								wrapper.html($(data).children());
-								initColorboxes(wrapper);
-								initSortable(loadingMenu);
-							}
-						});
+                        if (openedMenu) {
+                            $.ajax({
+                                url : location.href + q + 'action=reload&field=' + openedMenu,
+                                success : function (data)
+                                {
+                                    var wrapper = $(loadingMenu).parent().parent();
+                                    wrapper.html($(data).children());
+                                    initColorboxes(wrapper);
+                                    initSortable(loadingMenu);
+                                }
+                            });
+                        }
 						openedMenu = undefined;
 					}
 				}
