@@ -40,6 +40,7 @@
   , select: function () {
       var val = this.$menu.find('.active').attr('data-value')
       this.$element.val(val)
+      this.$element.trigger('selected').trigger('change')
       return this.hide()
     }
 
@@ -61,6 +62,7 @@
   , hide: function () {
       this.$menu.hide()
       this.shown = false
+      this.$element.trigger('hidden')
       return this
     }
 
