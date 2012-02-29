@@ -215,6 +215,80 @@ $(
 			);
 		}
 
+        // ManyToMany autocomplete
+        function initManyToManyAutocomplete(selector)
+        {
+            $(selector).find('select[multiple].manytomany').each(
+                function()
+                {
+                    var labels = [],
+                        idsByLabel = {},
+                        selectedItems = [],
+                        select = $(this),
+                        selectedHolder = $('<ul class="autocomplete-selected"></ul>'),
+                        inp = $('<input type="text" class="span7" />'),
+                        hiddenInput = $('<input type="hidden" />').attr('name', select.attr('name').split('[]').join(''))
+                        ;
+                    $.each(
+                        this.options,
+                        function(i, option)
+                        {
+                            labels.push(option.text);
+                            idsByLabel[option.text] = option.value;
+                            if (option.selected) {
+                                addItem(option.text);
+                            }
+                        }
+                    );
+                    function addItem(label)
+                    {
+                        var id = idsByLabel[label],
+                            li = $('<li />').text(label).append(
+                                    $('<a href="#">x</a>').bind(
+                                        'click',
+                                        function()
+                                        {
+                                            li.remove();
+                                            selectedItems.splice(selectedItems.indexOf(id), 1)
+                                            hiddenInput.val(selectedItems.join(','));
+                                            labels.push(label);
+                                            return false;
+                                        }
+                                    )
+                                );
+                        labels.splice(labels.indexOf(label), 1);
+                        selectedItems.push(id);
+                        selectedHolder.append(li);
+                        hiddenInput.val(selectedItems.join(','));
+                    }
+                    select.before(selectedHolder).after(
+                        hiddenInput,
+                        inp.typeahead(
+                            {
+                                source: labels,
+                                //menu: '<ul class="typeahead dropdown-menu span7"></ul>'
+                            }
+                        ).bind(
+                            'change',
+                            function()
+                            {
+                                var content = inp.val();
+                                if (content) {
+                                    if (idsByLabel[content]) {
+                                        addItem(content);
+                                    }
+                                    inp.val('');
+                                }
+                            }
+                        )
+                    );
+                    select.remove();
+//                    console.log(labels, idsByLabel, selectedItems);
+                }
+            )
+        }
+        initManyToManyAutocomplete('body');
+
 		// store the value of all form fields so we can warn the user if they edit and then try to leave without saving...
 		var pageLoadData = {};
 		$(':input').each(

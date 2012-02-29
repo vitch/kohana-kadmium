@@ -1,283 +1,169 @@
 @font-face {
-	font-family: 'IconicStroke';
-	src: url('fonts/iconic_stroke.eot');
-	src: url('fonts/iconic_stroke.eot?#iefix') format('embedded-opentype'), url('fonts/iconic_stroke.ttf') format('truetype'), url('fonts/iconic_stroke.svg#iconic') format('svg');
-	font-weight: normal;
-	font-style: normal;
+  font-family: 'IconicStroke';
+  src: url('fonts/iconic_stroke.eot');
+  src: url('fonts/iconic_stroke.eot?#iefix') format('embedded-opentype'), url('fonts/iconic_stroke.ttf') format('truetype'), url('fonts/iconic_stroke.svg#iconic') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
-body
-{
-
-}
-
+/* Variables.less
+ * Variables to customize the look and feel of Bootstrap
+ * ----------------------------------------------------- */
+/* Mixins.less
+ * Snippets of reusable CSS to develop faster and keep code readable
+ * ----------------------------------------------------------------- */
 /* Fix for bootstrap button mess */
-.form-actions a.btn,
-.alert .alert-actions a.btn
-{
-	vertical-align: middle;
-	line-height: 16.3667px;
+.form-actions a.btn, .alert .alert-actions a.btn {
+  vertical-align: middle;
+  line-height: 16.3667px;
 }
-
-.navbar .pull-right
-{
-	color: #888;
-	margin: 10px 0 0;
+.navbar .pull-right {
+  color: #888;
+  margin: 10px 0 0;
 }
-.navbar .pull-right a
-{
-	color: #ddd;
+.navbar .pull-right a {
+  color: #ddd;
 }
-
-.input .alert
-{
-	margin: 10px 0 0;
+.input .alert {
+  margin: 10px 0 0;
 }
-
-.alert .alert-actions
-{
-	margin: 10px 0 0;
+.alert .alert-actions {
+  margin: 10px 0 0;
 }
-.alert .alert-actions input.btn
-{
-	margin-bottom: 0;
+.alert .alert-actions input.btn {
+  margin-bottom: 0;
 }
-
-table td
-{
-	vertical-align: middle;
+table td {
+  vertical-align: middle;
 }
-.dropdown:hover .dropdown-menu
-{
-	display: block;
+.dropdown:hover .dropdown-menu {
+  display: block;
 }
-
-ul.imagefiles
-{
-	margin: 5px 0;
-	list-style: none;
+ul.imagefiles {
+  margin: 5px 0;
+  list-style: none;
 }
-ul.imagefiles li
-{
-	float: left;
-	margin: 0 10px 0 0;
+ul.imagefiles li {
+  float: left;
+  margin: 0 10px 0 0;
 }
-
-
-ul.has-many-uniquely
-{
-	list-style: none;
-	overflow: hidden;
-	margin: 0;
+ul.has-many-uniquely {
+  list-style: none;
+  overflow: hidden;
+  margin: 0;
 }
-
-li.asmListItem,
-ul.has-many-uniquely li
-{
-	background: #F5F5F5;
-	float: left;
-	margin: 0 0 4px;
-	font-size: 93%;
-	padding: 2px 3px 3px;
-	min-width: 35px;
-	min-height: 25px;
-	border: 0;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	width: 535px;
-	position: relative;
+li.asmListItem, ul.has-many-uniquely li {
+  background: #F5F5F5;
+  float: left;
+  margin: 0 0 4px;
+  font-size: 93%;
+  padding: 2px 3px 3px;
+  min-width: 35px;
+  min-height: 25px;
+  border: 0;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  width: 535px;
+  position: relative;
 }
-ul.img-list li
-{
-	width: auto;
-	margin: 0 10px 10px 0;
-	line-height: 12px;
+ul.img-list li {
+  width: auto;
+  margin: 0 10px 10px 0;
+  line-height: 12px;
 }
-
-li.asmListItem a.asmListItemRemove,
-ul.has-many-uniquely li a.edit
-{
-	position: absolute;
-	right: 0;
-	padding: 5px;
-	top: 2px;
+li.asmListItem a.asmListItemRemove, ul.has-many-uniquely li a.edit {
+  position: absolute;
+  right: 0;
+  padding: 5px;
+  top: 2px;
 }
-
-ul.img-list li a.edit
-{
-	background: #F5F5F5;
-	border: 0;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
+ul.img-list li a.edit {
+  background: #F5F5F5;
+  border: 0;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
 }
-
-ul.has-many-uniquely li span
-{
-	padding: 5px 30px 5px 5px;
-	display: block;
+ul.has-many-uniquely li span {
+  padding: 5px 30px 5px 5px;
+  display: block;
 }
-
-ul.img-list li span
-{
-	padding: 5px;
+ul.img-list li span {
+  padding: 5px;
 }
-
-ul.sortable li
-{
-	cursor: pointer;
+ul.sortable li {
+  cursor: pointer;
 }
-
-.mceEditor
-{
-	margin: 0 0 1em;
+.mceEditor {
+  margin: 0 0 1em;
 }
-
-textarea.wysiwyg
-{
-	height: 35em;
+textarea.wysiwyg {
+  height: 35em;
 }
-
-textarea.lines-5
-{
-	height: 5em;
+textarea.lines-5 {
+  height: 5em;
 }
-
-textarea.lines-10
-{
-	height: 10em;
+textarea.lines-10 {
+  height: 10em;
 }
-
-textarea.lines-15
-{
-	height: 15em;
+textarea.lines-15 {
+  height: 15em;
 }
-
-textarea.lines-20
-{
-	height: 20em;
+textarea.lines-20 {
+  height: 20em;
 }
-
 /* colorbox */
-
-#colorbox,
-#cboxOverlay,
-#cboxWrapper
-{
-	z-index: 10001;
+#colorbox, #cboxOverlay, #cboxWrapper {
+  z-index: 10001;
 }
-#kadmium-content
-{
-	width: 940px;
-	margin: 0 auto;
+#kadmium-content {
+  width: 940px;
+  margin: 0 auto;
 }
-
 /* Autocomplete specific styles */
-
-ul.autocomplete-options
-{
-	list-style: none;
-	padding: 5px 0;
-	margin: -5px 0 0;
-	overflow: hidden;
+.dropdown-menu {
+  max-width: 540px;
+  width: 540px;
+  overflow: hidden;
 }
-
-ul.autocomplete-options li
-{
-	float: left;
-	margin: 0 .5em .5em 0;
-    font-size: 93%;
-    padding: 5px 24px 5px 7px;
-    min-width: 35px;
-	position: relative;
+ul.autocomplete-selected {
+  list-style: none;
+  margin: 3px 0 10px;
+  padding: 0;
 }
-
-ul.autocomplete-options li a.js-remove-option
-{
-	position: absolute;
-	right: 4px;
-	padding: 0 3px 1px;
+ul.autocomplete-selected li {
+  background: #F5F5F5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  width: 530px;
+  position: relative;
+  margin: 0 0 3px;
+  padding: 3px 5px;
 }
-
-ul.autocomplete-options.ui-sortable li
-{
-	cursor: pointer;
+ul.autocomplete-selected li a {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  color: #9d261d;
+  background: #F5F5F5;
+  padding: 0 4px 1px;
 }
-
-.autocomplete-inp
-{
-	width: 530px;
-	margin: 0 0 1em;
+ul.autocomplete-selected li a:hover {
+  color: #f89406;
+  text-decoration: none;
 }
-
-.ac_results {
-	padding: 0px;
-	border: 1px solid black;
-	background-color: white;
-	overflow: hidden;
-	z-index: 99999;
+/* Sorter */
+a.sorter:before {
+  color: #000;
+  content: '\e03e';
+  font-family: 'IconicStroke';
+  font-size: 14px;
+  line-height: normal;
 }
-
-.ac_results ul {
-	width: 100%;
-	list-style-position: outside;
-	list-style: none;
-	padding: 0;
-	margin: 0;
+a.sorter:hover, a.sorter:hover:before {
+  text-decoration: none;
 }
-
-.ac_results li {
-	margin: 0px;
-	padding: 2px 5px;
-	cursor: default;
-	display: block;
-	/*
-	if width will be 100% horizontal scrollbar will apear
-	when scroll mode will be used
-	*/
-	/*width: 100%;*/
-	font: menu;
-	font-size: 12px;
-	/*
-	it is very important, if line-height not setted or setted
-	in relative units scroll will be broken in firefox
-	*/
-	line-height: 16px;
-	overflow: hidden;
-}
-
-.ac_loading {
-	/*background: white url('/images/ajax_loader.gif') right center no-repeat;*/
-}
-
-.ac_odd {
-	background-color: #eee;
-}
-
-.ac_over {
-	background-color: #0A246A;
-	color: white;
-}
-
-a.sorter
-{
-}
-a.sorter:before
-{
-	color: #000;
-    content: '\e03e';
-    font-family: 'IconicStroke';
-    font-size: 14px;
-    line-height: normal;
-}
-a.sorter:hover,
-a.sorter:hover:before
-{
-	text-decoration: none;
-}
-
-
-footer
-{
-	clear: both;
+footer {
+  clear: both;
 }

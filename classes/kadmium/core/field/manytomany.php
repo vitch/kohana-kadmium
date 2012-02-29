@@ -44,6 +44,15 @@ abstract class Kadmium_Core_Field_ManyToMany extends Jelly_Core_Field_ManyToMany
 		return parent::delete($model, $key);
 	}
 
+	// Over-ridden so that if value includes commas we automatically explode it into an array - a bit hacky but should be OK?!
+	public function set($value)
+	{
+		if (is_string($value) && strpos($value, ',') !== FALSE) {
+			$value = explode(',', $value);
+		}
+		return parent::set($value);
+	}
+
 	/**
 	 * Returns a Jelly_Builder that can be selected, updated, or deleted.
 	 *
