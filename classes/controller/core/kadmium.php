@@ -28,6 +28,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 		$this->scripts = $this->scripts + array(
 			$media->uri(array('file' => 'js/bootstrap-datepicker.js')),
+			$media->uri(array('file' => 'js/bootstrap-typeahead.js')),
 			$media->uri(array('file' => 'tiny_mce/jquery.tinymce.js')),
 //			$media->uri(array('file' => 'js/jquery.asmselect.js')),
 			$media->uri(array('file' => 'colorbox/scripts/jquery.colorbox-min.js')),
