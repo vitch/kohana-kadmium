@@ -195,10 +195,11 @@ ul.autocomplete-selected
 	{
 	    background: #F5F5F5;
 	 	.border-radius(4px);
+		.box-shadow(inset 0 1px 2px rgba(0,0,0,.1));
 		width: 530px;
 		position: relative;
-		margin: 0 0 3px;
-		padding: 3px 5px;
+		margin: 0 0 5px;
+		padding: 4px;
 
 		a
 		{
@@ -208,6 +209,7 @@ ul.autocomplete-selected
 			color: @red;
 			background: #F5F5F5;
 			padding: 0 4px 1px;
+			font-weight: bold;
 
 			&:hover
 			{
@@ -215,6 +217,16 @@ ul.autocomplete-selected
 				text-decoration: none;
 			}
 		}
+
+		&:hover
+		{
+			.box-shadow(inset 0 1px 2px rgba(0,0,0,.2));
+		}
+	}
+
+	&.ui-sortable li
+	{
+	    cursor: pointer;
 	}
 }
 
