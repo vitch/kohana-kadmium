@@ -224,7 +224,13 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 					$errors += $sub_errors;
 				}
 			} else {
-				$model->set(array($field_id => Arr::get($_POST, $prefix . $field_id)));
+				$val = Arr::get($_POST, $prefix . $field_id);
+				// multiple selects submit nothing when empty which makes  the field ManyToMany think it has changed
+				// and causes all manner of problems when submitting with an error...
+				if ($field instanceof Jelly_Field_ManyToMany && $val == NULL) {
+					continue;
+				}
+				$model->set(array($field_id => $val));
 			}
 		}
 		try {
