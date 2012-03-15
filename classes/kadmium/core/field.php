@@ -45,6 +45,11 @@ abstract class Kadmium_Core_Field extends Jelly_Core_Field
 			}
 			$attrs['class'] = $css_class_attr . implode(' ', $this->css_class);
 		}
+
+		if (in_array(array('not_empty'), $this->rules)) {
+			$attrs['required'] = 'required';
+		}
+
 		$data['attributes'] = $attrs;
 
 		// Get the view name

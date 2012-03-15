@@ -351,6 +351,7 @@ ul.fields h4
 
 ul.fields li input[type=text],
 ul.fields li input[type=password],
+ul.fields li input[type=number],
 ul.fields li textarea,
 table.list-page input[type=text],
 div.non-editable
