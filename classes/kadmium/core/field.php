@@ -47,7 +47,9 @@ abstract class Kadmium_Core_Field extends Jelly_Core_Field
 		}
 
 		if (in_array(array('not_empty'), $this->rules)) {
-			$attrs['required'] = 'required';
+			if (!$this instanceof Jelly_Field_File || !$data['value']) {
+				$attrs['required'] = 'required';
+			}
 		}
 
 		$data['attributes'] = $attrs;
