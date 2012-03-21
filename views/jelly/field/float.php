@@ -1,1 +1,1 @@
-<?php echo Form::input($name, $value, $attributes + array('id' => 'field-'.$name, 'type'=>'number')); ?>
+<?php echo Form::input($name, $value, $attributes + array('id' => 'field-'.$name, 'type'=>'number', 'step'=>'any')); ?>
