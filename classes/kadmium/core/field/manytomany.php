@@ -73,4 +73,24 @@ abstract class Kadmium_Core_Field_ManyToMany extends Jelly_Core_Field_ManyToMany
 		return $result;
 	}
 
+	/**
+	 * Gets a string representation of the value, formatted according to the
+	 * fields type.
+	 *
+	 * @param   Jelly_Model  $model
+	 * @param   mixed        $value
+	 * @return String
+	 **/
+	public function display($model, $value)
+	{
+		return View::factory(
+			'kadmium/element/list_table',
+			array(
+				'items' => $value->select(),
+				'show_edit' => FALSE,
+				'extra_button_view' => '',
+			)
+		);
+	}
+
 }
