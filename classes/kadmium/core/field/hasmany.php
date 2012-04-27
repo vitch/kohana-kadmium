@@ -14,13 +14,17 @@ abstract class Kadmium_Core_Field_HasMany extends Jelly_Core_Field_HasMany
 	 **/
 	public function display($model, $value)
 	{
-		return View::factory(
-			'kadmium/element/list_table',
-			array(
-				'items' => $value->select(),
-				'show_edit' => FALSE,
-				'extra_button_view' => '',
-			)
-		);
+		$items = $value->select();
+		if (count($items)) {
+			return View::factory(
+				'kadmium/element/list_table',
+				array(
+					'items' => $items,
+					'show_edit' => FALSE,
+					'extra_button_view' => '',
+				)
+			);
+		}
+		return '&nbsp;';
 	}
 }
