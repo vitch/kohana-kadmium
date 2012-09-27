@@ -166,6 +166,9 @@ ul.autocomplete-selected.ui-sortable li {
   cursor: pointer;
 }
 /* Sorter */
+a.sorter {
+	background: #fff;
+}
 a.sorter:before {
   color: #000;
   content: '\e03e';
