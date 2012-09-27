@@ -6,5 +6,5 @@ if ($val !== FALSE) {
 echo Form::input(
 		$name,
 		$value,
-		$attributes + array('id' => 'field-'.$name, 'type' => 'date', 'data-datepicker' => 'datepicker')
+		$attributes + array('id' => 'field-'.$name, 'type' => 'text', 'placeholder'=> 'YYYY-MM-DD','data-datepicker' => 'datepicker')
 	);
