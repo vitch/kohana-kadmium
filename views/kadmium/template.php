@@ -49,13 +49,6 @@
 			<div class="content">
 				<?php
 					echo $content;
-					if ($is_logged_in) {
-				?>
-				<footer>
-					<p>&copy; Luck Laboratories Ltd <?= date('Y'); ?>.</p>
-				</footer>
-				<?php
-					}
 				?>
 			</div>
 			<?php
@@ -63,6 +56,21 @@
 					echo '<div id="kohana-profiler">';
 					echo View::factory('profiler/stats');
 					echo '</div>';
+				}
+			?>
+			<?php
+				if ($is_logged_in) {
+					?>
+					<div id="site-footer">
+						<div class="container">
+							<div class="content">
+								<footer>
+									<p>&copy; Luck Laboratories Ltd <?= date('Y'); ?>.</p>
+								</footer>
+                            </div>
+                        </div>
+                    </div>
+					<?php
 				}
 			?>
 		</div>
