@@ -19,6 +19,14 @@ abstract class Kadmium_Core_Field_Timestamp extends Jelly_Core_Field_Timestamp
 		array_push($this->css_class, 'span2');
 	}
 
+	public function save($model, $value, $loaded)
+	{
+		if ($value == '' && $this->allow_null) {
+			return NULL;
+		}
+		return parent::save($model, $value, $loaded);
+	}
+
 	/**
 	 * Returns a particular value processed according
 	 * to the class's standards.
