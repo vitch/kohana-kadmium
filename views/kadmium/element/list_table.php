@@ -27,9 +27,9 @@
 	<tbody>
 <?php
 		}
-?>
-<tr>
-<?php
+
+		echo '<tr class="' . $item->list_page_class . '">';
+
 		foreach ($fields as $field_id => $field):
 			if (!$field->show_in_list):
 				continue;
