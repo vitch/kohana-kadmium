@@ -189,6 +189,7 @@ ul.autocomplete-selected.ui-sortable li {
 /* Sorter */
 a.sorter {
 	background: #fff;
+	background: rgba(0, 0, 0, 0);
 }
 a.sorter:before {
   color: #000;
