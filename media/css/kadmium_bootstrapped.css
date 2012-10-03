@@ -5,27 +5,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
-html {
-	position: relative;
-	min-height: 100%;
-}
-body {
-	margin: 0 0 40px;
-}
-#site-footer {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	height: 40px;
-	width: 100%;
-}
-#site-footer footer {
-	border-top: 1px solid #ccc;
-	padding: 12px 0 0;
-	color: #666;
-}
-
 /* Variables.less
  * Variables to customize the look and feel of Bootstrap
  * ----------------------------------------------------- */
@@ -33,7 +12,8 @@ body {
  * Snippets of reusable CSS to develop faster and keep code readable
  * ----------------------------------------------------------------- */
 /* Fix for bootstrap button mess */
-.form-actions a.btn, .alert .alert-actions a.btn {
+.form-actions a.btn,
+.alert .alert-actions a.btn {
   vertical-align: middle;
   line-height: 16.3667px;
 }
@@ -59,6 +39,13 @@ table td {
 .dropdown:hover .dropdown-menu {
   display: block;
 }
+.navbar .dropdown-menu {
+  margin-top: 0;
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+  padding: 0;
+}
 ul.imagefiles {
   margin: 5px 0;
   list-style: none;
@@ -72,7 +59,8 @@ ul.has-many-uniquely {
   overflow: hidden;
   margin: 0;
 }
-li.asmListItem, ul.has-many-uniquely li {
+li.asmListItem,
+ul.has-many-uniquely li {
   background: #F5F5F5;
   float: left;
   margin: 0 0 4px;
@@ -92,7 +80,8 @@ ul.img-list li {
   margin: 0 10px 10px 0;
   line-height: 12px;
 }
-li.asmListItem a.asmListItemRemove, ul.has-many-uniquely li a.edit {
+li.asmListItem a.asmListItemRemove,
+ul.has-many-uniquely li a.edit {
   position: absolute;
   right: 0;
   padding: 5px;
@@ -134,7 +123,9 @@ textarea.lines-20 {
   height: 20em;
 }
 /* colorbox */
-#colorbox, #cboxOverlay, #cboxWrapper {
+#colorbox,
+#cboxOverlay,
+#cboxWrapper {
   z-index: 10001;
 }
 #kadmium-content {
@@ -187,9 +178,6 @@ ul.autocomplete-selected.ui-sortable li {
   cursor: pointer;
 }
 /* Sorter */
-a.sorter {
-	background: inherit;
-}
 a.sorter:before {
   color: #000;
   content: '\e03e';
@@ -197,7 +185,8 @@ a.sorter:before {
   font-size: 14px;
   line-height: normal;
 }
-a.sorter:hover, a.sorter:hover:before {
+a.sorter:hover,
+a.sorter:hover:before {
   text-decoration: none;
 }
 footer {
