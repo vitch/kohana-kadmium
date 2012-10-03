@@ -11,6 +11,25 @@
 /* Mixins.less
  * Snippets of reusable CSS to develop faster and keep code readable
  * ----------------------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin: 0 0 40px;
+}
+#site-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+}
+#site-footer footer {
+  border-top: 1px solid #ccc;
+  padding: 12px 0 0;
+  color: #666;
+}
 /* Fix for bootstrap button mess */
 .form-actions a.btn,
 .alert .alert-actions a.btn {
@@ -178,6 +197,9 @@ ul.autocomplete-selected.ui-sortable li {
   cursor: pointer;
 }
 /* Sorter */
+a.sorter {
+  background: inherit;
+}
 a.sorter:before {
   color: #000;
   content: '\e03e';
