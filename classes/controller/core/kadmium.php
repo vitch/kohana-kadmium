@@ -741,6 +741,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				$label = Form::label($field_id_attr, $field->label);
 			}
 
+			if (isset($field->tooltip)) {
+				$field_output .= ' <div class="tooltip">?<div>' . $field->tooltip . '</div></div>';
+			}
+
 			$fields[$label] = $field_output;
 
 			if (isset($validation_errors[$field_id])) {

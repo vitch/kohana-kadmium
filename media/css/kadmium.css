@@ -331,8 +331,20 @@ ul.fields li
 	width: 100%;
 	list-style: none;
 	margin: 0;
-	overflow: hidden;
 	padding: 0 0 1em;
+	position: relative;
+	*zoom: 1;
+}
+ul.fields li:before,
+ul.fields li:after
+{
+	display: table;
+	content: "";
+	line-height: 0;
+}
+ul.fields li:after
+{
+	clear: both;
 }
 
 ul.fields li.col3
@@ -432,7 +444,41 @@ ul.fields li select.error
 
 ul.fields li label
 {
-	margin: 0 0 .2em;
+	margin: 0 15px .2em 0;
+}
+
+ul.fields li .tooltip
+{
+	float: right;
+	position: absolute;
+	padding: 2px 5px 0;
+	top: -2px;
+	right: 5px;
+	background: rgba(41, 41, 76, .65);
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	color: #fff;
+}
+ul.fields li .tooltip div
+{
+	position: absolute;
+	width: 340px;
+	background: rgba(255, 255, 255, .9);
+	top: 0;
+	right: 0;
+	padding: 5px 10px;
+	color: #000;
+	display: none;
+	border: 1px solid rgba(41, 41, 76, .65);
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	z-index: 4;
+}
+ul.fields li .tooltip:hover div
+{
+	display: block;
 }
 
 ul.imagefiles,
