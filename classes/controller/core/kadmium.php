@@ -99,6 +99,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 	protected function show_edit_page_from_model($item_type, $model, $is_new, $extra_redirect_params = array())
 	{
+		if (Kohana::$profiling === TRUE)
+		{
+			$benchmark = Profiler::start('Kadmium', __FUNCTION__);
+		}
 		if ($this->request->is_ajax()) {
 			switch(Arr::get($_POST, 'action', Arr::get($_GET, 'action'))) {
 				case 'reload':
@@ -199,6 +203,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'after_form_content' => $this->after_edit_form_content,
 			)
 		);
+		if (isset($benchmark))
+		{
+			Profiler::stop($benchmark);
+		}
 	}
 
 	protected function update_model_from_post($meta, $model, $prefix='field-')
@@ -675,6 +683,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 	protected function generate_fields(Jelly_Model $model, Jelly_Meta $meta, $field_prefix, array $validation_errors = array())
 	{
+		if (Kohana::$profiling === TRUE)
+		{
+			$benchmark = Profiler::start('Kadmium', __FUNCTION__);
+		}
 		$has_autocomplete = FALSE;
 		$fields = array();
 		foreach ($meta->fields() as $field_id => $field) {
@@ -696,14 +708,26 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				)
 			);
 		}
+		if (isset($benchmark))
+		{
+			Profiler::stop($benchmark);
+		}
 		return $fields;
 	}
 
 	protected function generate_field(Jelly_Model $model, & $fields, $field_id, $field, array $validation_errors = array(), $attrs = array(), $field_prefix = 'field-')
 	{
-		$field_id_attr = $field_prefix . $field->name;
 
+		if (Kohana::$profiling === TRUE)
+		{
+			$benchmark = Profiler::start('Kadmium', __FUNCTION__ /*. '[' . $field_id . ']'*/);
+		}
+		$field_id_attr = $field_prefix . $field->name;
 		if (!$this->include_field($field, $model->id() == 0)) {
+			if (isset($benchmark))
+			{
+				Profiler::stop($benchmark);
+			}
 			return;
 		}
 
@@ -751,6 +775,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				array_push($field->css_class, 'error');
 				$fields[$label]->errors = $validation_errors[$field_id];
 			}
+		}
+		if (isset($benchmark))
+		{
+			Profiler::stop($benchmark);
 		}
 	}
 
