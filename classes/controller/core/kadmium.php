@@ -16,9 +16,10 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$media = Route::get('kadmium/media');
 
 		$this->styles = $this->styles + array(
-			'http://yui.yahooapis.com/2.8.1/build/reset-fonts/reset-fonts.css'  => 'all',
-			//$media->uri(array('file' => 'css/reset-fonts.css'))  => 'all',
-			'http://yui.yahooapis.com/2.8.1/build/base/base-min.css' => 'all',
+//			'http://yui.yahooapis.com/2.8.1/build/reset-fonts/reset-fonts.css'  => 'all',
+			$media->uri(array('file' => 'css/reset-fonts.css'))  => 'all',
+//			'http://yui.yahooapis.com/2.8.1/build/base/base-min.css' => 'all',
+			$media->uri(array('file' => 'css/base-min.css'))  => 'all',
 			$media->uri(array('file' => 'css/datePicker.css'))  => 'all',
 			$media->uri(array('file' => 'css/jquery.asmselect.css'))  => 'all',
 			$media->uri(array('file' => 'colorbox/styles/colorbox.css'))  => 'all',
