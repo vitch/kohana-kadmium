@@ -9,5 +9,6 @@
 	if (isset($field->allow_nil)) { // FIXME: Need to get this from the field...
 		$options = array($field->allow_nil) + $options;
 	}
-	echo Form::select($name, $options, $value->id(), $attributes + array('id' => 'field-'.$name, 'class' => 'span7'));
+	$attributes['class'] = Arr::get($attributes, 'class') . ' span7';
+	echo Form::select($name, $options, $value->id(), $attributes + array('id' => 'field-'.$name));
 ?>
