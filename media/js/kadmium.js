@@ -215,6 +215,56 @@ $(
 			);
 		}
 
+		// BelongsTo autocomplete
+		function initBelongsToAutocomplete(selector)
+		{
+			$(selector).find('select.js-single-autocomplete').each(
+				function()
+				{
+					var select = $(this),
+						idsByLabel = {},
+						hiddenInput = $('<input type="hidden"/>').attr(
+							{
+								id: select.attr('id'),
+								name: select.attr('name')
+							}
+						),
+						input = $('<input type="text"/>').attr(
+								{
+									class: select.attr('class')
+								}
+							).bind(
+								'change',
+								function()
+								{
+									hiddenInput.val(idsByLabel[$(this).val()])
+								}
+							),
+						labels = $.map(
+							this.options,
+							function(option)
+							{
+								// Hacky workaround for the browser selecting the first option by default
+								if (option.outerHTML.indexOf('selected="selected"') > -1) {
+									hiddenInput.val(option.value);
+									input.val(option.text);
+								}
+								idsByLabel[option.text] = option.value;
+								return option.text;
+							}
+						);
+
+					input.typeahead(
+						{
+							source: labels
+						}
+					);
+					select.after(input, hiddenInput).remove();
+				}
+			);
+		}
+		initBelongsToAutocomplete('body');
+
         // ManyToMany autocomplete
         function initManyToManyAutocomplete(selector)
         {
