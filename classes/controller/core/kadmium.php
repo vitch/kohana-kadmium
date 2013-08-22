@@ -349,8 +349,22 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			}
 			$builder->order_by($sort_on_field->column);
 			$rpp = 9999999999;
+			$allow_sorting = FALSE;
 		} else {
 			$rpp = Kohana::config('kadmium')->results_per_list_page;
+			$allow_sorting = TRUE;
+			$chosen_sort = Arr::get($_GET, 's');
+			$chosen_dir = Arr::get($_GET, 'd', -1);
+			if (!$chosen_sort) {
+				$default_sorting = Jelly::meta($model_name)->sorting();
+				if (count($default_sorting)) {
+					$tmp = array_keys($default_sorting);
+					$chosen_sort = $tmp[0];
+				}
+			}
+			if ($chosen_sort) {
+				$builder->order_by($chosen_sort, $chosen_dir == 1 ? 'asc' : 'desc');
+			}
 		}
 
 		// FIXME: Is this working correctly?
@@ -389,6 +403,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'display_add_links' => !Jelly::factory($model_name)->disable_user_add,
 				'add_link' => $add_link,
 				'show_edit' => Jelly::factory($model_name)->disable_user_edit !== TRUE,
+				'allow_sorting' => $allow_sorting,
 				'items' => $items,
 				'pagination' => $pagination->render(),
 				'extra_button_view' => $extra_button_view,

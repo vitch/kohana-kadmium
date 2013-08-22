@@ -1,26 +1,49 @@
 
 <table class="list-page">
 <?php
-	foreach ($items as $item):
+	foreach ($items as $item) {
 		if (!isset($fields)) {
 			$fields = $item->meta()->fields();
+			$current_sort_on = Arr::get($_GET, 's');
+			$current_direction = Arr::get($_GET, 'd', 1);
 ?>
 	<thead>
 		<tr>
 <?php
-			foreach ($fields as $field_id => $field):
-				if (!$field->show_in_list):
+			foreach ($fields as $field_id => $field) {
+				if (!$field->show_in_list) {
 					continue;
-				endif;
+				}
+				$d = $current_direction;
+				$css_class = '';
+				if ($field_id == $current_sort_on) {
+					$d *= -1;
+					$css_class .= 'is-sorter';
+					if ($d == -1) {
+						$css_class .= ' desc';
+					}
+				}
 ?>
-			<th><?= $field->label; ?></th>
+			<th><?php
+				if (isset($allow_sorting) && $allow_sorting) {
+					echo Html::anchor(
+						Request::current()->uri() . '?s=' . $field_id . '&d=' . $d,
+						$field->label,
+						array(
+							'class' => $css_class
+						)
+					);
+				} else {
+					echo $field->label;
+				}
+			?></th>
 <?php
-			endforeach;
-			if ($show_edit || $extra_button_view):
+			}
+			if ($show_edit || $extra_button_view) {
 ?>
 			<th>&nbsp;</th>
 <?php
-			endif;
+			}
 ?>
 		</tr>
 	</thead>
@@ -30,15 +53,15 @@
 ?>
 <tr>
 <?php
-		foreach ($fields as $field_id => $field):
-			if (!$field->show_in_list):
+		foreach ($fields as $field_id => $field) {
+			if (!$field->show_in_list) {
 				continue;
-			endif;
+			}
 ?>
 			<td><?= $field->display($item, $item->get($field_id)); ?></td>
 <?php
-		endforeach;
-		if ($show_edit || $extra_button_view):
+		}
+		if ($show_edit || $extra_button_view) {
 ?>
 	<td>
 		<?php
@@ -64,11 +87,11 @@
 		?>
 	</td>
 <?php
-		endif;
+		}
 ?>
 </tr>
 <?php
-	endforeach;
+	}
 ?>
 	</tbody>
 </table>

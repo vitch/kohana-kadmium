@@ -732,6 +732,19 @@ table.list-page th
 	border-bottom: 0;
 }
 
+table.list-page th a {
+	color: #fff !important;
+}
+
+table.list-page th a.is-sorter {
+	padding-right: 15px;
+	background: url(../img/list-table-sort-icon.gif) no-repeat 100% -103px;
+}
+
+table.list-page th a.is-sorter.desc {
+	background-position: 100% 2px;
+}
+
 table.list-page th:first-of-type
 {
 	border-left: 0;
