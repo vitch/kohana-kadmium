@@ -336,6 +336,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 		$this->init_template('List ' . Inflector::plural($item_type));
 		$builder = Jelly::query($model_name);
+		foreach(Jelly::meta($model_name)->fields() as $field_id => $field) {
+			if ($field instanceof Jelly_Field_BelongsTo && $field->show_in_list) {
+				$builder->with($field_id);
+			}
+		}
 		$this->modify_list_builder($builder);
 		if ($sort_on_field) {
 			if (isset($sort_on_field->category_key)) {
@@ -365,7 +370,6 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			if ($chosen_sort) {
 				$sorting_field = Jelly::meta($model_name)->field($chosen_sort);
 				if ($sorting_field instanceof Jelly_Field_BelongsTo) {
-					$builder->with($chosen_sort);
 					$chosen_sort = Jelly::meta($model_name)->table()
 									. ':'
 									. $chosen_sort
