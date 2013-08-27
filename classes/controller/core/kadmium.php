@@ -363,6 +363,15 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				}
 			}
 			if ($chosen_sort) {
+				$sorting_field = Jelly::meta($model_name)->field($chosen_sort);
+				if ($sorting_field instanceof Jelly_Field_BelongsTo) {
+					$builder->with($chosen_sort);
+					$chosen_sort = Jelly::meta($model_name)->table()
+									. ':'
+									. $chosen_sort
+									. '.'
+									. Jelly::meta($sorting_field->foreign['model'])->name_key();
+				}
 				$builder->order_by($chosen_sort, $chosen_dir == 1 ? 'asc' : 'desc');
 			}
 		}
