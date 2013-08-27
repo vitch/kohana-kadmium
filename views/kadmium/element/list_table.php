@@ -58,7 +58,7 @@
 				continue;
 			}
 ?>
-			<td><?= $field->display($item, $item->get($field_id)); ?></td>
+			<td><?= $field->display($item, $item->{$field_id}); ?></td>
 <?php
 		}
 		if ($show_edit || $extra_button_view) {
