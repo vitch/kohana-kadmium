@@ -123,6 +123,31 @@ ul.img-list li span {
 ul.sortable li {
   cursor: pointer;
 }
+table.list-page th a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+}
+table.list-page th a:after {
+  margin: 0 0 0 5px;
+  color: #999;
+  content: '\e03b';
+  font-family: 'IconicStroke';
+  font-size: 16px;
+  float: right;
+  line-height: normal;
+}
+table.list-page th a.is-sorter:after {
+  color: #000;
+  font-size: 10px;
+  margin-top: 4px;
+}
+table.list-page th a.dir-up:after {
+  content: '\2191';
+}
+table.list-page th a.dir-down:after {
+  content: '\2193';
+}
 .mceEditor {
   margin: 0 0 1em;
 }
@@ -198,7 +223,7 @@ ul.autocomplete-selected.ui-sortable li {
 }
 /* Sorter */
 a.sorter {
-  background: rgba(0, 0, 0, .01);
+  background: rgba(0, 0, 0, 0.01);
 }
 a.sorter:before {
   color: #000;

@@ -155,6 +155,37 @@ ul.sortable li
 	cursor: pointer;
 }
 
+table.list-page {
+	th a {
+		text-decoration: none;
+		color: #000;
+		display: block;
+
+		&:after {
+			margin: 0 0 0 5px;
+			color: #999;
+			content: '\e03b';
+			font-family: 'IconicStroke';
+			font-size: 16px;
+			float: right;
+			line-height: normal;
+		}
+
+		&.is-sorter:after {
+			color: #000;
+			font-size: 10px;
+			margin-top: 4px;
+		}
+
+		&.dir-up:after {
+			content: '\2191';
+		}
+		&.dir-down:after {
+			content: '\2193';
+		}
+	}
+}
+
 .mceEditor
 {
 	margin: 0 0 1em;

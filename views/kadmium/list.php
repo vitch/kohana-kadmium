@@ -53,6 +53,7 @@
 			'kadmium/element/list_table',
 			array(
 				'items' => $items,
+				'allow_sorting' => $allow_sorting,
 				'show_edit' => $show_edit,
 				'extra_button_view' => $extra_button_view,
 			)

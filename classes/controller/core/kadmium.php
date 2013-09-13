@@ -444,6 +444,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$page_title = $this->get_list_page_heading($model_name);
 		$this->init_template($page_title);
 		$builder = Jelly::query($model_name);
+		foreach(Jelly::meta($model_name)->fields() as $field_id => $field) {
+			if ($field instanceof Jelly_Field_BelongsTo && $field->show_in_list) {
+				$builder->with($field_id);
+			}
+		}
 		$this->modify_list_builder($builder);
 		if ($sort_on_field) {
 			if (isset($sort_on_field->category_key)) {
@@ -457,8 +462,32 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			}
 			$builder->order_by($sort_on_field->column);
 			$rpp = 9999999999;
+			$allow_sorting = FALSE;
 		} else {
 			$rpp = Kohana::$config->load('kadmium')->results_per_list_page;
+			$allow_sorting = TRUE;
+			$chosen_sort = Arr::get($_GET, 's');
+			$chosen_dir = Arr::get($_GET, 'd', -1);
+			if (!$chosen_sort) {
+				$default_sorting = Jelly::meta($model_name)->sorting();
+				if (count($default_sorting)) {
+					$tmp = array_keys($default_sorting);
+					$chosen_sort = $tmp[0];
+				}
+			}
+			if ($chosen_sort) {
+				$sorting_field = Jelly::meta($model_name)->field($chosen_sort);
+				if ($sorting_field instanceof Jelly_Field_BelongsTo) {
+					$chosen_sort = Jelly::meta($model_name)->table()
+						. ':'
+						. $chosen_sort
+						. '.'
+						. Jelly::meta($sorting_field->foreign['model'])->name_key();
+				}
+
+				$builder->order_by($chosen_sort, $chosen_dir == 1 ? 'asc' : 'desc');
+			}
+
 		}
 
 		// FIXME: Is this working correctly?
@@ -490,6 +519,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'display_add_links' => !Jelly::factory($model_name)->disable_user_add,
 				'add_link' => Jelly::factory($model_name)->get_edit_link(),
 				'show_edit' => Jelly::factory($model_name)->disable_user_edit !== TRUE,
+				'allow_sorting' => $allow_sorting,
 				'items' => $items,
 				'pagination' => $pagination->render(),
 				'extra_button_view' => $extra_button_view,
