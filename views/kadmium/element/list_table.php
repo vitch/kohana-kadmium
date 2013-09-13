@@ -28,7 +28,7 @@
 
 				?>
 				<th><?php
-				if (isset($allow_sorting) && $allow_sorting) {
+				if (isset($allow_sorting) && $allow_sorting && $field->is_sortable) {
 					echo Html::anchor(
 						Request::current()->uri() . '?s=' . $field_id . '&d=' . $d,
 						'<i class="icon icon-sort"> </i>' . $field->label,

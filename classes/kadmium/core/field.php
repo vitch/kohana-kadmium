@@ -23,6 +23,11 @@ abstract class Kadmium_Core_Field extends Jelly_Core_Field
 	 */
 	public $prevent_edit = false;
 
+	/**
+	 * @var boolean Whether this field should be sortable on list pages
+	 */
+	public $is_sortable = true;
+
 
 	/**
 	 * Displays the particular field as a form item
