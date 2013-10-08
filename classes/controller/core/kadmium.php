@@ -284,15 +284,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			}
 		} else {
 			if ($this->include_list_in_breadcrumb) {
-				$this->breadcrumb[
-					Request_Utils::uri(
-						$request,
-						array(
-							'action' => 'list',
-							'id' => ''
-						)
-					)
-				] = $this->get_list_page_heading($model);
+				$this->breadcrumb[$this->get_cancel_uri($model)] = $this->get_list_page_heading($model);
 			}
 			if ($request->action() == 'delete') {
 				$this->breadcrumb[
