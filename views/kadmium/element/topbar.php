@@ -29,12 +29,13 @@
 							foreach ($label as $sub_controller=>$sub_label)
 							{
 								echo '<li' . (Request::current()->controller() == $sub_controller ? ' class="active"' : '') . '>';
+								$link = strpos($sub_controller, '/') === 0 ? $sub_controller : Route::get('kadmium_list')->uri(
+									array(
+										'controller' => $sub_controller
+									)
+								);
 								echo Html::anchor(
-									Route::get('kadmium_list')->uri(
-										array(
-											'controller' => $sub_controller
-										)
-									),
+									$link,
 									$sub_label
 								);
 								echo '</li>';
@@ -43,12 +44,14 @@
 							echo '</li>';
 						} else {
 							echo '<li class="' . $active_class . '">';
-							echo Html::anchor(
+							$link = strpos($controller, '/') === 0 ? $controller :
 								Route::get('kadmium_list')->uri(
 									array(
 										'controller' => $controller
 									)
-								),
+								);
+							echo Html::anchor(
+								$link,
 								$label,
 								array(
 									'class' => Request::current()->controller() == $controller ? 'active' : ''
