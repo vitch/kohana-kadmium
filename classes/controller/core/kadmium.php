@@ -902,12 +902,15 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		if ($field->prevent_edit) {
 			$label = Form::label($field_id_attr, $field->label);
 			$field_str = $field->display($model, $model->get($field_id));
-			$fields[$label] = View::factory(
-				'jelly/field/disabled',
-				array(
-					'text' => $field_str,
-				)
-			);
+			if (!($field_str instanceof View)) {
+				$field_str = View::factory(
+					'jelly/field/disabled',
+					array(
+						'text' => $field_str,
+					)
+				);
+			}
+			$fields[$label] = $field_str;
 		} else {
 
 			$field_output = $model->input($field->name, $id_attribs);
