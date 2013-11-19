@@ -459,7 +459,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			$rpp = Kohana::$config->load('kadmium')->results_per_list_page;
 			$allow_sorting = TRUE;
 			$chosen_sort = Arr::get($_GET, 's');
-			$chosen_dir = Arr::get($_GET, 'd', -1);
+			$chosen_dir = Arr::get($_GET, 'd', 1);
 			if (!$chosen_sort) {
 				$default_sorting = Jelly::meta($model_name)->sorting();
 				if (count($default_sorting)) {
