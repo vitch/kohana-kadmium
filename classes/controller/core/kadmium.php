@@ -342,6 +342,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			}
 		}
 		$this->modify_list_builder($builder);
+		$display_search = $this->_handle_list_search($builder);
 		if ($sort_on_field) {
 			if (isset($sort_on_field->category_key)) {
 				if (is_array($sort_on_field->category_key)) {
@@ -383,6 +384,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		// FIXME: Is this working correctly?
 		$count_builder = Jelly::query($model_name);
 		$this->modify_list_builder($count_builder);
+		$this->_handle_list_search($count_builder);
 
 		$count = $count_builder->count();
 		
@@ -420,6 +422,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'items' => $items,
 				'pagination' => $pagination->render(),
 				'extra_button_view' => $extra_button_view,
+				'display_search' => $display_search,
 			)
 		);
 	}
@@ -428,6 +431,15 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	protected function modify_list_builder(Jelly_Builder $builder)
 	{
 		return $builder;
+	}
+
+	private function _handle_list_search(Jelly_Builder $builder)
+	{
+		if (method_exists($this, 'handle_list_search')) {
+			call_user_func(array($this, 'handle_list_search'), $builder, Arr::get($_GET, 'q'));
+			return true;
+		}
+		return false;
 	}
 
 	// Allow subclasses to react when a new model is sucessfully generated (before the redirect to the edit page)...
