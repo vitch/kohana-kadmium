@@ -513,6 +513,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'show_edit' => Jelly::factory($model_name)->disable_user_edit !== TRUE,
 				'allow_sorting' => $allow_sorting,
 				'items' => $items,
+				'pagination_overview' => $pagination->render('kadmium/element/pagination_overview'),
 				'pagination' => $pagination->render(),
 				'extra_button_view' => $extra_button_view,
 			)

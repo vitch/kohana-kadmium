@@ -9,6 +9,18 @@
 		);
 	?>
 	<div class="page-header">
+		<?php
+		if ($display_add_links) {
+			echo Html::anchor(
+				$add_link,
+				'<i class="icon-plus-sign"></i> Add new ' . strtolower($item_type),
+				array(
+					'class' => 'btn',
+					'style' => 'float: right;'
+				)
+			);
+		}
+		?>
 		<h1><?= $page_title; ?></h1>
 	</div>
 
@@ -33,22 +45,7 @@
 	</div>
 	<?php
 	} else {
-	?>
-	<p>
-	<?php
-		if ($display_add_links) {
-
-			echo Html::anchor(
-				$add_link,
-				'Add new ' . strtolower($item_type),
-				array(
-					'class' => 'btn',
-				)
-			);
-		}
-	?>
-	</p>
-	<?php
+		echo $pagination_overview;
 		echo View::factory(
 			'kadmium/element/list_table',
 			array(
