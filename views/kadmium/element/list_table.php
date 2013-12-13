@@ -4,8 +4,7 @@
 	foreach ($items as $item) {
 		if (!isset($fields)) {
 			$fields = $item->meta()->fields();
-			$current_sort_on = Arr::get($_GET, 's');
-			$current_direction = Arr::get($_GET, 'd', 1);
+			$get_params = Arr::merge(array('d'=>'1'), $_GET);
 ?>
 	<thead>
 		<tr>
@@ -14,20 +13,25 @@
 				if (!$field->show_in_list) {
 					continue;
 				}
-				$d = $current_direction;
+				$get_params['s'] = $field_id;
+				$querystring = http_build_query($get_params);
 				$css_class = '';
-				if ($field_id == $current_sort_on) {
-					$d *= -1;
-					$css_class .= 'is-sorter';
-					if ($d == -1) {
-						$css_class .= ' desc';
+				if ($field_id == Arr::get($_GET, 's')) {
+					$get_params['d'] *= -1;
+					$querystring = http_build_query($get_params);
+					$css_class .= 'is-sorter ';
+					if ($get_params['d'] === 1) {
+						// $css_class .= 'dir-up';
+					} else {
+						$css_class .= 'desc';
 					}
+					$get_params['d'] *= -1;
 				}
 ?>
 			<th><?php
 				if (isset($allow_sorting) && $allow_sorting) {
 					echo Html::anchor(
-						Request::current()->uri() . '?s=' . $field_id . '&d=' . $d,
+						Request::current()->uri() . '?' . $querystring,
 						$field->label,
 						array(
 							'class' => $css_class
