@@ -435,8 +435,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 	private function _handle_list_search(Jelly_Builder $builder)
 	{
-		if (method_exists($this, 'handle_list_search')) {
-			call_user_func(array($this, 'handle_list_search'), $builder, Arr::get($_GET, 'q'));
+		if (method_exists($this, 'handle_list_search') && $q = Arr::get($_GET, 'q')) {
+			call_user_func(array($this, 'handle_list_search'), $builder, $q);
 			return true;
 		}
 		return false;
