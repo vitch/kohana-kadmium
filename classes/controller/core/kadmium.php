@@ -381,12 +381,14 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			}
 		}
 
-		// FIXME: Is this working correctly?
 		$count_builder = Jelly::query($model_name);
 		$this->modify_list_builder($count_builder);
 		$this->_handle_list_search($count_builder);
 
-		$count = $count_builder->count();
+		// $count = $count_builder->count(); // Doesn't work properly when one of the above user functions has added a group_by clause :(
+		$count = $count_builder->select()->count();
+
+
 		
 		$pagination = Pagination::factory(
 			array(
