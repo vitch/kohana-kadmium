@@ -14,7 +14,8 @@ $(
 					itemHolder = $('<ul class="autocomplete-options" />'),
 					initialIds = hiddenField.val().split(','),
 					options = autocompleteOptions['options-' + hiddenId],
-					isSortable = hiddenField.data('sortable')
+					isSortable = hiddenField.data('sortable'),
+					oneChoice = hiddenField.data('one-choice')
 					;
 				label.attr('for', hiddenId + '-inp');
 				container.append(
@@ -75,6 +76,9 @@ $(
 					}
 					currentIds.push(itemId);
 					hiddenField.val(currentIds.join(','));
+					if (oneChoice) {
+						textField.hide();
+					}
 				}
 				function removeItem(ele, name)
 				{
@@ -87,6 +91,9 @@ $(
 					ele.remove();
 					currentIds.splice(currentIds.indexOf(idRemoved), 1);
 					hiddenField.val(currentIds.join(','));
+					if (oneChoice) {
+						textField.show();
+					}
 				}
 				textField.autocomplete(
 					itemNames,
