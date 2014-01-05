@@ -23,6 +23,11 @@ abstract class Kadmium_Core_Field extends Jelly_Core_Field
 	 */
 	public $prevent_edit = false;
 
+	/**
+	 * @var boolean Whether we need to add the autocomplete code to the top of the page for the purposes of this field
+	 */
+	public $uses_autocomplete = false;
+
 
 	/**
 	 * Displays the particular field as a form item

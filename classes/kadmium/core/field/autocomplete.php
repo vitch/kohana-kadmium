@@ -3,6 +3,7 @@
 abstract class Kadmium_Core_Field_Autocomplete extends Jelly_Field_ManyToMany
 {
 
+	public $uses_autocomplete = true;
 	public $match_contains = false;
 
 	public function input($prefix = 'jelly/field', $data = array())

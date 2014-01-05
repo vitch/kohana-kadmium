@@ -736,7 +736,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$fields = array();
 		foreach ($meta->fields() as $field_id => $field) {
 			$this->generate_field($model, $fields, $field_id, $field, $validation_errors, array(), $field_prefix);
-			if ($field instanceof Jelly_Field_Autocomplete) {
+			if ($field->uses_autocomplete) {
 				$has_autocomplete = TRUE;
 			}
 		}
