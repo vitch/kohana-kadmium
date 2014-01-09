@@ -13,6 +13,9 @@ class Kadmium_Core_Field_Autocomplete_BelongsTo extends Jelly_Field_BelongsTo
 		$attrs['data-match-contains'] = $this->match_contains ? '1' : '0';
 		$attrs['data-sortable'] = isset($this->sort_on) ? '1' : '0';
 		$attrs['data-one-choice'] = 1;
+		if (!$this->allow_null) {
+			$attrs['required'] = 'required';
+		}
 		$data['attributes'] = $attrs;
 		return parent::input($prefix, $data);
 	}

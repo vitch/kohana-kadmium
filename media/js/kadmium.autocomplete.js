@@ -17,6 +17,9 @@ $(
 					isSortable = hiddenField.data('sortable'),
 					oneChoice = hiddenField.data('one-choice')
 					;
+				if (hiddenField.attr('required')) {
+					textField.attr('required', hiddenField.attr('required'));
+				}
 				label.attr('for', hiddenId + '-inp');
 				container.append(
 					itemHolder,
