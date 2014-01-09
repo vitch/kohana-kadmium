@@ -8,6 +8,7 @@ class Controller_Kadmium_Auth extends Controller_Template
 	protected $auth;
 	protected $login_required = TRUE;
 	protected $role_required = FALSE;
+	protected $allow_cli = FALSE;
 
 	public function before()
 	{
@@ -36,6 +37,9 @@ class Controller_Kadmium_Auth extends Controller_Template
 
 	protected function require_login()
 	{
+		if ($this->allow_cli && Kohana::$is_cli) {
+			return true;
+		}
 		if($this->auth->logged_in() == 0) {
 			throw new Kadmium_Exception_NoPermission();
 		}
@@ -51,6 +55,9 @@ class Controller_Kadmium_Auth extends Controller_Template
 
 	protected function has_role($roles)
 	{
+		if ($this->allow_cli && Kohana::$is_cli) {
+			return true;
+		}
 		if(is_array($roles)) {
 			foreach($roles as $role) {
 				if ($this->auth->logged_in($role)) {
