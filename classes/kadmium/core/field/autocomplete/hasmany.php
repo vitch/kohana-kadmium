@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-abstract class Kadmium_Core_Field_Autocomplete extends Jelly_Field_ManyToMany
+abstract class Kadmium_Core_Field_Autocomplete_HasMany extends Jelly_Field_ManyToMany
 {
 
 	public $uses_autocomplete = true;
