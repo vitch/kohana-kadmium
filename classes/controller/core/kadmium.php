@@ -749,7 +749,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			);
 			$this->scripts[] = $media->uri(
 				array(
-					 'file' => 'js/kadmium.autocomplete.js'
+					 'file' => 'js/kadmium.autocomplete.js?1'
 				)
 			);
 		}

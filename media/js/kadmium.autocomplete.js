@@ -15,10 +15,12 @@ $(
 					initialIds = hiddenField.val().split(','),
 					options = autocompleteOptions['options-' + hiddenId],
 					isSortable = hiddenField.data('sortable'),
-					oneChoice = hiddenField.data('one-choice')
+					oneChoice = hiddenField.data('one-choice'),
+					isRequired = hiddenField.attr('required')
 					;
-				if (hiddenField.attr('required')) {
+				if (isRequired) {
 					textField.attr('required', hiddenField.attr('required'));
+					hiddenField.removeAttr('required');
 				}
 				label.attr('for', hiddenId + '-inp');
 				container.append(
@@ -80,7 +82,7 @@ $(
 					currentIds.push(itemId);
 					hiddenField.val(currentIds.join(','));
 					if (oneChoice) {
-						textField.hide();
+						textField.hide().removeAttr('required');
 					}
 				}
 				function removeItem(ele, name)
@@ -96,6 +98,9 @@ $(
 					hiddenField.val(currentIds.join(','));
 					if (oneChoice) {
 						textField.show();
+						if (isRequired) {
+							textField.attr('required', 'required');
+						}
 					}
 				}
 				textField.autocomplete(
