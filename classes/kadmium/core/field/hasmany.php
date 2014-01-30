@@ -17,4 +17,28 @@ abstract class Kadmium_Core_Field_HasMany extends Jelly_Core_Field_HasMany
 
 		return parent::input($prefix, $data);
 	}
+
+	/**
+	 * Gets a string representation of the value, formatted according to the
+	 * fields type.
+	 *
+	 * @param   Jelly_Model  $model
+	 * @param   mixed        $value
+	 * @return String
+	 **/
+	public function display($model, $value)
+	{
+		$items = $value->select($model->meta()->db());
+		if (count($items)) {
+			return View::factory(
+				'kadmium/element/list_table',
+				array(
+					'items' => $items,
+					'show_edit' => FALSE,
+					'extra_button_view' => '',
+				)
+			);
+		}
+		return '&nbsp;';
+	}
 }
