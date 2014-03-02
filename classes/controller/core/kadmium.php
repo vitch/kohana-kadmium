@@ -796,7 +796,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				) . '';
 			} else if ($field instanceof Jelly_Field_BelongsTo && $field->edit_inline) {
 				$label = '<!-- ' . $field_id . ' -->';
-				$sub_model = $model->{$field_id};
+				$sub_model = $model->get($field_id)->select();
 				$sub_meta = Jelly::meta($sub_model);
 				$field_output = View::factory(
 					'kadmium/fieldset_subedit',
