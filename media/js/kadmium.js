@@ -146,7 +146,9 @@ $(
 								var wrapper = $(loadingMenu).parent();
 								wrapper.html($(data).children());
 								initColorboxes(wrapper);
-								initSortable(loadingMenu);
+								if($(loadingMenu).is('.has-many-uniquely.sortable')) {
+									initSortable(loadingMenu);
+								}
 							}
 						});
 						openedMenu = undefined;
