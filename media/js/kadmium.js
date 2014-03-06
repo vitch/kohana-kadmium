@@ -134,6 +134,9 @@ $(
 						openedMenu = $(this).parents('ul').attr('rel');
 					},
 					'onClosed' : function() {
+						if (!openedMenu) {
+							return;
+						}
 						var loadingMenu = '#' + openedMenu;
 						var q = location.href.indexOf('?') == -1 ? '?' : '&';
 						$.ajax({
