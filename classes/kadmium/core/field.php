@@ -82,6 +82,9 @@ abstract class Kadmium_Core_Field extends Jelly_Core_Field
 	 **/
 	public function display($model, $value)
 	{
+		if (is_array($value)) {
+			$value = print_r($value, TRUE);
+		}
 		return Html::chars((string)$value);
 	}
 
