@@ -28,7 +28,7 @@ abstract class Kadmium_Core_Field_HasMany extends Jelly_Core_Field_HasMany
 	 **/
 	public function display($model, $value)
 	{
-		$items = $value->select($model->meta()->db());
+		$items = $value->select(Jelly::meta($this->foreign['model'])->db());
 		if (count($items)) {
 			return View::factory(
 				'kadmium/element/list_table',
