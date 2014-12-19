@@ -20,8 +20,22 @@
 				)
 			);
 		}
+		if ($display_search) {
+			echo '<div style="float: right">';
+			echo '<div class="input-append">';
+			echo Form::open(NULL, array('method'=>'GET'));
+			echo Form::hidden('s', Arr::get($_GET, 's'));
+			echo Form::hidden('d', Arr::get($_GET, 'd'));
+			echo Form::input('q', $q, array('placeholder'=>'Search'));
+			echo Form::submit('my-action', 'Search', array('class'=>'btn'));
+			echo Form::close();
+			echo '</div>';
+			echo '</div>';
+		}
 		?>
-		<h1><?= $page_title; ?></h1>
+		<h1>
+			<?= $page_title; ?>
+		</h1>
 	</div>
 
 	<?php

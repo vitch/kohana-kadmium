@@ -442,6 +442,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 			}
 		}
 		$this->modify_list_builder($builder);
+		$display_search = $this->_handle_list_search($builder);
+
 		if ($sort_on_field) {
 			if (isset($sort_on_field->category_key)) {
 				if (is_array($sort_on_field->category_key)) {
@@ -485,6 +487,8 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		// FIXME: Is this working correctly?
 		$count_builder = Jelly::query($model_name);
 		$this->modify_list_builder($count_builder);
+		$this->_handle_list_search($count_builder);
+
 
 		$count = $count_builder->count();
 		
@@ -493,9 +497,13 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'group' => 'kadmium',
 				'total_items' => $count,
 				'items_per_page' => $rpp,
-				'page' => $this->request->param('page')
+				'page' => $this->request->param('page'),
 			)
 		);
+
+		$pagination_overview_view = View::factory('kadmium/element/pagination_overview', array(
+				'display_search' => $display_search,
+		));
 
 		if ($pagination->current_page() != $this->request->param('page')) {
 			throw new Kadmium_Exception_PageNotFound();
@@ -513,12 +521,24 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'show_edit' => Jelly::factory($model_name)->disable_user_edit !== TRUE,
 				'allow_sorting' => $allow_sorting,
 				'items' => $items,
-				'pagination_overview' => $pagination->render('kadmium/element/pagination_overview'),
+				'pagination_overview' => $pagination->render($pagination_overview_view),
 				'pagination' => $pagination->render(),
 				'extra_button_view' => $extra_button_view,
+				'display_search' => $display_search,
+				'q' => Arr::get($_GET, 'q'),
 			)
 		);
 	}
+
+	private function _handle_list_search(Jelly_Builder $builder)
+	{
+		if (method_exists($this, 'handle_list_search')) {
+			call_user_func(array($this, 'handle_list_search'), $builder, Arr::get($_GET, 'q'));
+			return true;
+		}
+		return false;
+	}
+
 
 	// Allow subclasses to add some extra clauses to the Jelly_Builder for the list pages...
 	protected function modify_list_builder(Jelly_Builder $builder)
