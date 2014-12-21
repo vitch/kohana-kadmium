@@ -23,7 +23,9 @@
 		if ($display_search) {
 			echo '<div style="float: right">';
 			echo '<div class="input-append">';
-			echo Form::open(NULL, array('method'=>'GET'));
+			echo Form::open(Request::current()->route()->uri(array(
+				'controller' => Request::current()->controller()
+			)), array('method'=>'GET'));
 			echo Form::hidden('s', Arr::get($_GET, 's'));
 			echo Form::hidden('d', Arr::get($_GET, 'd'));
 			echo Form::input('q', $q, array('placeholder'=>'Search'));
