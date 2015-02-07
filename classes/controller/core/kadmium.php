@@ -19,7 +19,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		$media = Route::get('kadmium/media');
 
 		$this->styles = $this->styles + array(
-			$media->uri(array('file' => 'css/lib/bootstrap.2.0.min.css'))  => 'all',
+			$media->uri(array('file' => 'css/lib/bootstrap.1.3.0.min.css'))  => 'all',
 			$media->uri(array('file' => 'css/bootstrap-datepicker.css'))  => 'all',
 			$media->uri(array('file' => 'css/jquery.asmselect.css'))  => 'all',
 			$media->uri(array('file' => 'colorbox/styles/colorbox.css'))  => 'all',
