@@ -4,7 +4,7 @@
 	}
 	<?php
 		$options = array();
-		foreach(Jelly::select($foreign['model'])->execute() as $related) {
+		foreach(Jelly::query($foreign['model'])->select() as $related) {
 			$options[$related->id()] = $related->name();
 		}
 		echo 'window.autocompleteOptions[\'options-' . $name . '\'] = ' . json_encode($options);

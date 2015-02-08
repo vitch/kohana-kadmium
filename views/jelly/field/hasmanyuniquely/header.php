@@ -1,6 +1,6 @@
-<h3><?php
+<label><?php
 	echo $label;
-	if ($is_sortable) {
+	if ($is_sortable && $num_items > 1) {
 		echo ' (drag to sort)';
 	}
-?></h3>
+?></label>

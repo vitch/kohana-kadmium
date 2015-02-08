@@ -17,7 +17,7 @@
 		<li rel="<?= $child_model->id(); ?>">
 			<?php
 				if ($is_img_list) {
-					$image_field = $child_model->meta()->fields($field->list_as_thumbnails);
+					$image_field = $child_model->meta()->field($field->list_as_thumbnails);
 					$path = count($image_field->thumbnails) ? $image_field->thumbnails[0]['path'] : $image_field->path;
 					$link_contents = Html::image(
 						str_replace(DOCROOT, '', $path) . $child_model->get($field->list_as_thumbnails),
@@ -33,7 +33,7 @@
 				echo Html::anchor(
 					Route::get('kadmium_child_edit')->uri(
 						array(
-							'controller' => Request::current()->controller,
+							'controller' => Request::current()->controller(),
 							'child_action' => 'edit',
 							'parent_id' => $model->id(),
 							'action' => Jelly::model_name($child_model),
@@ -51,20 +51,14 @@
 	endforeach;
 	?>
 </ul>
-<ul class="has-many-uniquely" rel="<?= $name; ?>">
-	<li>
-		<span>
-		<?php
-			echo View::factory(
-				$add_link_view,
-				array(
-					'model' => $model,
-					'field' => $field,
-					'value' => $value,
-					'lb_class' => $lb_class,
-				)
-			);
-		?>
-		</span>
-	</li>
-</ul>
+<?php
+	echo View::factory(
+		$add_link_view,
+		array(
+			'model' => $model,
+			'field' => $field,
+			'value' => $value,
+			'lb_class' => $lb_class,
+		)
+	);
+?>

@@ -5,9 +5,6 @@ class Controller_Kadmium_Media extends Controller
 	// Code borrowed from userguide module...
 	public function action_index()
 	{
-		// Generate and check the ETag for this file
-		$this->request->check_cache(sha1($this->request->uri));
-
 		// Get the file path from the request
 		$file = $this->request->param('file');
 
@@ -19,18 +16,19 @@ class Controller_Kadmium_Media extends Controller
 
 		if ($file = Kohana::find_file('media', $file, $ext))
 		{
+			// Check if the browser sent an "if-none-match: <etag>" header, and tell if the file hasn't changed
+			$this->response->check_cache(sha1($this->request->uri()).filemtime($file), $this->request);
+
 			// Send the file content as the response
-			$this->request->response = file_get_contents($file);
+			$this->response->body(file_get_contents($file));
+
+			// Set the proper headers to allow caching
+			$this->response->headers('content-type',  File::mime_by_ext($ext));
+			$this->response->headers('last-modified', date('r', filemtime($file)));
 		}
 		else
 		{
-			// Return a 404 status
-			$this->request->status = 404;
+			throw new HTTP_Exception_404();
 		}
-
-		// Set the proper headers to allow caching
-		$this->request->headers['Content-Type']   = File::mime_by_ext($ext);
-		$this->request->headers['Content-Length'] = filesize($file);
-		$this->request->headers['Last-Modified']  = date('r', filemtime($file));
 	}
 }

@@ -60,7 +60,7 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 		$this->init_template('Update profile');
 
 		$model = $this->auth->get_user();
-		$model = Jelly::select('kadmium_user', $model->id());
+		$model = Jelly::query('kadmium_user', $model->id())->select();
 
 		$this->show_edit_page_from_model('Profile', $model, false);
 	}
@@ -90,9 +90,10 @@ abstract class Controller_Kadmium_User extends Controller_Kadmium
 	}
 
 	// Hack so that we can ignore it when the password isn't updated...
+	// FIXME: Can this be done much nicer with the new validation system?
 	protected function include_field($field, $hide_has_many_uniquely = false)
 	{
-		if ($field instanceof Field_Password && $hide_has_many_uniquely) {
+		if ($field instanceof Jelly_Field_Password && $hide_has_many_uniquely) {
 			if (Arr::get($_POST, 'field-password') == '' && Arr::get($_POST, 'field-password_confirm') == '' ) {
 				return false;
 			}

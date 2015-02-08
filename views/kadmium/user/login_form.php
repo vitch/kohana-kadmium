@@ -1,18 +1,46 @@
-<?=
-Form::open('user/login');
-?>
+<?= Form::open('user/login'); ?>
 
 	<input type="hidden" name="my-action" value="login" />
 	<input type="hidden" name="next" value="<?= $redirect; ?>" />
-	<ul class="fields">
-		<li>
-			<label for="username">Username</label>
-			<input type="text" name="username" id="username" value="<?= $username; ?>" />
-		</li>
-		<li>
-			<label for="password">Password</label>
-			<input type="password" name="password" id="password" />
-		</li>
-	</ul>
-	<input type="submit" value="Log in">
-</form>
+	<fieldset>
+		<div class="clearfix">
+			<?php
+				echo Form::label('username', 'Username');
+				echo '<div class="input">';
+				echo Form::input(
+					'username',
+					$username,
+					array(
+						'id' => 'username',
+					)
+				);
+				echo '</div>';
+			?>
+		</div>
+		<div class="clearfix">
+			<?php
+				echo Form::label('password', 'Password');
+				echo '<div class="input">';
+				echo Form::password(
+					'password',
+					'',
+					array(
+						'id' => 'password',
+					)
+				);
+				echo '</div>';
+			?>
+		</div>
+	</fieldset>
+	<div class="actions">
+	<?=
+		Form::submit(
+			'',
+			'Log in',
+			array(
+				'class' => 'btn large primary',
+			)
+		);
+	?>
+	</div>
+<?= Form::close(); ?>

@@ -16,13 +16,21 @@ class Controller_Kadmium_Auth extends Controller_Template
 		if ($this->login_required) {
 			$this->require_login();
 		}
+		$this->template->project_name = Kohana::config('kadmium')->site_name;
 		$this->template->is_logged_in = $this->auth->logged_in();
 		if ($this->role_required) {
 			$this->require_role($this->role_required);
 		}
-		if ($this->template->is_logged_in) {
-			$this->template->username = $this->auth->get_user()->username;
+		$this->template->user_name = $this->template->is_logged_in ? $this->auth->get_user()->username : '';
+	}
+
+	public function after()
+	{
+		if ($this->auth->logged_in()) {
+			$this->response->headers('Cache-control', 'private');
 		}
+
+		return parent::after();
 	}
 
 	protected function require_login()
@@ -42,17 +50,14 @@ class Controller_Kadmium_Auth extends Controller_Template
 
 	protected function has_role($roles)
 	{
-		if (!$this->template->is_logged_in) {
-			return false;
-		}
-		if (!is_array($roles)) {
-			$roles = array($roles);
-		}
-		foreach($roles as $role) {
-			if ($this->auth->get_user()->has_role($role)) {
-				return true;
+		if(is_array($roles)) {
+			foreach($roles as $role) {
+				if ($this->auth->logged_in($role)) {
+					return TRUE;
+				}
 			}
+			return FALSE;
 		}
-		return false;
+		return $this->auth->logged_in($roles);
 	}
 }
