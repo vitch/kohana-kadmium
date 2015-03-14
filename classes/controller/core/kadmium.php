@@ -526,10 +526,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'display_add_links' => !Jelly::factory($model_name)->disable_user_add,
 				'add_link' => Jelly::factory($model_name)->get_edit_link(),
 				'display_csv_link' => $this->allow_csv_download,
-				'csv_link' => $this->request->route()->uri(array(
-					'controller' => $this->request->controller(),
-					'action' => 'csv'
-				)),
+				'csv_link' => $this->get_csv_link($model_name),
 				'show_edit' => Jelly::factory($model_name)->disable_user_edit !== TRUE,
 				'allow_sorting' => $allow_sorting,
 				'items' => $items,
@@ -658,6 +655,13 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'class' => 'btn' . ($this->is_in_lightbox() ? ' js-close-link' : ''),
 			)
 		);
+	}
+
+	protected function get_csv_link($model_name) {
+		return $this->allow_csv_download ? $this->request->route()->uri(array(
+					'controller' => $this->request->controller(),
+					'action' => 'csv'
+				)) : '';
 	}
 
 	protected function show_delete_page($item_type, $model_name, $id)
