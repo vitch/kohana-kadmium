@@ -51,7 +51,13 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		if (isset($kadmium_config->navigation_controllers_by_role) && $this->auth->logged_in()) {
 			foreach ($kadmium_config->navigation_controllers_by_role as $role => $controllers) {
 				if ($this->auth->logged_in($role)) {
-					$this->template->navigation_controllers += $controllers;
+					foreach($controllers as $key => $value) {
+						if (array_key_exists($key, $this->template->navigation_controllers)) {
+							$this->template->navigation_controllers[$key] += $value;
+						} else {
+							$this->template->navigation_controllers[$key] = $value;
+						}
+					}
 				}
 			}
 		}
