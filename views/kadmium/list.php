@@ -20,6 +20,16 @@
 				)
 			);
 		}
+		if ($display_csv_link) {
+			echo Html::anchor(
+				$csv_link,
+				'<i class="icon-th-list"></i> Download CSV',
+				array(
+					'class' => 'btn',
+					'style' => 'float: right;'
+				)
+			);
+		}
 		if ($display_search) {
 			echo '<div style="float: right">';
 			echo '<div class="input-append">';

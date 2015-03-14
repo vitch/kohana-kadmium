@@ -12,7 +12,7 @@ $kadmium_config = Kohana::$config->load('kadmium');
 $base_path = $kadmium_config->base_path;
 
 // Routes for the kadmium based controllers...
-Route::set('kadmium_list', $base_path . '/<controller>/list(/<page>)', array('page'=>'[0-9]+'))
+Route::set('kadmium_list', $base_path . '/<controller>/<action>(/<page>)', array('page'=>'[0-9]+', 'action'=>'list|csv'))
 	->defaults(array(
 		'directory'  => $base_path,
 		'action'     => 'list',

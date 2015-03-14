@@ -11,6 +11,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 	protected $breadcrumb = array();
 	protected $show_breadcrumb = TRUE;
 	protected $include_list_in_breadcrumb = TRUE;
+  protected $allow_csv_download = FALSE;
 
 	public function before()
 	{
@@ -524,6 +525,11 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'item_type' => $item_type,
 				'display_add_links' => !Jelly::factory($model_name)->disable_user_add,
 				'add_link' => Jelly::factory($model_name)->get_edit_link(),
+				'display_csv_link' => $this->allow_csv_download,
+				'csv_link' => $this->request->route()->uri(array(
+					'controller' => $this->request->controller(),
+					'action' => 'csv'
+				)),
 				'show_edit' => Jelly::factory($model_name)->disable_user_edit !== TRUE,
 				'allow_sorting' => $allow_sorting,
 				'items' => $items,
@@ -534,6 +540,43 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				'q' => Arr::get($_GET, 'q'),
 			)
 		);
+	}
+
+	protected function show_csv_page($model_name) {
+		if (!$this->allow_csv_download) {
+			throw new Kadmium_Exception_PageNotFound();
+		}
+		$builder = Jelly::query($model_name);
+		foreach(Jelly::meta($model_name)->fields() as $field_id => $field) {
+			if ($field instanceof Jelly_Field_BelongsTo && $field->show_in_list) {
+				$builder->with($field_id);
+			}
+		}
+		$this->modify_list_builder($builder);
+
+		$fields = array();
+		$field_names = array();
+
+		foreach(Jelly::meta($model_name)->fields() as $field_id => $field) {
+			if ($field->show_in_list) {
+				$fields[$field_id] = $field;
+				$field_names[] = $field->label;
+			}
+		}
+
+		$this->auto_render = FALSE;
+		$this->response->headers('Content-Type', 'text/csv');
+		$this->response->headers('Content-Disposition', 'attachment;filename=' . date('Y-m-d') . '_' . $model_name . '.csv');
+		$fp = fopen('php://output', 'w');
+
+		fputcsv($fp, $field_names);
+		foreach ($builder->select() as $item) {
+			$data = array();
+			foreach($fields as $field_id => $field) {
+				$data[] = $field->display($item, $item->{$field_id});
+			}
+			fputcsv($fp, $data);
+		}
 	}
 
 	private function _handle_list_search(Jelly_Builder $builder)
