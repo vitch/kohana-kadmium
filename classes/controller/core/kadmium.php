@@ -72,7 +72,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 				$this->template->content->breadcrumb = $this->breadcrumb;
 			}
 		}
-		
+
 		return parent::after();
 	}
 
@@ -208,7 +208,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		if ($feedback_message) {
 			$auto_close = $this->is_in_lightbox() && $model->auto_close_lightbox;
 		}
-		
+
 		$this->add_to_breadcrumb($model);
 
 		$this->template->content = View::factory(
@@ -253,7 +253,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 //				'grandparent',
 //				get_class($grandparent)
 //			);
-			
+
 			if ($grandparent) {
 				$parent_uri = Request_Utils::uri(
 					$request,
@@ -380,7 +380,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		if ($this->is_in_lightbox()) {
 			$this->template = View::factory('kadmium/lightbox_template');
 		}
-		
+
 		$is_new = $child_model->id() == 0;
 		if ($is_new) {
 			$child_model->set($child_model->meta()->foreign_key(), $parent_id);
@@ -498,7 +498,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 
 		$count = $count_builder->count();
-		
+
 		$pagination = Pagination::factory(
 			array(
 				'group' => 'kadmium',
@@ -539,10 +539,15 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 		);
 	}
 
-	protected function show_csv_page($model_name) {
+	protected function show_csv_page($model_name, $file_name = NULL) {
 		if (!$this->allow_csv_download) {
 			throw new Kadmium_Exception_PageNotFound();
 		}
+
+    if ($file_name === NULL) {
+      $file_name = $model_name;
+    }
+
 		$builder = Jelly::query($model_name);
 		foreach(Jelly::meta($model_name)->fields() as $field_id => $field) {
 			if ($field instanceof Jelly_Field_BelongsTo && $field->show_in_list) {
@@ -563,7 +568,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 
 		$this->auto_render = FALSE;
 		$this->response->headers('Content-Type', 'text/csv');
-		$this->response->headers('Content-Disposition', 'attachment;filename=' . date('Y-m-d') . '_' . $model_name . '.csv');
+		$this->response->headers('Content-Disposition', 'attachment;filename=' . date('Y-m-d') . '_' . $file_name . '.csv');
 		$fp = fopen('php://output', 'w');
 
 		fputcsv($fp, $field_names);
@@ -878,7 +883,7 @@ class Controller_Core_Kadmium extends Controller_Kadmium_Base
 					'class' => 'btn small'
 				)
 			);
-			
+
 			$this->add_to_breadcrumb($model);
 
 			$this->template->content = View::factory(
